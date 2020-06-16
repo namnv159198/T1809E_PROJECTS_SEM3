@@ -31,5 +31,7 @@ namespace T1809E_PROJECT_SEM3.Models
         }
 
         public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.Service> Services { get; set; }
+
+        public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.Office> Offices { get; set; }
     }
 }
