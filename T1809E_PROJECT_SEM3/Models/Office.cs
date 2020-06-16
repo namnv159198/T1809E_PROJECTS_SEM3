@@ -23,7 +23,7 @@ namespace T1809E_PROJECT_SEM3.Models
         public string Email { get; set; }
         [Required]
         [Range(0, 100)]
-        [Display(Name = "VAT")]
+        [Display(Name = "V A T")]
         public int VAT { get; set; }
         [Required]
         [Display(Name = "Phone Number")]
