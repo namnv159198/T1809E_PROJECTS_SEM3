@@ -29,5 +29,7 @@ namespace T1809E_PROJECT_SEM3.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.Service> Services { get; set; }
     }
 }
