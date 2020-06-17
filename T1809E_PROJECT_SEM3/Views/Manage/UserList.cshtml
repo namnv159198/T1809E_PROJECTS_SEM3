@@ -43,7 +43,7 @@
             @Html.DisplayFor(modelItem => item.FullName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            <a href="../Roles/EditRole?id=@item.UserId">Edit</a> |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>

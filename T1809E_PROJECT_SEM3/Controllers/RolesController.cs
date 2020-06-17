@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -74,28 +75,31 @@ namespace T1809E_PROJECT_SEM3.Controllers
             else TempData["message"] = "Fail";
             return View(model);
         }
-        public async Task<ActionResult> Edit(string id)
+
+        [HttpGet]
+        public ActionResult EditRole(string id)
         {
-            var role = await RoleManager.FindByIdAsync(id);
-            return View(new RoleViewModel(role));
-        }
-        [HttpPost]
-        public async Task<ActionResult> Edit(string id, string name)
-        {
-            var role = await RoleManager.FindByIdAsync(id);
-            if (ModelState.IsValid)
-            {
-                if (role != null)
-                {
-                    role.Name = name;
-                    await RoleManager.UpdateAsync(role);
-                    TempData["message"] = "Edit";
-                    return RedirectToAction("Index");
-                }
-                else { TempData["message"] = "Fail"; }
-            }
-            return View();
+
+            var user = UserManager.FindById(id);
+            ViewBag.RoleName = new SelectList(context.Roles.ToList(), "Name", "Name");
+            return View(user);
         }
 
+        [HttpPost]
+        public ActionResult EditRole(string userName, string roleName)
+        {
+            var user = context.Users.Where(x => x.UserName == userName).FirstOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            if (RoleManager.RoleExists(roleName))
+            {
+                UserManager.AddToRole(user.Id, roleName);
+                TempData["message"] = "success";
+                return RedirectToAction("UserList", "Manage");
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
     }
 }
