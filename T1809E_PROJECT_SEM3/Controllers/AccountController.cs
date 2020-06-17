@@ -151,8 +151,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.Phone, FullName = model.FullName };
                 var result = await UserManager.CreateAsync(user, model.Password);
+              
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
