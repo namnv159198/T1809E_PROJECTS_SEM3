@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            return View();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roles = roleManager.Roles.ToList();
+            return View(roles);
         }
 
         public ActionResult Create()
