@@ -74,5 +74,28 @@ namespace T1809E_PROJECT_SEM3.Controllers
             else TempData["message"] = "Fail";
             return View(model);
         }
+        public async Task<ActionResult> Edit(string id)
+        {
+            var role = await RoleManager.FindByIdAsync(id);
+            return View(new RoleViewModel(role));
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(string id, string name)
+        {
+            var role = await RoleManager.FindByIdAsync(id);
+            if (ModelState.IsValid)
+            {
+                if (role != null)
+                {
+                    role.Name = name;
+                    await RoleManager.UpdateAsync(role);
+                    TempData["message"] = "Edit";
+                    return RedirectToAction("Index");
+                }
+                else { TempData["message"] = "Fail"; }
+            }
+            return View();
+        }
+
     }
 }
