@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,6 +15,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -51,7 +53,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 _userManager = value;
             }
         }
-
+        //Account List Index
         public ActionResult UserList()
         {
             var usersWithRoles = (from user in context.Users
@@ -80,7 +82,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             return View(usersWithRoles);
         }
-
+        //Edit Account
+       
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

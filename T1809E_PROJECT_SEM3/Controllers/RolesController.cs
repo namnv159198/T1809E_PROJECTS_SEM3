@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -73,6 +74,32 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             else TempData["message"] = "Fail";
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult EditRole(string id)
+        {
+
+            var user = UserManager.FindById(id);
+            ViewBag.RoleName = new SelectList(context.Roles.ToList(), "Name", "Name");
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult EditRole(string userName, string roleName)
+        {
+            var user = context.Users.Where(x => x.UserName == userName).FirstOrDefault();
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            if (RoleManager.RoleExists(roleName))
+            {
+                UserManager.AddToRole(user.Id, roleName);
+                TempData["message"] = "success";
+                return RedirectToAction("UserList", "Manage");
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
     }
 }
