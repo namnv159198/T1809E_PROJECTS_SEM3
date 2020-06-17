@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -168,9 +168,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,11 +181,71 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Office.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminTemplate\assets\css\cs-skin-elastic.css" />
+    <Content Include="AdminTemplate\assets\css\lib\chosen\chosen-sprite%402x.png" />
+    <Content Include="AdminTemplate\assets\css\lib\chosen\chosen-sprite.png" />
+    <Content Include="AdminTemplate\assets\css\lib\chosen\chosen.css" />
+    <Content Include="AdminTemplate\assets\css\lib\chosen\chosen.min.css" />
+    <Content Include="AdminTemplate\assets\css\lib\datatable\buttons.bootstrap.min.css" />
+    <Content Include="AdminTemplate\assets\css\lib\datatable\buttons.dataTables.min.css" />
+    <Content Include="AdminTemplate\assets\css\lib\datatable\dataTables.bootstrap.min.css" />
+    <Content Include="AdminTemplate\assets\css\lib\vector-map\jqvmap.min.css" />
+    <Content Include="AdminTemplate\assets\css\style.css" />
+    <Content Include="AdminTemplate\assets\fonts\icomoon\icomoon.svg" />
+    <Content Include="AdminTemplate\assets\fonts\icomoon\index.html" />
+    <Content Include="AdminTemplate\assets\js\dashboard.js" />
+    <Content Include="AdminTemplate\assets\js\init\chartjs-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\datatables-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\flot-chart-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\fullcalendar-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\gmap-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\peitychart-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\vector-init.js" />
+    <Content Include="AdminTemplate\assets\js\init\weather-init.js" />
+    <Content Include="AdminTemplate\assets\js\lib\chosen\chosen.jquery.js" />
+    <Content Include="AdminTemplate\assets\js\lib\chosen\chosen.jquery.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\chosen\chosen.proto.js" />
+    <Content Include="AdminTemplate\assets\js\lib\chosen\chosen.proto.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\buttons.bootstrap.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\buttons.colVis.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\buttons.flash.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\buttons.html5.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\buttons.print.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\dataTables.bootstrap.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\dataTables.buttons.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\datatables.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\jquery-1.12.4.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\jquery.dataTables.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\jszip.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\pdfmake.min.js" />
+    <Content Include="AdminTemplate\assets\js\lib\data-table\vfs_fonts.js" />
+    <Content Include="AdminTemplate\assets\js\lib\gmap\gmapApi.js" />
+    <Content Include="AdminTemplate\assets\js\lib\gmap\gmaps.js" />
+    <Content Include="AdminTemplate\assets\js\lib\gmap\gmaps.min.js" />
+    <Content Include="AdminTemplate\assets\js\main.js" />
+    <Content Include="AdminTemplate\assets\js\vmap.sampledata.js" />
+    <Content Include="AdminTemplate\assets\js\widgets.js" />
+    <Content Include="AdminTemplate\assets\scss\style.css" />
+    <Content Include="AdminTemplate\images\.gitignore" />
+    <Content Include="AdminTemplate\images\admin.jpg" />
+    <Content Include="AdminTemplate\images\avatar\1.jpg" />
+    <Content Include="AdminTemplate\images\avatar\2.jpg" />
+    <Content Include="AdminTemplate\images\avatar\3.jpg" />
+    <Content Include="AdminTemplate\images\avatar\4.jpg" />
+    <Content Include="AdminTemplate\images\avatar\5.jpg" />
+    <Content Include="AdminTemplate\images\avatar\6.jpg" />
+    <Content Include="AdminTemplate\images\avatar\64-1.jpg" />
+    <Content Include="AdminTemplate\images\avatar\64-2.jpg" />
+    <Content Include="AdminTemplate\images\favicon.png" />
+    <Content Include="AdminTemplate\images\logo.png" />
+    <Content Include="AdminTemplate\images\logo2.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -194,6 +256,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="AdminTemplate\assets\css\style.css.map" />
+    <Content Include="AdminTemplate\assets\fonts\icomoon\icomoon.eot" />
+    <Content Include="AdminTemplate\assets\fonts\icomoon\icomoon.ttf" />
+    <Content Include="AdminTemplate\assets\fonts\icomoon\icomoon.woff" />
+    <Content Include="AdminTemplate\assets\scss\style.css.map" />
+    <Content Include="AdminTemplate\assets\scss\style.scss" />
+    <Content Include="AdminTemplate\images\logo.psd" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -249,6 +318,10 @@
     <Content Include="Views\Offices\Details.cshtml" />
     <Content Include="Views\Offices\Edit.cshtml" />
     <Content Include="Views\Offices\Index.cshtml" />
+    <Content Include="Views\Shared_Admin\_Layout.cshtml" />
+    <Content Include="Views\Shared_Admin\_Left_Panel.cshtml" />
+    <Content Include="Views\Shared_Admin\_Right_Panel.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,4 +379,4 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-</Project> 
+</Project>
