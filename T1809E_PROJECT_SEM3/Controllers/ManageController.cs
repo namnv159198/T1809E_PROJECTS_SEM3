@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext context = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -48,6 +50,35 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        public ActionResult UserList()
+        {
+            var usersWithRoles = (from user in context.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      Username = user.UserName,
+                                      Email = user.Email,
+                                      Phone = user.PhoneNumber,
+                                      FullName = user.FullName,
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in context.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new UserViewModel()
+
+                                  {
+                                      FullName = p.FullName,
+                                      Phone =p.Phone,
+                                      UserId = p.UserId,
+                                      UserName = p.Username,
+                                      Email = p.Email,
+                                      Role = string.Join(",", p.RoleNames)
+                                  });
+
+
+            return View(usersWithRoles);
         }
 
         //
