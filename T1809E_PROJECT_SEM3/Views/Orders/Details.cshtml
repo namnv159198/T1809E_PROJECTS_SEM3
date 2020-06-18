@@ -1,0 +1,115 @@
+﻿@model T1809E_PROJECT_SEM3.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CusSendName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CusSendName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CusSendAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CusSendAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CusSendPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CusSendPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CusRevName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CusRevName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceShip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceShip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

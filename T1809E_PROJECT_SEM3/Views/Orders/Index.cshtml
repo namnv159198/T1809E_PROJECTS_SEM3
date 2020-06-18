@@ -1,0 +1,100 @@
+﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CusSendName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CusSendAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CusSendPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CusRevName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceShip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CusSendName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CusSendAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CusSendPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CusRevName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Distance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceShip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
