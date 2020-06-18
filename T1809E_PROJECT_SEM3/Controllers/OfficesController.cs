@@ -17,12 +17,17 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchString, string currentFilter , int? page)
+        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status)
         {
 
             var office = (from l in db.Offices
                           select l);
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
 
+                office = office.Where(p => (int)p.Status == status.Value);
+            }
 
             if (searchString != null)
             {
@@ -74,7 +79,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PinCode,Name,Email,VAT,PhoneNumber,Address,District,Province")] Office office)
+        public ActionResult Create([Bind(Include = "ID,PinCode,Name,Status,Email,VAT,PhoneNumber,Address,District,Province")] Office office)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +112,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,PinCode,Name,Email,VAT,PhoneNumber,Address,District,Province")] Office office)
+        public ActionResult Edit([Bind(Include = "ID,PinCode,Name,Status,Email,VAT,PhoneNumber,Address,District,Province")] Office office)
         {
             if (ModelState.IsValid)
             {
