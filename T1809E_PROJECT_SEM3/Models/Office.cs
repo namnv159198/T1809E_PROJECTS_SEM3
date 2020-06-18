@@ -34,5 +34,12 @@ namespace T1809E_PROJECT_SEM3.Models
         public string District { get; set; }
         [Required]
         public string Province { get; set; }
+        public StatusEnum Status { get; set; }
+        public enum StatusEnum
+        {
+            Online = 1,
+            Offline = 0
+        }
+
     }
 }

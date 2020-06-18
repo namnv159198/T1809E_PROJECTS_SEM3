@@ -1,6 +1,6 @@
 ﻿@model PagedList.IPagedList<T1809E_PROJECT_SEM3.Models.Office>
 @using PagedList.Mvc;
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
@@ -33,31 +33,30 @@
                             <div class="card-body">
 
                                 @using (Html.BeginForm("Index", "Offices", FormMethod.Get, new { @name = "search-form" }))
-                                {   <div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <p class="padding">
-                Search By Keyword
-            </p>
-            <div class="input-group m-bot15">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
-                </span>
-                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
-            </div>
-        </div>
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p class="padding">
+                                                Search By Keyword
+                                            </p>
+                                            <div class="input-group m-bot15">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
+                                                </span>
+                                                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 .ml-auto">
+                                            <p class="padding">
+                                                Search By Status
+                                            </p>
+                                            @Html.DropDownList("status",
+                                            EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Office.StatusEnum)),
+                                            "Select Status",
+                                            new { @class = "btn btn-outline-secondary" })
+                                        </div>
+                                    </div>
 
-    </div>
-    <div class="col-lg-9 col-md-6">
-        <p class="padding">
-            Search By Status
-        </p>
-        @Html.DropDownList("status",
-        EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Office.StatusEnum)),
-        "Select Status",
-        new { @class = "btn btn-default " })
-    </div>
-</div>
                                 }
 
                                 <p class="btn btn-outline-primary">
