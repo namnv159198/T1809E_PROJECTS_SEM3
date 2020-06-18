@@ -15,9 +15,18 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index()
-        {
-            return View(db.Offices.ToList());
+        public ActionResult Index(string searchStringName, string currentFilter)
+        {   
+           
+            var office = from l in db.Offices 
+                         select l;
+            ViewBag.CurrentFilter = searchStringName;
+            if (!string.IsNullOrEmpty(searchStringName))
+            {
+                office = office.Where(s => s.Name.Contains(searchStringName));
+            } 
+     
+                return View(office);
         }
 
         // GET: Offices/Details/5
