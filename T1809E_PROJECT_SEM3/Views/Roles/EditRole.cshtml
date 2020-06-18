@@ -2,25 +2,73 @@
 
 @{
     ViewBag.Title = "Edit User Role";
+    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("EditRole", "Roles", FormMethod.Post, new { role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        @Html.Label("User Name", new { @class = "control-label col-md-2" })
-        <select class="form-control m-bot15" id="UserName" name="UserName">
-            <option value="@Model.UserName">@Model.UserName</option>
-            
-        </select>
-    </div>
-    <div class="form-group">
-        @Html.Label("Select Role", new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.DropDownList("RoleName", null, new { @class = "form-control m-bot15" })
+<style>
+    #UserName {
+        display: none;
+    }
+</style>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Account Manage</h1>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Add Role" class="btn btn-primary" />
-    </div>
-}
+</div>
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Account List</strong>
+                    </div>
+                    <div class="card-body card-block">
+                        @using (Html.BeginForm("EditRole", "Roles", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.Label("User Name", new { @class = "pr-1  form-control-label" })
+                                <select class="btn btn-outline-link" id="UserName" name="UserName">
+                                    <option value="@Model.UserName">@Model.UserName</option>
+                                </select>
+                                <input class="form-control" value="@Model.UserName" disabled="disabled" />
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Select Role", new { @class = "px-1  form-control-label" })
+                                <div class="col-md-2">
+                                    @Html.DropDownList("RoleName", null, new { @class = "btn btn-outline-secondary" })
+                                </div>
+                            </div>
+
+
+                        }
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Submit
+                        </button>
+                        <button type="reset" class="btn btn-danger btn-sm">
+                            <i class="fa fa-ban"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+
+<div class="clearfix"></div>
