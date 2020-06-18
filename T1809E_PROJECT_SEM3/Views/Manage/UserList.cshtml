@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.UserViewModel>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Register","Account")
 </p>
 <table class="table">
     <tr>
@@ -43,9 +43,9 @@
             @Html.DisplayFor(modelItem => item.FullName)
         </td>
         <td>
-            <a href="../Roles/EditRole?id=@item.UserId">Edit</a> |
+            <a href="../Roles/EditRole?id=@item.UserId">Add Role</a> |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        <a href="../Roles/RemoveRoles/@item.UserId">Delete Role</a>
         </td>
     </tr>
 }

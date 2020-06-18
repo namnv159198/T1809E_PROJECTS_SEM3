@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
@@ -101,5 +102,17 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        public async Task<ActionResult> RemoveRoles(string id)
+        {
+            if (id != null)
+            {
+                var user = await UserManager.FindByNameAsync(id);
+                await UserManager.RemoveFromRolesAsync(id, UserManager.GetRoles(id).ToArray());
+            }
+            return RedirectToAction ("UserList","Manage");
+        }
+
+        
     }
 }
