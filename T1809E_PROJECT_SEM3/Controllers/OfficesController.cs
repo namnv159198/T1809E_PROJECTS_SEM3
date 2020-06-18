@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
@@ -15,18 +17,35 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchStringName, string currentFilter)
-        {   
-           
-            var office = from l in db.Offices 
-                         select l;
-            ViewBag.CurrentFilter = searchStringName;
-            if (!string.IsNullOrEmpty(searchStringName))
+        public ActionResult Index(string searchString, string currentFilter , int? page)
+        {
+
+            var office = (from l in db.Offices
+                          select l);
+
+
+            if (searchString != null)
             {
-                office = office.Where(s => s.Name.Contains(searchStringName));
-            } 
-     
-                return View(office);
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+           
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                office = office.Where(s => s.Name.Contains(searchString));
+            }
+            office = office.OrderBy(x => x.ID);
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(office.ToPagedList(pageNumber, pageSize));
+
+
         }
 
         // GET: Offices/Details/5
