@@ -36,15 +36,18 @@
                                 {
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <p class="padding">
-                                                Search By Keyword
-                                            </p>
-                                            <div class="input-group m-bot15">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
-                                                </span>
-                                                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
+
+                                            <div class="form-group">
+                                                <p class="padding">
+                                                    Search By Keyword
+                                                </p>
+                                                <div class="input-group">
+                                                    <button type="submit" class="btn btn-outline-link">Search <i class="fa fa-search"></i></button>
+
+                                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
+                                                </div>
                                             </div>
+
                                         </div>
                                         <div class="col-md-4 .ml-auto">
                                             <p class="padding">
