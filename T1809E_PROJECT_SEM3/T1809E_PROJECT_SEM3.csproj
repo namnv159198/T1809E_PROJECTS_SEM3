@@ -183,13 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006171803198_InitialCreate.cs" />
-    <Compile Include="Migrations\202006171803198_InitialCreate.Designer.cs">
-      <DependentUpon>202006171803198_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006181339165_Update.cs" />
-    <Compile Include="Migrations\202006181339165_Update.Designer.cs">
-      <DependentUpon>202006181339165_Update.cs</DependentUpon>
+    <Compile Include="Migrations\202006181620051_db_up.cs" />
+    <Compile Include="Migrations\202006181620051_db_up.Designer.cs">
+      <DependentUpon>202006181620051_db_up.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -338,6 +334,7 @@
     <Content Include="Views\Shared_Admin\_Left_Panel.cshtml" />
     <Content Include="Views\Shared_Admin\_Right_Panel.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Manage\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,11 +353,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006171803198_InitialCreate.resx">
-      <DependentUpon>202006171803198_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006181339165_Update.resx">
-      <DependentUpon>202006181339165_Update.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006181620051_db_up.resx">
+      <DependentUpon>202006181620051_db_up.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
