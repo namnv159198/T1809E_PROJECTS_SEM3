@@ -335,6 +335,11 @@
     <Content Include="Views\Shared_Admin\_Right_Panel.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Manage\UserList.cshtml" />
+    <Content Include="Views\Shared_Admin\_Login.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\EditRole.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
