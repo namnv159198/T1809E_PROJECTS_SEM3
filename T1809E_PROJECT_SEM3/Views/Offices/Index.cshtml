@@ -1,18 +1,33 @@
-﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.Office>
-
+﻿@model PagedList.IPagedList<T1809E_PROJECT_SEM3.Models.Office>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+    <link rel="stylesheet" href="~/AdminTemplate/assets/css/style.css">
+    <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 }
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Office Manage</h1>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
+</div>
+<div class="content">
     <div class="wrapper">
         <div class="row">
             <div class="col-sm-12">
                 <section class="panel">
-                    <header class="panel-heading">
-                        Service Table
-                    </header>
+
                     <div class="panel-body">
                         <div class="card">
                             <div class="card-body">
@@ -31,7 +46,7 @@
                                                 @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
                                             </div>
                                         </div>
-                                    
+
                                     </div>
                                 }
 
@@ -41,30 +56,32 @@
                                 <table class="table">
                                     <tr>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.PinCode)
+                                            PinCode
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Name)
+                                            Name
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Email)
+                                            Email
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.VAT)
+                                            VAT
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                                            PhoneNumber
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Address)
+                                            Address
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.District)
+                                            District
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Province)
+                                            Province
                                         </th>
-                                        <th></th>
+                                        <th>
+                                            Action
+                                        </th>
                                     </tr>
 
                                     @foreach (var item in Model)
@@ -103,10 +120,21 @@
                                     }
 
                                 </table>
+                                <br />
+                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+                                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
 
                             </div>
 
+
+
+
+
                         </div>
+
 
                     </div>
 
@@ -116,5 +144,7 @@
 
         </div>
     </div>
+</div>
+
 
 
