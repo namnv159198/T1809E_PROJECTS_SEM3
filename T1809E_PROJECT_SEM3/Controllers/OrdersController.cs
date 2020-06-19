@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,38 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Orders
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? status)
         {
-            var orders = db.Orders.Include(o => o.CreatedBy).Include(o => o.Service).Include(o => o.UpdatedBy);
-            return View(orders.ToList());
+            var order = (from l in db.Orders
+                          select l);
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
+
+                order = order.Where(p => (int)p.Status == status.Value);
+            }
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                order = order.Where(s => s.ID.Contains(searchString)||s.SenderName.Contains(searchString)||s.SenderPhone.Contains(searchString)||
+                s.ReceiverName.Contains(searchString)||s.ReceiverPhone.Contains(searchString));
+            }
+            order = order.OrderBy(x => x.ID);
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(order.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Orders/Details/5
