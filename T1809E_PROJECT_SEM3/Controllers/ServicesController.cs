@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,7 +16,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
-        public ActionResult Index(string searchString, string currentFilter, int? status)
+        public ActionResult Index(string searchString, string currentFilter, int? status, int? page)
         {
             var services = db.Services.AsEnumerable();
             if (status.HasValue)
@@ -28,13 +29,20 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 searchString = currentFilter;
             }
+            else
+            {
+                page = 1;
+            }
             ViewBag.CurrentFilter = searchString;
             if (!string.IsNullOrEmpty(searchString))
             {
                 services = services.Where(s => s.Type.Contains(searchString));
             }
             services = services.OrderBy(x => x.ID);
-            return View(services);
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(services.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Services/Details/5
