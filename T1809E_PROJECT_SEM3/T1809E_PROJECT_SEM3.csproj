@@ -185,21 +185,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006190818497_dbdb.cs" />
-    <Compile Include="Migrations\202006190818497_dbdb.Designer.cs">
-      <DependentUpon>202006190818497_dbdb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006190821085_dbdbdb.cs" />
-    <Compile Include="Migrations\202006190821085_dbdbdb.Designer.cs">
-      <DependentUpon>202006190821085_dbdbdb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006190834184_dbdbdb1.cs" />
-    <Compile Include="Migrations\202006190834184_dbdbdb1.Designer.cs">
-      <DependentUpon>202006190834184_dbdbdb1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006190857258_dbdbdb2.cs" />
-    <Compile Include="Migrations\202006190857258_dbdbdb2.Designer.cs">
-      <DependentUpon>202006190857258_dbdbdb2.cs</DependentUpon>
+    <Compile Include="Migrations\202006191450506_db.cs" />
+    <Compile Include="Migrations\202006191450506_db.Designer.cs">
+      <DependentUpon>202006191450506_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -581,17 +569,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006190818497_dbdb.resx">
-      <DependentUpon>202006190818497_dbdb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006190821085_dbdbdb.resx">
-      <DependentUpon>202006190821085_dbdbdb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006190834184_dbdbdb1.resx">
-      <DependentUpon>202006190834184_dbdbdb1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006190857258_dbdbdb2.resx">
-      <DependentUpon>202006190857258_dbdbdb2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006191450506_db.resx">
+      <DependentUpon>202006191450506_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
