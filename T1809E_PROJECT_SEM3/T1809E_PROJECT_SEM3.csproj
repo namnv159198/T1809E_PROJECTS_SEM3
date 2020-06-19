@@ -179,20 +179,34 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficesController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006181620051_db_up.cs" />
-    <Compile Include="Migrations\202006181620051_db_up.Designer.cs">
-      <DependentUpon>202006181620051_db_up.cs</DependentUpon>
+    <Compile Include="Migrations\202006190818497_dbdb.cs" />
+    <Compile Include="Migrations\202006190818497_dbdb.Designer.cs">
+      <DependentUpon>202006190818497_dbdb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190821085_dbdbdb.cs" />
+    <Compile Include="Migrations\202006190821085_dbdbdb.Designer.cs">
+      <DependentUpon>202006190821085_dbdbdb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190834184_dbdbdb1.cs" />
+    <Compile Include="Migrations\202006190834184_dbdbdb1.Designer.cs">
+      <DependentUpon>202006190834184_dbdbdb1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190857258_dbdbdb2.cs" />
+    <Compile Include="Migrations\202006190857258_dbdbdb2.Designer.cs">
+      <DependentUpon>202006190857258_dbdbdb2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Office.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -544,6 +558,11 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\EditRole.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -562,8 +581,17 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006181620051_db_up.resx">
-      <DependentUpon>202006181620051_db_up.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006190818497_dbdb.resx">
+      <DependentUpon>202006190818497_dbdb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190821085_dbdbdb.resx">
+      <DependentUpon>202006190821085_dbdbdb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190834184_dbdbdb1.resx">
+      <DependentUpon>202006190834184_dbdbdb1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190857258_dbdbdb2.resx">
+      <DependentUpon>202006190857258_dbdbdb2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
