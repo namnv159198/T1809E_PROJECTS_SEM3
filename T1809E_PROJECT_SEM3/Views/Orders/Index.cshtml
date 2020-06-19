@@ -13,26 +13,33 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+            @Html.DisplayNameFor(model => model.CreatedBy.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Service.Type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UpdatedBy.UserName)
+            @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CusSendName)
+            @Html.DisplayNameFor(model => model.SenderName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CusSendAddress)
+            @Html.DisplayNameFor(model => model.SenderAddress)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CusSendPhone)
+            @Html.DisplayNameFor(model => model.SenderPhone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CusRevName)
+            @Html.DisplayNameFor(model => model.ReceiverName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiverAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiverPhone)
+        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Distance)
         </th>
@@ -54,26 +61,33 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
+            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Service.Type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UpdatedBy.UserName)
+            @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CusSendName)
+            @Html.DisplayFor(modelItem => item.SenderName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CusSendAddress)
+            @Html.DisplayFor(modelItem => item.SenderAddress)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CusSendPhone)
+            @Html.DisplayFor(modelItem => item.SenderPhone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CusRevName)
+            @Html.DisplayFor(modelItem => item.ReceiverName)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiverAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiverPhone)
+        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Distance)
         </td>
