@@ -54,7 +54,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -13,14 +13,14 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy.FullName)
+            @Html.DisplayNameFor(model => model.ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Service.Type)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.SenderName)
         </th>
@@ -61,14 +61,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+            @Html.DisplayFor(modelItem => item.ID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Service.Type)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.SenderName)
         </td>
