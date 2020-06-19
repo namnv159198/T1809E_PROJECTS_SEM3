@@ -15,9 +15,20 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter)
         {
-            return View(db.Services.ToList());
+            var services = db.Services.AsEnumerable();
+            if(searchString == null)
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                services = services.Where(s => s.Type.Contains(searchString));
+            }
+            services = services.OrderBy(x => x.ID);
+            return View(services);
         }
 
         // GET: Services/Details/5

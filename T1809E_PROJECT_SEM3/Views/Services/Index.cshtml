@@ -14,44 +14,60 @@
                     <div class="panel-body">
                         <div class="card">
                             <div class="card-body">
-                                <p >
-                                    @Html.ActionLink("Create New", "Create")
-                                </p>
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Type)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.PricePerKm)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.PricePerKg)
-                                        </th>
-                                        <th></th>
-                                    </tr>
-
-                            @foreach (var item in Model)
-                                    {
+                                @using (Html.BeginForm("Index", "Services", FormMethod.Get, new { @name = "search-form" }))
+                                { 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <p class="padding">
+                                                Search By Keyword
+                                            </p>
+                                            <div class="input-group">
+                                                <button type="submit" class="btn btn-outline-link">Search<i class="fa fa-search"></i></button>
+                                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = " Name . . . " })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                                    <p>
+                                        @Html.ActionLink("Create New", "Create")
+                                    </p>
+                                    <table class="table">
                                         <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Type)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PricePerKm)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PricePerKg)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                            </td>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Type)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PricePerKm)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PricePerKg)
+                                            </th>
+                                            <th></th>
                                         </tr>
-                                    }
-                                </table>
-                            </div>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Type)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.PricePerKm)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.PricePerKg)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
                         </div>
                     </div>
                 </section>
