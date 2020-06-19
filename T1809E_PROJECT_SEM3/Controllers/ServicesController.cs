@@ -15,10 +15,16 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
-        public ActionResult Index(string searchString, string currentFilter)
+        public ActionResult Index(string searchString, string currentFilter, int? status)
         {
             var services = db.Services.AsEnumerable();
-            if(searchString == null)
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
+
+                services = services.Where(p => (int)p.Status == status.Value);
+            }
+            if (searchString == null)
             {
                 searchString = currentFilter;
             }
@@ -61,6 +67,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
+                service.Status = Service.StatusEnumService.online; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
@@ -90,7 +97,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg, Status")] Service service)
         {
             if (ModelState.IsValid)
             {

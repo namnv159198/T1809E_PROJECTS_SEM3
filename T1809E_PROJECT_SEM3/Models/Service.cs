@@ -21,5 +21,12 @@ namespace T1809E_PROJECT_SEM3.Models
         [Required]
         [Range (double.Epsilon, double.MaxValue, ErrorMessage = "The 'Price per Kg' field must be larger than 0")]
         public double PricePerKg { get; set; }
+        [Display(Name = "Status")]
+        public StatusEnumService Status { get; set; }
+        public enum StatusEnumService
+        {
+            online = 1,
+            offline = 0
+        }
     }
 }
