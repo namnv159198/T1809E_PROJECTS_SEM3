@@ -45,15 +45,22 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View();
         }
 
+
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        public static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmssffff");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
         {
             if (ModelState.IsValid)
             {
+                string timeStamp = GetTimestamp(DateTime.Now);
+                order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 db.SaveChanges();
