@@ -58,7 +58,7 @@
                                         <div class="col-lg-4 col-md-10">
                                             <div class="pull-left">
                                                 <p class="padding">
-                                                    Search By Time
+                                                    Tìm Theo Thời Gian
                                                 </p>
                                                 <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
                                             </div>
@@ -199,22 +199,21 @@
     </div>
 </div>
 @section scripts{
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
     <script>
         var start = moment().subtract(29, 'days');
         var end = moment();
-
         var url_string = location.href;
         var url = new URL(url_string);
-
         // Cắt đoạn biến trong herf
         var initStart = url.searchParams.get("start");
         var initEnd = url.searchParams.get("end");
         var keyword = url.searchParams.get("keyword");
         var sortOrder = url.searchParams.get("sortOrder");
-
-
         if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
             // Gán biến cho start trong thẻ input
             start = initStart;
@@ -234,14 +233,12 @@
                 format: 'YYYY-MM-DD'
             },
             ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [
-                    moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')
-                ]
+                'Hôm Nay': [moment(), moment()],
+                'Hôm Qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 Ngày Trước': [moment().subtract(6, 'days'), moment()],
+                '30 Ngày Trước': [moment().subtract(29, 'days'), moment()],
+                'Tháng Này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng Trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
         });
         $('input[name="daterange"]').on('apply.daterangepicker',
@@ -252,11 +249,11 @@
                 $('input[name="end"]').val(endDate);
                 $('form[name="search-form"]').submit();
             });
-
         $('select[name="status"]').change(function () {
             $('form[name="search-form"]').submit();
         });
-
-       
+        $('select[name="gender"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
     </script>
 }
