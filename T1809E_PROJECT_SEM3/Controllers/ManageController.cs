@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using T1809E_PROJECT_SEM3.Models;
 using System.Dynamic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
@@ -82,7 +83,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
                                   });
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var roles = roleManager.Roles.ToList();
+
             dynamic model = new ExpandoObject();
+            model.userModel = new RegisterViewModel();
             model.usersRole = usersWithRoles;
             model.roleList = roles;
             return View(model);
@@ -105,6 +108,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -250,6 +254,40 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+        //
+        //get: Change profile
+        public ActionResult ProfileUser(string id)
+        {
+            ApplicationUser appUser = new ApplicationUser();
+            appUser = UserManager.FindById(id);
+            ProfileViewModel user = new ProfileViewModel();
+            user.UserName = appUser.UserName;
+            user.FullName = appUser.FullName;
+            user.Email = appUser.Email;
+            user.Phone = appUser.PhoneNumber;
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ProfileUser(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = manager.FindByEmail(model.Email);
+            currentUser.UserName = currentUser.UserName;
+            currentUser.FullName = model.FullName;
+            currentUser.Email = model.Email;
+            currentUser.PhoneNumber = model.Phone;
+            await manager.UpdateAsync(currentUser);
+            var ctx = store.Context;
+            ctx.SaveChanges();
+            TempData["message"] = "editusersuccess";
+            return RedirectToAction("UserList","Manage");
         }
 
         //
