@@ -34,36 +34,36 @@
 
                                 @using (Html.BeginForm("Index", "Orders", FormMethod.Get, new { @name = "search-form" }))
                                 {
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="padding">
-                                            Search By Keyword
-                                        </p>
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
-                                            </span>
-                                            @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 .ml-auto">
-                                        <p class="padding">
-                                            Search By Status
-                                        </p>
-                                        @Html.DropDownList("status",
-                                        EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumStatusOrder)),
-                                        "Select Status",
-                                        new { @class = "btn btn-outline-secondary" })
-                                    </div>
-                                    <div class="col-lg-4 col-md-10">
-                                        <div class="pull-left">
+                                    <div class="row">
+                                        <div class="col-md-4">
                                             <p class="padding">
-                                                Search By Time
+                                                Search By Keyword
                                             </p>
-                                            <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
+                                            <div class="input-group m-bot15">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
+                                                </span>
+                                                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 .ml-auto">
+                                            <p class="padding">
+                                                Search By Status
+                                            </p>
+                                            @Html.DropDownList("status",
+                                            EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumStatusOrder)),
+                                            "Select Status",
+                                            new { @class = "btn btn-outline-secondary" })
+                                        </div>
+                                        <div class="col-lg-4 col-md-10">
+                                            <div class="pull-left">
+                                                <p class="padding">
+                                                    Tìm Theo Thời Gian
+                                                </p>
+                                                <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
                                 }
 
@@ -198,3 +198,62 @@
         </div>
     </div>
 </div>
+@section scripts{
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+        var url_string = location.href;
+        var url = new URL(url_string);
+        // Cắt đoạn biến trong herf
+        var initStart = url.searchParams.get("start");
+        var initEnd = url.searchParams.get("end");
+        var keyword = url.searchParams.get("keyword");
+        var sortOrder = url.searchParams.get("sortOrder");
+        if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
+            // Gán biến cho start trong thẻ input
+            start = initStart;
+            $('input[name="start"]').val(start);
+        }
+        if (initEnd != null && moment(initEnd, 'YYYY-MM-DD', true).isValid()) {
+            end = initEnd;
+            $('input[name="end"]').val(end);
+        }
+        if (sortOrder != null) {
+            $('input[name="sortOrder"]').val(keyword);
+        }
+        $('input[name="daterange"]').daterangepicker({
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            ranges: {
+                'Hôm Nay': [moment(), moment()],
+                'Hôm Qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 Ngày Trước': [moment().subtract(6, 'days'), moment()],
+                '30 Ngày Trước': [moment().subtract(29, 'days'), moment()],
+                'Tháng Này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng Trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        });
+        $('input[name="daterange"]').on('apply.daterangepicker',
+            function (ev, picker) {
+                var startDate = picker.startDate.format('YYYY-MM-DD');
+                var endDate = picker.endDate.format('YYYY-MM-DD');
+                $('input[name="start"]').val(startDate);
+                $('input[name="end"]').val(endDate);
+                $('form[name="search-form"]').submit();
+            });
+        $('select[name="status"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+        $('select[name="gender"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+    </script>
+}
