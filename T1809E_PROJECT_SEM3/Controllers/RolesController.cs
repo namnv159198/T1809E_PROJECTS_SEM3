@@ -77,42 +77,70 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public ActionResult EditRole(string id)
-        {
+        //[HttpGet]
+        //public ActionResult EditRole(string id)
+        //{
 
-            var user = UserManager.FindById(id);
-            ViewBag.RoleName = new SelectList(context.Roles.ToList(), "Name", "Name");
-            return View(user);
-        }
+        //    var user = UserManager.FindById(id);
+        //    ViewBag.RoleName = new SelectList(context.Roles.ToList(), "Name", "Name");
+        //    return View(user);
+        //}
 
         [HttpPost]
-        public ActionResult EditRole(string userName, string roleName)
+        public async Task<ActionResult> EditRole(string userName,List <string >roleName)
         {
             var user = context.Users.Where(x => x.UserName == userName).FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
             }
-            if (RoleManager.RoleExists(roleName))
+             await UserManager.RemoveFromRolesAsync(user.Id, UserManager.GetRoles(user.Id).ToArray());
+
+            if(roleName == null)
             {
-                UserManager.AddToRole(user.Id, roleName);
-                TempData["message"] = "success";
                 return RedirectToAction("UserList", "Manage");
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        public async Task<ActionResult> RemoveRoles(string id)
-        {
-            if (id != null)
+            foreach (var role in roleName)
             {
-                var user = await UserManager.FindByNameAsync(id);
-                await UserManager.RemoveFromRolesAsync(id, UserManager.GetRoles(id).ToArray());
+                    UserManager.AddToRole(user.Id, role);
+                    
             }
-            return RedirectToAction ("UserList","Manage");
+            TempData["message"] = "success";
+            return RedirectToAction("UserList", "Manage");
+        }
+        public async Task<ActionResult> Edit(string id)
+        {
+            var role = await RoleManager.FindByIdAsync(id);
+            return View(new RoleViewModel(role));
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(string id, string name)
+        {
+            var role = await RoleManager.FindByIdAsync(id);
+            if (ModelState.IsValid)
+            {
+                if (role != null)
+                {
+                    role.Name = name;
+                    await RoleManager.UpdateAsync(role);
+                    TempData["message"] = "Edit";
+                    return RedirectToAction("Index");
+                }
+                else { TempData["message"] = "Fail"; }
+            }
+            return View();
         }
 
-        
+        //public async Task<ActionResult> RemoveRoles(string id)
+        //{
+        //    if (id != null)
+        //    {
+        //        var user = await UserManager.FindByNameAsync(id);
+        //        await UserManager.RemoveFromRolesAsync(id, UserManager.GetRoles(id).ToArray());
+        //    }
+        //    return RedirectToAction ("UserList","Manage");
+        //}
+
+
     }
 }

@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using T1809E_PROJECT_SEM3.Models;
+using System.Dynamic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
@@ -78,9 +80,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
                                       Email = p.Email,
                                       Role = string.Join(",", p.RoleNames)
                                   });
-
-
-            return View(usersWithRoles);
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roles = roleManager.Roles.ToList();
+            dynamic model = new ExpandoObject();
+            model.usersRole = usersWithRoles;
+            model.roleList = roles;
+            return View(model);
         }
         //Edit Account
        
