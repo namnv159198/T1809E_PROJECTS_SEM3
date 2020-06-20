@@ -54,7 +54,7 @@
                                             @Html.DropDownList("status",
                                             EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Office.StatusEnum)),
                                             "Select Status",
-                                            new { @class = "btn btn-outline-secondary" })
+                                            new { @class = "btn btn-outline-secondary" , onchange = "form.submit()" })
                                         </div>
                                     </div>
                                 }
