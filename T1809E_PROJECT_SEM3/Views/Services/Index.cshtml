@@ -4,93 +4,104 @@
         ViewBag.Title = "Index";
         Layout = "~/Views/Shared_Admin/_Layout.cshtml";
     }
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading">
-                        Service Table
-                    </header>
-                    <div class="panel-body">
-                        <div class="card">
-                            <div class="card-body">
-                                @using (Html.BeginForm("Index", "Services", FormMethod.Get, new { @name = "search-form" }))
-                                {
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <p class="padding">
-                                                    Search By Keyword
-                                                </p>
-                                                <div class="input-group">
-                                                    <button type="submit" class="btn btn-outline-link">Search<i class="fa fa-search"></i></button>
-                                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = " Name . . . " })
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 .ml-auto">
-                                            <p class="padding">
-                                                Search By Status
-                                            </p>
-                                            @Html.DropDownList("status",
-                                            EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.StatusEnumService)),
-                                            "Select Status",
-                                            new { @class = "btn btn-outline-secondary", onchange = "form.submit()" })
-                                        </div>
-                                    </div>
-                                }
-                                <p>
-                                    @Html.ActionLink("Create New", "Create")
-                                </p>
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            Type
-                                        </th>
-                                        <th>
-                                            Price Per Km
-                                        </th>
-                                        <th>
-                                            Price Per Kg
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                    </tr>
-
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Type)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PricePerKm)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PricePerKg)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Status)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                            </td>
-                                        </tr>
-                                    }
-                                </table>
-                                <br />
-                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-
-                                @Html.PagedListPager(Model, page => Url.Action("Index",
-                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
-                            </div>
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Manage Service</h1>
                         </div>
                     </div>
-                </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Service List</strong>
+                        </div>
+                        <div class="card-body">
+                            @using (Html.BeginForm("Index", "Services", FormMethod.Get, new { @name = "search-form" }))
+                            {
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <p class="padding">
+                                                Search By Keyword
+                                            </p>
+                                            <div class="input-group">
+                                                <button type="submit" class="btn btn-outline-link">Search<i class="fa fa-search"></i></button>
+                                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = " Name . . . " })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 .ml-auto">
+                                        <p class="padding">
+                                            Search By Status
+                                        </p>
+                                        @Html.DropDownList("status",
+                                        EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.StatusEnumService)),
+                                        "Select Status",
+                                        new { @class = "btn btn-outline-secondary", onchange = "form.submit()" })
+                                    </div>
+                                </div>
+                            }
+                            <p>
+                                @Html.ActionLink("Create New", "Create")
+                            </p>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        Price Per Km
+                                    </th>
+                                    <th>
+                                        Price Per Kg
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PricePerKm)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PricePerKg)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            <br />
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
