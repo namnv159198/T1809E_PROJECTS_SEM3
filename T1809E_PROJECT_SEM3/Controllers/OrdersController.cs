@@ -16,7 +16,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Orders
-        public ActionResult Index(string searchString, string currentFilter, int? page, int? status)
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? status, DateTime? start, DateTime? end)
         {
             var order = (from l in db.Orders
                           select l);
@@ -25,6 +25,18 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 ViewBag.Status = status;
 
                 order = order.Where(p => (int)p.Status == status.Value);
+            }
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                order = order.Where(p => p.CreateAt >= startDate);
+            }
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                order = order.Where(p => p.CreateAt <= endDate);
             }
 
             if (searchString != null)
