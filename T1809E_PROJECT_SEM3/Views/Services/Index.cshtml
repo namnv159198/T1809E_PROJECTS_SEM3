@@ -51,47 +51,53 @@
                                     </div>
                                 </div>
                             }
-                            <p>
+                            <p class="btn btn-outline-primary">
                                 @Html.ActionLink("Create New", "Create")
                             </p>
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        Type
-                                    </th>
-                                    <th>
-                                        Price Per Km
-                                    </th>
-                                    <th>
-                                        Price Per Kg
-                                    </th>
-                                    <th>
-                                        Status
-                                    </th>
-                                </tr>
-
-                                @foreach (var item in Model)
-                                {
+                            <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Type)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PricePerKm)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PricePerKg)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Status)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                                        </td>
+                                        <th>
+                                            Type
+                                        </th>
+                                        <th>
+                                            Price Per Km
+                                        </th>
+                                        <th>
+                                            Price Per Kg
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Type)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PricePerKm)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PricePerKg)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                             <br />
                             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
