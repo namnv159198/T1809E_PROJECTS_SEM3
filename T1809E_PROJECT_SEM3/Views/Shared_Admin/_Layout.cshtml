@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="">
- <!--<![endif]-->
+<!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,6 +29,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -61,6 +62,8 @@
     <!--  Chart js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <!--Chartist Chart-->
     <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
@@ -75,6 +78,13 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="~/AdminTemplate/assets/js/init/fullcalendar-init.js"></script>
+    <!--cloudinary service-->
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!--calendar service-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/CustomScripts/CalendarFilter.js"></script>
 
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -150,14 +160,12 @@
     <script>
         jQuery(document).ready(function ($) {
             "use strict";
-
             // Pie chart flotPie1
             var piedata = [
                 { label: "Desktop visits", data: [[1, 32]], color: '#5c6bc0' },
                 { label: "Tab visits", data: [[1, 33]], color: '#ef5350' },
                 { label: "Mobile visits", data: [[1, 35]], color: '#66bb6a' }
             ];
-
             $.plot('#flotPie1', piedata, {
                 series: {
                     pie: {
@@ -200,13 +208,10 @@
                     hoverable: true,
                     clickable: true
                 }
-
             });
-
             // cellPaiChart End
             // Line Chart  #flotLine5
             var newCust = [[0, 3], [1, 5], [2, 4], [3, 7], [4, 9], [5, 3], [6, 6], [7, 4], [8, 10]];
-
             var plot = $.plot($('#flotLine5'), [{
                 data: newCust,
                 label: 'New Data Flow',
@@ -258,7 +263,6 @@
                         showGrid: true
                     }
                 });
-
                 chart.on('draw', function (data) {
                     if (data.type === 'line' || data.type === 'area') {
                         data.element.animate({
@@ -318,7 +322,6 @@
                             mode: 'nearest',
                             intersect: true
                         }
-
                     }
                 });
             }
@@ -338,8 +341,6 @@
             });
             // Bar Chart #flotBarChart End
         });
-
     </script>
-    @RenderSection("scrips", required: false)
 </body>
 </html>
