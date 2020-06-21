@@ -1,4 +1,7 @@
-﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.UserViewModel>
+﻿@*@model IEnumerable<T1809E_PROJECT_SEM3.Models.UserViewModel>
+*@
+@using T1809E_PROJECT_SEM3;
+@model dynamic
 @{
     ViewBag.Title = "User List";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
@@ -40,13 +43,13 @@
                                         User Name
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Email)
+                                        Email
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Phone)
+                                        Phone
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Role)
+                                        Role
                                     </th>
                                     <th>
                                         Full Name
@@ -55,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.usersRole)
                                 {
                                     <tr>
 
@@ -63,21 +66,90 @@
                                             @item.UserName
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Email)
+                                            @item.Email
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Phone)
+                                            @item.Phone
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Role)
+                                            @item.Role
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.FullName)
+                                            @item.FullName
                                         </td>
                                         <td>
-                                            <a href="../Roles/EditRole?id=@item.UserId">Add Role</a> |
-                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                            <a href="../Roles/RemoveRoles/@item.UserId">Delete Role</a>
+                                            <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#mediumModal_@item.UserName">
+                                                Edit Role
+                                            </button>
+                                            <div class="modal fade" id="mediumModal_@item.UserName" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" style="padding-right: 17px;">
+                                                <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        @using (Html.BeginForm("EditRole", "Roles", FormMethod.Post, new { role = "form", @name = "addRole", id = "@item.UserId" }))
+                                                        {
+                                                            <div class="modal-body">
+
+
+                                                                @Html.AntiForgeryToken()
+                                                                <div class="form-group col-12">
+
+                                                                    <select class="btn btn-outline-link" id="UserName" name="UserName" hidden="hidden">
+                                                                        <option value="@item.UserName">@item.UserName</option>
+                                                                    </select>
+
+
+                                                                </div>
+
+                                                                <div class="row form-group">
+                                                                    <div class="col col-md-5"><label class=" form-control-label">Select Role:</label></div>
+                                                                    <div class="col col-md-7">
+                                                                        <div class="form-check">
+                                                                            @foreach (var role in Model.roleList)
+                                                                            {
+
+
+                                                                                if (item.Role.Contains(role.Name))
+                                                                                {
+                                                                                    <div class="checkbox">
+                                                                                        <label for="checkbox1" class="form-check-label ">
+
+                                                                                            <input id="RoleName" class="form-check-input" name="RoleName[]" type="checkbox" value="@role.Name" checked /> @role.Name
+                                                                                        </label>
+                                                                                    </div>
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <div class="checkbox">
+                                                                                        <label for="checkbox1" class="form-check-label ">
+
+                                                                                            <input id="RoleName" class="form-check-input" name="RoleName[]" type="checkbox" value="@role.Name" /> @role.Name
+                                                                                        </label>
+                                                                                    </div>
+                                                                                }
+
+
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-primary" onclick="">Confirm</button>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                         </td>
                                     </tr>
                                 }
@@ -94,4 +166,15 @@
 </div><!-- .content -->
 
 
-<div class="clearfix"></div>
+@if ((string)TempData["message"] == "success")
+{
+    <script type="text/javascript">
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Edit Role Done',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+}
