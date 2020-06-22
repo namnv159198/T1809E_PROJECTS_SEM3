@@ -99,6 +99,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             if(roleName == null)
             {
                 return RedirectToAction("UserList", "Manage");
+                TempData["message"] = "success";
             }
             foreach (var role in roleName)
             {
