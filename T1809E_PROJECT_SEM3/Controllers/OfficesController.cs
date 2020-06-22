@@ -86,6 +86,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 office.ID = "Office" + db.Offices.Count();
                 db.Offices.Add(office);
                 db.SaveChanges();
+                TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
 
@@ -135,19 +136,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(office);
+            office.Status = Office.StatusEnum.Delete;
+            db.Entry(office).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["message"] = "Delete";
+            return RedirectToAction("Index");
         }
 
         // POST: Offices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Office office = db.Offices.Find(id);
-            db.Offices.Remove(office);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    Office office = db.Offices.Find(id);
+        //    db.Offices.Remove(office);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
