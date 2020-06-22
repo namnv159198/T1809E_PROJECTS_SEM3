@@ -4,112 +4,158 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
 }
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Office Manage</h1>
+                    </div>
+                </div>
+            </div>
 
-<h2>Details</h2>
-
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Service.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Service.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedBy.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedBy.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CusSendName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CusSendName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CusSendAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CusSendAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CusSendPhone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CusSendPhone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CusRevName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CusRevName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Distance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Distance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Weight)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Weight)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PriceShip)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PriceShip)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Order</h4>
+                                <hr />
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CreatedBy.FullName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CreatedBy.FullName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Service.Type)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Service.Type)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.UpdatedBy.FullName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SenderName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SenderName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SenderAddress)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SenderAddress)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.SenderPhone)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SenderPhone)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.ReceiverName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.ReceiverName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.ReceiverAddress)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.ReceiverPhone)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.ReceiverPhone)
+                                    </dd>
+
+
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Distance)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Distance)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Weight)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Weight)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CreateAt)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CreateAt)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.PriceShip)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.PriceShip)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Status)
+                                    </dd>
+
+                                </dl>
+                            </div>
+                            <p>
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+                                @Html.ActionLink("Back to List", "Index")
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

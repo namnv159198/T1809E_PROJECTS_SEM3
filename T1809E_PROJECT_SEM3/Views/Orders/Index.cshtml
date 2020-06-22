@@ -1,100 +1,259 @@
-﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.Order>
-
+﻿@model PagedList.IPagedList<T1809E_PROJECT_SEM3.Models.Order>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+    <link rel="stylesheet" href="~/AdminTemplate/assets/css/style.css">
+    <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 }
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Office Manage</h1>
+                    </div>
+                </div>
+            </div>
 
-<h2>Index</h2>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Service.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedBy.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CusSendName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CusSendAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CusSendPhone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CusRevName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Weight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreateAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriceShip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+                    <div class="panel-body">
+                        <div class="card">
+                            <div class="card-body">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Service.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedBy.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CusSendName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CusSendAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CusSendPhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CusRevName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Weight)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriceShip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+                                @using (Html.BeginForm("Index", "Orders", FormMethod.Get, new { @name = "search-form" }))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p class="padding">
+                                                Search By Keyword
+                                            </p>
+                                            <div class="input-group m-bot15">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
+                                                </span>
+                                                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 .ml-auto">
+                                            <p class="padding">
+                                                Search By Status
+                                            </p>
+                                            @Html.DropDownList("status",
+                                            EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumStatusOrder)),
+                                            "Select Status",
+                                            new { @class = "btn btn-outline-secondary" })
+                                        </div>
+                                        <div class="col-lg-4 col-md-10">
+                                            <div class="pull-left">
+                                                <p class="padding">
+                                                    Tìm Theo Thời Gian
+                                                </p>
+                                                <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+                                <p class="btn btn-outline-primary">
+                                    @Html.ActionLink("Create New +", "Create")
+                                </p>
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Service.Type
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                                            </th>*@
+                                        <th>
+                                            SenderName
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.SenderAddress)
+                                            </th>*@
+                                        <th>
+                                            SenderPhone
+                                        </th>
+                                        <th>
+                                            ReceiverName
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                            </th>*@
+                                        <th>
+                                            ReceiverPhone
+                                        </th>
+
+                                        <th>
+                                            Distance
+                                        </th>
+                                        <th>
+                                            Weight
+                                        </th>
+                                        <th>
+                                            CreateAt
+                                        </th>
+                                        <th>
+                                            PriceShip
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Service.Type)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+                                                </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SenderName)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.SenderAddress)
+                                                </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SenderPhone)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReceiverName)
+                                            </td>
+                                            @*<td>
+                                                    @Html.DisplayFor(modelItem => item.ReceiverAddress)
+                                                </td>*@
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReceiverPhone)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Distance)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Weight)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreateAt)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PriceShip)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                                <br />
+                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+                                @Html.PagedListPager(Model, page => Url.Action("Index",
+                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+        var url_string = location.href;
+        var url = new URL(url_string);
+        // Cắt đoạn biến trong herf
+        var initStart = url.searchParams.get("start");
+        var initEnd = url.searchParams.get("end");
+        var keyword = url.searchParams.get("keyword");
+        var sortOrder = url.searchParams.get("sortOrder");
+        if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
+            // Gán biến cho start trong thẻ input
+            start = initStart;
+            $('input[name="start"]').val(start);
+        }
+        if (initEnd != null && moment(initEnd, 'YYYY-MM-DD', true).isValid()) {
+            end = initEnd;
+            $('input[name="end"]').val(end);
+        }
+        if (sortOrder != null) {
+            $('input[name="sortOrder"]').val(keyword);
+        }
+        $('input[name="daterange"]').daterangepicker({
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'YYYY-MM-DD'
+            },
+            ranges: {
+                'Hôm Nay': [moment(), moment()],
+                'Hôm Qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 Ngày Trước': [moment().subtract(6, 'days'), moment()],
+                '30 Ngày Trước': [moment().subtract(29, 'days'), moment()],
+                'Tháng Này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng Trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        });
+        $('input[name="daterange"]').on('apply.daterangepicker',
+            function (ev, picker) {
+                var startDate = picker.startDate.format('YYYY-MM-DD');
+                var endDate = picker.endDate.format('YYYY-MM-DD');
+                $('input[name="start"]').val(startDate);
+                $('input[name="end"]').val(endDate);
+                $('form[name="search-form"]').submit();
+            });
+        $('select[name="status"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+        $('select[name="gender"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+    </script>
 }
-
-</table>

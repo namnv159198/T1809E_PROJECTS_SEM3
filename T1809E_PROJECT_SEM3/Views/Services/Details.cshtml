@@ -4,49 +4,77 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
 }
-
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-sm-12">
-                <section class="panel">
-                    <div class="panel-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>Service</h4>
-                                <hr />
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.Type)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.Type)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.PricePerKm)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.PricePerKm)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.PricePerKg)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.PricePerKg)
-                                    </dd>
-                                </dl>
-                            </div>
-                            <p>
-                                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-                                @Html.ActionLink("Back to List", "Index")
-                            </p>
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-inner">
+            <div class="row m-0">
+                <div class="col-sm-4">
+                    <div class="page-header float-left">
+                        <div class="page-title">
+                            <h1>Manage Service</h1>
                         </div>
                     </div>
-                </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Service Details</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class=" p-2">
+                                <div class="row mb-2 mt-2">
+                                    <strong class="col-md-5">
+                                        @Html.DisplayNameFor(model => model.Type)
+                                    </strong>
+
+                                    <div class="col-md-6">
+                                        @Html.DisplayFor(model => model.Type)
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row mb-2 mt-2">
+                                    <strong class="col-md-5">
+                                        @Html.DisplayNameFor(model => model.PricePerKm)
+                                    </strong>
+
+                                    <div class="col-md-6">
+                                        @Html.DisplayFor(model => model.PricePerKm)
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row mb-2 mt-2">
+                                    <strong class="col-md-5">
+                                        @Html.DisplayNameFor(model => model.PricePerKg)
+                                    </strong>
+
+                                    <div class="col-md-6">
+                                        @Html.DisplayFor(model => model.PricePerKg)
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row mb-2 mt-2">
+                                    <strong class="col-md-5">
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </strong>
+
+                                    <div class="col-md-6">
+                                        @Html.DisplayFor(model => model.Status)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="ml-5">
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+                            @Html.ActionLink("Back to List", "Index")
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

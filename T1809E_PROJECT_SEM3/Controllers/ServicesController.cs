@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,9 +16,33 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? status, int? page)
         {
-            return View(db.Services.ToList());
+            var services = db.Services.AsEnumerable();
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
+
+                services = services.Where(p => (int)p.Status == status.Value);
+            }
+            if (searchString == null)
+            {
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                services = services.Where(s => s.Type.Contains(searchString));
+            }
+            services = services.OrderBy(x => x.ID);
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(services.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Services/Details/5
@@ -50,12 +75,14 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
+                service.Status = Service.StatusEnumService.online; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
+                TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
-
+            TempData["message"] = "Fail";
             return View(service);
         }
 
@@ -79,14 +106,16 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg, Status")] Service service)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(service).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = "Edit";
                 return RedirectToAction("Index");
             }
+            TempData["message"] = "Fail";
             return View(service);
         }
 
@@ -102,17 +131,15 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(service);
-        }
-
-        // POST: Services/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Service service = db.Services.Find(id);
-            db.Services.Remove(service);
+            if (service.Status == Service.StatusEnumService.offline)
+            {
+                TempData["message"] = "Fail Delete";
+                return RedirectToAction("Index");
+            }
+            service.Status = Service.StatusEnumService.offline;
+            db.Entry(service).State = EntityState.Modified;
             db.SaveChanges();
+            TempData["message"] = "Delete";
             return RedirectToAction("Index");
         }
 

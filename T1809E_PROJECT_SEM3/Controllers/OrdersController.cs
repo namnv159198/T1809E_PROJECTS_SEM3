@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,50 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Orders
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? status, DateTime? start, DateTime? end)
         {
-            var orders = db.Orders.Include(o => o.CreatedBy).Include(o => o.Service).Include(o => o.UpdatedBy);
-            return View(orders.ToList());
+            var order = (from l in db.Orders
+                          select l);
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
+
+                order = order.Where(p => (int)p.Status == status.Value);
+            }
+            if (start != null)
+            {
+                var startDate = start.GetValueOrDefault().Date;
+                startDate = startDate.Date + new TimeSpan(0, 0, 0);
+                order = order.Where(p => p.CreateAt >= startDate);
+            }
+            if (end != null)
+            {
+                var endDate = end.GetValueOrDefault().Date;
+                endDate = endDate.Date + new TimeSpan(23, 59, 59);
+                order = order.Where(p => p.CreateAt <= endDate);
+            }
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                order = order.Where(s => s.ID.Contains(searchString)||s.SenderName.Contains(searchString)||s.SenderPhone.Contains(searchString)||
+                s.ReceiverName.Contains(searchString)||s.ReceiverPhone.Contains(searchString));
+            }
+            order = order.OrderBy(x => x.ID);
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(order.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Orders/Details/5
@@ -45,15 +86,22 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View();
         }
 
+
         // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        public static String GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmssffff");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CusSendName,CusSendAddress,CusSendPhone,CusRevName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
         {
             if (ModelState.IsValid)
             {
+                string timeStamp = GetTimestamp(DateTime.Now);
+                order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
                 db.Orders.Add(order);
                 db.SaveChanges();
@@ -85,11 +133,11 @@ namespace T1809E_PROJECT_SEM3.Controllers
         }
 
         // POST: Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CusSendName,CusSendAddress,CusSendPhone,CusRevName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Edit([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
         {
             if (ModelState.IsValid)
             {

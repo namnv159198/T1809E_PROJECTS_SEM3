@@ -12,38 +12,42 @@ namespace T1809E_PROJECT_SEM3.Models
         [Key]
         public String ID { get; set; }
         [StringLength(50)]
-        public String CusSendName { get; set; }
+        public String SenderName { get; set; }
         [Required]
-
-        public String CusSendAddress { get; set; }
+        [StringLength(50)]
+        public String SenderAddress { get; set; }
         [Required]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-        [StringLength(50)]
-        public String CusSendPhone { get; set; }
+        public String SenderPhone { get; set; }
         [Required]
-        public String CusRevName { get; set; }
+        [StringLength(50)]
+        public String ReceiverName { get; set; }
+        [Required]
+        public String ReceiverAddress { get; set; }
+        [Required]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public String ReceiverPhone { get; set; }
         [Required]
         [Range(0, double.MaxValue)]
         public Double Distance { get; set; }
         [Required]
         [Range(0, double.MaxValue)]
         public Double Weight { get; set; }
-        [Required]
-        public DateTime CreateAt { get; set; }
+        public DateTime? CreateAt { get; set; }
 
         public Double PriceShip { get; set; }
-        [Required]
-        [Range(0, 100)]
-        public StatusEnum Status { get; set; }
-        public enum StatusEnum
+        public EnumStatusOrder Status { get; set; }
+        public enum EnumStatusOrder
         {
+            
             Packaging = 0,
             ShippingToOffice = 1,
             ShippingToHouse = 2,
             Shipped = 3,
             Finished = 4,
             Cancelled = 5,
-            Deleted = 6
+            Deleted = 6,
+            New = -1
         }
         /* [Display(Name = "Created By")]
          public String CreatedByName { get; set; }
@@ -67,4 +71,3 @@ namespace T1809E_PROJECT_SEM3.Models
 
     }
 }
-    
