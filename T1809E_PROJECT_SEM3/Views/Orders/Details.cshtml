@@ -27,123 +27,137 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4>Order</h4>
-                                <hr />
-                                <dl class="dl-horizontal">
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.CreatedBy.FullName)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.CreatedBy.FullName)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.Service.Type)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.Service.Type)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.UpdatedBy.FullName)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.SenderName)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.SenderName)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.SenderAddress)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.SenderAddress)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.SenderPhone)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.SenderPhone)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.ReceiverName)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.ReceiverName)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.ReceiverAddress)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.ReceiverAddress)
-                                    </dd>
-
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.ReceiverPhone)
-                                    </dt>
-
-                                    <dd>
-                                        @Html.DisplayFor(model => model.ReceiverPhone)
-                                    </dd>
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
 
 
 
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.Distance)
-                                    </dt>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreatedBy.FullName)
+                                        </th>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => model.Distance)
-                                    </dd>
+                                        <td>
+                                            @Html.DisplayFor(model => model.CreatedBy.FullName)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Service.Type)
+                                        </th>
 
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.Weight)
-                                    </dt>
+                                        <td>
+                                            @Html.DisplayFor(model => model.Service.Type)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                                        </th>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => model.Weight)
-                                    </dd>
+                                        <td>
+                                            @Html.DisplayFor(model => model.UpdatedBy.FullName)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.SenderName)
+                                        </th>
 
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.CreateAt)
-                                    </dt>
+                                        <td>
+                                            @Html.DisplayFor(model => model.SenderName)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.SenderAddress)
+                                        </th>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => model.CreateAt)
-                                    </dd>
+                                        <td>
+                                            @Html.DisplayFor(model => model.SenderAddress)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.SenderPhone)
+                                        </th>
 
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.PriceShip)
-                                    </dt>
+                                        <td>
+                                            @Html.DisplayFor(model => model.SenderPhone)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ReceiverName)
+                                        </th>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => model.PriceShip)
-                                    </dd>
+                                        <td>
+                                            @Html.DisplayFor(model => model.ReceiverName)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                        </th>
 
-                                    <dt>
-                                        @Html.DisplayNameFor(model => model.Status)
-                                    </dt>
+                                        <td>
+                                            @Html.DisplayFor(model => model.ReceiverAddress)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ReceiverPhone)
+                                        </th>
 
-                                    <dd>
-                                        @Html.DisplayFor(model => model.Status)
-                                    </dd>
+                                        <td>
+                                            @Html.DisplayFor(model => model.ReceiverPhone)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Distance)
+                                        </th>
 
-                                </dl>
+                                        <td>
+                                            @Html.DisplayFor(model => model.Distance)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Weight)
+                                        </th>
+
+                                        <td>
+                                            @Html.DisplayFor(model => model.Weight)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreateAt)
+                                        </th>
+
+                                        <td>
+                                            @Html.DisplayFor(model => model.CreateAt)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PriceShip)
+                                        </th>
+
+                                        <td>
+                                            @Html.DisplayFor(model => model.PriceShip)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Status)
+                                        </th>
+
+                                        <td>
+                                            @Html.DisplayFor(model => model.Status)
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <p>
                                 @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

@@ -152,6 +152,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
         }
 
         // GET: Orders/Delete/5
+        //public ActionResult Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Order order = db.Orders.Find(id);
+        //    if (order == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(order);
+        //}
+
+        // POST: Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -163,17 +180,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(order);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            order.Status = Order.EnumStatusOrder.Deleted;
+            db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
+            TempData["message"] = "Delete";
             return RedirectToAction("Index");
         }
 
