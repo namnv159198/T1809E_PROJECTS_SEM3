@@ -38,7 +38,8 @@ namespace T1809E_PROJECT_SEM3.Models
         public enum StatusEnum
         {
             Online = 1,
-            Offline = 0
+            Offline = 0,
+            Delete =2
         }
 
     }
