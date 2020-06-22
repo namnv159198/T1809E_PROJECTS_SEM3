@@ -210,6 +210,20 @@
 </div>
 
 <div class="clearfix"></div>
+@section scrips{
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript">
+
+        $('select[name="status"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+
+
+
+    </script>
+}
 @{ if ((string)TempData["message"] == "Create")
     {
         <script type="text/javascript">

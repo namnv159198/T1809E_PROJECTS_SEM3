@@ -22,6 +22,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             var office = (from l in db.Offices
                           select l);
+            if (!status.HasValue)
+            {
+                office = office.Where(p => (int)p.Status != 2);
+            }
             if (status.HasValue)
             {
                 ViewBag.Status = status;
@@ -43,6 +47,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
+
+
             office = office.OrderBy(x => x.ID);
 
             int pageSize = 5;
