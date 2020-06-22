@@ -22,6 +22,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             var office = (from l in db.Offices
                           select l);
+            ViewBag.CurrentSort = sortOrder;
             if (!status.HasValue)
             {
                 office = office.Where(p => (int)p.Status != 2);
@@ -32,7 +33,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
                 office = office.Where(p => (int)p.Status == status.Value);
             }
-
+          
             if (searchString != null)
             {
                 page = 1;
@@ -47,34 +48,34 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
-            // 2. Truy vấn lấy tất cả đường dẫn
+            
             var offices = from l in db.Offices
                           select l;
 
-            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("date-asc"))
+            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))
 
             {
-                ViewBag.StatusSort = "date-desc";
+                ViewBag.StatusSort = "status-desc";
                 ViewBag.SortIcon = "fa fa-sort-asc";
-            
-        }
-            else if (sortOrder.Equals("date-desc"))
+            }
+            else if (sortOrder.Equals("status-desc"))
             {
-                ViewBag.StatusSort = "date-asc";
+                ViewBag.StatusSort = "status-asc";
                 ViewBag.SortIcon = "fa fa-sort-desc";
             }
             switch (sortOrder)
             {
-                case "date-asc":
-                    offices = offices.OrderBy(p => p.Status);
+                case "status-desc":
+                    office = office.OrderByDescending(s => s.Status);
                     break;
-                case "date-desc":
-                    offices = offices.OrderByDescending(p => p.Status);
+                case "status-asc":
+                    office = office.OrderBy(s => s.Status);
+                    break;
+
+                default:
+                    office = office.OrderByDescending(s => s.Status);
                     break;
             }
-
-
-                    office = office.OrderBy(x => x.ID);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
