@@ -28,12 +28,13 @@
                         <strong class="card-title">Edit Account: @Model.UserName</strong>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("ProfileUser", "Manage",FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <input type="hidden" id="UserName" name="UserName" value="@Model.UserName"/>
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-6">
