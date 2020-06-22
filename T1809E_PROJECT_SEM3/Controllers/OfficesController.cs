@@ -17,7 +17,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status)
+        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status, string sortOrder)
         {
 
             var office = (from l in db.Offices
@@ -47,9 +47,34 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
+            // 2. Truy vấn lấy tất cả đường dẫn
+            var offices = from l in db.Offices
+                          select l;
+
+            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("date-asc"))
+
+            {
+                ViewBag.StatusSort = "date-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            
+        }
+            else if (sortOrder.Equals("date-desc"))
+            {
+                ViewBag.StatusSort = "date-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            switch (sortOrder)
+            {
+                case "date-asc":
+                    offices = offices.OrderBy(p => p.Status);
+                    break;
+                case "date-desc":
+                    offices = offices.OrderByDescending(p => p.Status);
+                    break;
+            }
 
 
-            office = office.OrderBy(x => x.ID);
+                    office = office.OrderBy(x => x.ID);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
