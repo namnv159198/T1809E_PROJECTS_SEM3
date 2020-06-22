@@ -99,7 +99,31 @@
                                         <td>
                                             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID, })
+                                            <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+
+
+                                            <div class="modal" id="myModal_@item.ID">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Message</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.Type </span> ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            @using (Html.BeginForm("Delete", "Services", new { id = item.ID }))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                                <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -120,3 +144,69 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+        function Submit() {
+            if (confirm("Are you sure you want to submit ?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+</script>
+@{ if ((string)TempData["message"] == "Create")
+    {
+        <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Created',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        </script>
+    }
+    else if ((string)TempData["message"] == "Edit")
+    {
+        <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Edited',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        </script>
+    }
+    else if ((string)TempData["message"] == "Fail")
+    {
+        <script type="text/javascript">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+        </script>
+    }
+    else if ((string)TempData["message"] == "Fail Delete")
+    {
+        <script type="text/javascript">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'It is already deleted!'
+                })
+        </script>
+    }
+    else if ((string)TempData["message"] == "Delete")
+    {
+        <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+        </script>
+    }
+}

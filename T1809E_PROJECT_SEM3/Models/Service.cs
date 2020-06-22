@@ -25,8 +25,9 @@ namespace T1809E_PROJECT_SEM3.Models
         public StatusEnumService Status { get; set; }
         public enum StatusEnumService
         {
-            online = 1,
-            offline = 0
+            Online = 1,
+            Offline = 0,
+            Deleted = -1
         }
     }
 }
