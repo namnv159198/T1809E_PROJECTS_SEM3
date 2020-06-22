@@ -57,7 +57,7 @@
                                         <div class="col-lg-4 col-md-10">
                                             <div class="pull-left">
                                                 <p class="padding">
-                                                    Search time
+                                                    Search By Time
                                                 </p>
                                                 <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
                                             </div>
@@ -85,14 +85,14 @@
                                             Service
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                </th>*@
                                         <th>
                                             Sender Name
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.SenderAddress)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.SenderAddress)
+                </th>*@
                                         <th>
                                             Sender Phone
                                         </th>
@@ -100,8 +100,8 @@
                                             Receiver Name
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.ReceiverAddress)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.ReceiverAddress)
+                </th>*@
                                         <th>
                                             Receiver Phone
                                         </th>
@@ -136,14 +136,14 @@
                                                 @Html.DisplayFor(modelItem => item.Service.Type)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SenderName)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.SenderAddress)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.SenderAddress)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SenderPhone)
                                             </td>
@@ -151,8 +151,8 @@
                                                 @Html.DisplayFor(modelItem => item.ReceiverName)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.ReceiverAddress)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ReceiverPhone)
                                             </td>
@@ -303,51 +303,4 @@
         });
     </script>
 
-
-    @{ if ((string)TempData["message"] == "Create")
-        {
-            <script type="text/javascript">
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Created',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            </script>
-        }
-        else if ((string)TempData["message"] == "Edit")
-        {
-            <script type="text/javascript">
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Edited',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            </script>
-        }
-        else if ((string)TempData["message"] == "Fail")
-        {
-            <script type="text/javascript">
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!'
-                })
-            </script>
-        }
-        else if ((string)TempData["message"] == "Delete")
-        {
-            <script type="text/javascript">
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Deleted',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            </script>
-        }
-    }
+}

@@ -20,12 +20,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             var order = (from l in db.Orders
                           select l);
-            if (status.HasValue)
-            {
-                ViewBag.Status = status;
-
-                order = order.Where(p => (int)p.Status == status.Value);
-            }
+           
             if (start != null)
             {
                 var startDate = start.GetValueOrDefault().Date;
@@ -37,6 +32,16 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 var endDate = end.GetValueOrDefault().Date;
                 endDate = endDate.Date + new TimeSpan(23, 59, 59);
                 order = order.Where(p => p.CreateAt <= endDate);
+            }
+            if (!status.HasValue)
+            {
+                order = order.Where(p => (int)p.Status != 6);
+            }
+            if (status.HasValue)
+            {
+                ViewBag.Status = status;
+
+                order = order.Where(p => (int)p.Status == status.Value);
             }
 
             if (searchString != null)
