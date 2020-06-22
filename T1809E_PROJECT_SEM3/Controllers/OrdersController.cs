@@ -16,7 +16,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Orders
-        public ActionResult Index(string searchString, string currentFilter, int? page, int? status, DateTime? start, DateTime? end)
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? status, DateTime? start, DateTime? end, string sortOrder)
         {
             var order = (from l in db.Orders
                           select l);
@@ -43,7 +43,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
                 order = order.Where(p => (int)p.Status == status.Value);
             }
-
+            ViewBag.CurrentSort = sortOrder;
             if (searchString != null)
             {
                 page = 1;
@@ -59,7 +59,33 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 order = order.Where(s => s.ID.Contains(searchString)||s.SenderName.Contains(searchString)||s.SenderPhone.Contains(searchString)||
                 s.ReceiverName.Contains(searchString)||s.ReceiverPhone.Contains(searchString));
             }
-            order = order.OrderBy(x => x.ID);
+            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("date-asc"))
+
+            {
+                ViewBag.DateSort = "date-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+            else if (sortOrder.Equals("date-desc"))
+            {
+                ViewBag.DateSort = "date-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            switch (sortOrder) 
+            {
+
+                case "date-asc":
+                    order = order.OrderBy(p => p.CreateAt);
+                    break;
+                case "date-desc":
+                    order = order.OrderByDescending(p => p.CreateAt);
+                    break;
+
+                default:
+                    order = order.OrderByDescending(p => p.CreateAt);
+                    ViewBag.SortIcon = "fa fa-sort";
+                    break;
+            }
+            //order = order.OrderBy(x => x.ID);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
