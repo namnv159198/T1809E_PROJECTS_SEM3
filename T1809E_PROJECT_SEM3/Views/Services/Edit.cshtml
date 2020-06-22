@@ -36,33 +36,33 @@
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     @Html.HiddenFor(model => model.ID)
 
-                                    <div class="form-group">
+                                    <div class="form-group row m-3">
                                         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
+                                        <div class="col-md-6">
                                             @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group row m-3">
                                         @Html.LabelFor(model => model.PricePerKm, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
+                                        <div class="col-md-6">
                                             @Html.EditorFor(model => model.PricePerKm, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.PricePerKm, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group row m-3">
                                         @Html.LabelFor(model => model.PricePerKg, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
+                                        <div class="col-md-6">
                                             @Html.EditorFor(model => model.PricePerKg, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.PricePerKg, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group row m-3">
                                         @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
+                                        <div class="col-md-2">
                                             @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                         </div>
@@ -70,7 +70,7 @@
 
                                     <div class="form-group">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Save" class="btn btn-default" />
+                                            <input type="submit" value="Save" class="btn btn-primary" />
                                         </div>
                                     </div>
                                 </div>

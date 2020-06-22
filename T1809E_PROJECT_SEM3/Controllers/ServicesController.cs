@@ -79,9 +79,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
+                TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
-
+            TempData["message"] = "Fail";
             return View(service);
         }
 
@@ -111,8 +112,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 db.Entry(service).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = "Edit";
                 return RedirectToAction("Index");
             }
+            TempData["message"] = "Fail";
             return View(service);
         }
 
@@ -128,17 +131,15 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(service);
-        }
-
-        // POST: Services/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Service service = db.Services.Find(id);
-            db.Services.Remove(service);
+            if (service.Status == Service.StatusEnumService.offline)
+            {
+                TempData["message"] = "Fail Delete";
+                return RedirectToAction("Index");
+            }
+            service.Status = Service.StatusEnumService.offline;
+            db.Entry(service).State = EntityState.Modified;
             db.SaveChanges();
+            TempData["message"] = "Delete";
             return RedirectToAction("Index");
         }
 

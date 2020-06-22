@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="">
- <!--<![endif]-->
+<!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,6 +85,76 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="~/Scripts/CustomScripts/CalendarFilter.js"></script>
+
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script type="text/javascript">
+        function Submit() {
+            if (confirm("Are you sure you want to submit ?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+    @{ if ((string)TempData["message"] == "Create")
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Created',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            </script>
+        }
+        else if ((string)TempData["message"] == "Edit")
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Edited',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            </script>
+        }
+        else if ((string)TempData["message"] == "Fail")
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                })
+            </script>
+        }
+        else if ((string)TempData["message"] == "Fail Delete")
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'It is already deleted!'
+                })
+            </script>
+        }
+        else if ((string)TempData["message"] == "Delete")
+        {
+            <script type="text/javascript">
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            </script>
+        }
+    }
     @RenderSection("scripts", required: false)
     <!--Local Stuff-->
     <script>
@@ -282,3 +352,4 @@
     </script>
 </body>
 </html>
+
