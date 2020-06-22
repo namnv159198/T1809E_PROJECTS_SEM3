@@ -38,7 +38,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 services = services.Where(s => s.Type.Contains(searchString));
             }
-            services = services.OrderBy(x => x.ID);
+            services = services.OrderByDescending(x => x.Status);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -75,7 +75,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
-                service.Status = Service.StatusEnumService.online; 
+                service.Status = Service.StatusEnumService.Online; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
@@ -131,12 +131,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            if (service.Status == Service.StatusEnumService.offline)
+            if (service.Status == Service.StatusEnumService.Deleted)
             {
                 TempData["message"] = "Fail Delete";
                 return RedirectToAction("Index");
             }
-            service.Status = Service.StatusEnumService.offline;
+            service.Status = Service.StatusEnumService.Deleted;
             db.Entry(service).State = EntityState.Modified;
             db.SaveChanges();
             TempData["message"] = "Delete";
