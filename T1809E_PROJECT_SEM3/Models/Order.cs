@@ -68,6 +68,6 @@ namespace T1809E_PROJECT_SEM3.Models
         public ApplicationUser UpdatedBy { get; set; }
         [ForeignKey("ServiceId")]
         public virtual Service Service { get; set; }
-
+        public static object StatusEnum { get; internal set; }
     }
 }

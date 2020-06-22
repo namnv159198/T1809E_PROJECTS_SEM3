@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 }
+
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Office Manage</h1>
+                        <h1>Order Manage</h1>
                     </div>
                 </div>
             </div>
@@ -40,9 +41,7 @@
                                                 Search By Keyword
                                             </p>
                                             <div class="input-group m-bot15">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit" style="height:34px"> Search <i class="fa fa-search"></i></button>
-                                                </span>
+                                                <button type="submit" class="btn btn-outline-link">Search <i class="fa fa-search"></i></button>
                                                 @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
                                             </div>
                                         </div>
@@ -58,7 +57,7 @@
                                         <div class="col-lg-4 col-md-10">
                                             <div class="pull-left">
                                                 <p class="padding">
-                                                    Tìm Theo Thời Gian
+                                                    Search By Time
                                                 </p>
                                                 <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
                                             </div>
@@ -66,38 +65,45 @@
                                     </div>
 
                                 }
-
-                                <p class="btn btn-outline-primary">
-                                    @Html.ActionLink("Create New +", "Create")
-                                </p>
+                                <div style="padding-top:20px;">
+                                    <p class="btn btn-outline-primary">
+                                        @Html.ActionLink("Create New +", "Create")
+                                    </p>
+                                </div>
+                                @if (Model.Count == 0)
+                                {
+                                    <div style="font-style:italic ; text-align:center ; font-size: 1.2em;" class="padding">
+                                        (NO RESULT IS FOUND)
+                                    </div>
+                                }
                                 <table class="table">
                                     <tr>
                                         <th>
                                             ID
                                         </th>
                                         <th>
-                                            Service.Type
+                                            Service
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                </th>*@
                                         <th>
-                                            SenderName
+                                            Sender Name
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.SenderAddress)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.SenderAddress)
+                </th>*@
                                         <th>
-                                            SenderPhone
+                                            Sender Phone
                                         </th>
                                         <th>
-                                            ReceiverName
+                                            Receiver Name
                                         </th>
                                         @*<th>
-                                                @Html.DisplayNameFor(model => model.ReceiverAddress)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => model.ReceiverAddress)
+                </th>*@
                                         <th>
-                                            ReceiverPhone
+                                            Receiver Phone
                                         </th>
 
                                         <th>
@@ -110,12 +116,14 @@
                                             CreateAt
                                         </th>
                                         <th>
-                                            PriceShip
+                                            Price
                                         </th>
                                         <th>
                                             Status
                                         </th>
-                                        <th></th>
+                                        <th>
+                                            Action
+                                        </th>
                                     </tr>
 
                                     @foreach (var item in Model)
@@ -128,14 +136,14 @@
                                                 @Html.DisplayFor(modelItem => item.Service.Type)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SenderName)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.SenderAddress)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.SenderAddress)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.SenderPhone)
                                             </td>
@@ -143,8 +151,8 @@
                                                 @Html.DisplayFor(modelItem => item.ReceiverName)
                                             </td>
                                             @*<td>
-                                                    @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                                                </td>*@
+                        @Html.DisplayFor(modelItem => item.ReceiverAddress)
+                    </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.ReceiverPhone)
                                             </td>
@@ -165,9 +173,47 @@
                                                 @Html.DisplayFor(modelItem => item.Status)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                                <a href="@Url.Action("Edit", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightblue"><i class="fa fa-pencil"></i></a> |
+                                                <a href="@Url.Action("Details", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightgreen"><i class="fa fa-info-circle"></i></a>  |
+                                                <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                <div class="modal" id="myModal_@item.ID">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Message</h4>
+
+                                                            </div>
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.SenderName </span> ?
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <!-- Cỏntroller -->
+                                                                @using (Html.BeginForm("Delete", "Orders", new { id = item.ID }))
+                                                                {
+                                                                    @Html.AntiForgeryToken()
+                                                                    <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                                    <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                                }
+
+
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
@@ -256,4 +302,5 @@
             $('form[name="search-form"]').submit();
         });
     </script>
+
 }
