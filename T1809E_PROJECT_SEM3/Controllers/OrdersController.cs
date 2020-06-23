@@ -20,7 +20,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             var order = (from l in db.Orders
                           select l);
-           
+            ViewBag.CurrentSort = sortOrder;
+
+
             if (start != null)
             {
                 var startDate = start.GetValueOrDefault().Date;
@@ -43,7 +45,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
                 order = order.Where(p => (int)p.Status == status.Value);
             }
-            ViewBag.CurrentSort = sortOrder;
             if (searchString != null)
             {
                 page = 1;
