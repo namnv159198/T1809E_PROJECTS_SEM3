@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/style.css">
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+     var Iconsort = ViewBag.SortIcon;
 }
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
@@ -80,7 +81,7 @@
                                                 Email
                                             </th>
                                             <th>
-                                                VAT
+                                                VAT(%)
                                             </th>
                                             <th>
                                                 Phone
@@ -95,7 +96,8 @@
                                                 Province
                                             </th>
                                             <th>
-                                                Status
+                                                @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSort})
+                                                <i class="@Iconsort" aria-hidden="true"></i>
                                             </th>
                                             <th>
                                                 Action
@@ -210,6 +212,20 @@
 </div>
 
 <div class="clearfix"></div>
+@section scrips{
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript">
+
+        $('select[name="status"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+
+
+
+    </script>
+}
 @{ if ((string)TempData["message"] == "Create")
     {
         <script type="text/javascript">

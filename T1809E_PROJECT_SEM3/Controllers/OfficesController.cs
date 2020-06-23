@@ -17,18 +17,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status)
+        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status, string sortOrder)
         {
 
             var office = (from l in db.Offices
                           select l);
+            ViewBag.CurrentSort = sortOrder;
+            if (!status.HasValue)
+            {
+                office = office.Where(p => (int)p.Status != 2);
+            }
             if (status.HasValue)
             {
                 ViewBag.Status = status;
 
                 office = office.Where(p => (int)p.Status == status.Value);
             }
-
+          
             if (searchString != null)
             {
                 page = 1;
@@ -43,7 +48,34 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
-            office = office.OrderBy(x => x.ID);
+            
+            var offices = from l in db.Offices
+                          select l;
+
+            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))
+
+            {
+                ViewBag.StatusSort = "status-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+            else if (sortOrder.Equals("status-desc"))
+            {
+                ViewBag.StatusSort = "status-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            switch (sortOrder)
+            {
+                case "status-desc":
+                    office = office.OrderByDescending(s => s.Status);
+                    break;
+                case "status-asc":
+                    office = office.OrderBy(s => s.Status);
+                    break;
+
+                default:
+                    office = office.OrderByDescending(s => s.Status);
+                    break;
+            }
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
