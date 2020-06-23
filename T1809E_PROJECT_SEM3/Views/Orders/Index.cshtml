@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/style.css">
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    var Iconsort = ViewBag.SortIcon;
 }
+
 
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
@@ -113,7 +115,9 @@
                                             Weight
                                         </th>
                                         <th>
-                                            CreateAt
+                                            @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
+                                            <i class="@Iconsort" aria-hidden="true"></i>
+
                                         </th>
                                         <th>
                                             Price
@@ -224,7 +228,7 @@
 
 
                                 @Html.PagedListPager(Model, page => Url.Action("Index",
-                                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
+                                    new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentFilter, status = ViewBag.Status }))
 
                             </div>
 
