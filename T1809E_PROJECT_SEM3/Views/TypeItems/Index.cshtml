@@ -1,0 +1,130 @@
+﻿@model IEnumerable<T1809E_PROJECT_SEM3.Models.TypeItem>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+}
+
+
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Type Of Item Manage</h1>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Type Of Item List</strong>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    @Html.ActionLink("Create New", "Create")
+                                </p>
+                                <table class="table">
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Description
+                                        </th>
+                                        <th>
+                                            Percent
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Percent)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                              
+                                                <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.Id">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+
+
+                                                <div class="modal" id="myModal_@item.Id">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Message</h4>
+
+                                                            </div>
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body">
+                                                                <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.Name </span> ?
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <!-- Cỏntroller -->
+                                                                @using (Html.BeginForm("Delete", "TypeItems", new { id = item.Id }))
+                                                                {
+                                                                    @Html.AntiForgeryToken()
+                                                                    <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                                    <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                                }
+
+
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+</div>
