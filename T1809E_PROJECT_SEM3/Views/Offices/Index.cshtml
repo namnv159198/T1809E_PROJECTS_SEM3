@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/style.css">
     <link rel="stylesheet" href="~/AdminTemplate/assets/css/cs-skin-elastic.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-     var Iconsort = ViewBag.SortIcon;
 }
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
@@ -213,7 +212,7 @@
 </div>
 
 <div class="clearfix"></div>
-@section scrips{
+@*@section scrips{
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -226,7 +225,7 @@
 
 
     </script>
-}
+}*@
 @{ if ((string)TempData["message"] == "Create")
     {
         <script type="text/javascript">

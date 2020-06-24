@@ -42,5 +42,6 @@ namespace T1809E_PROJECT_SEM3.Models
         public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.Office> Offices { get; set; }
 
         public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.Order> Orders { get; set; }
+        public System.Data.Entity.DbSet<T1809E_PROJECT_SEM3.Models.TypeItem> TypeItems { get; set; }
     }
 }

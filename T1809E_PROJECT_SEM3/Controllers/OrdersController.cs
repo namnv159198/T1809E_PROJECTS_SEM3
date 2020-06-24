@@ -133,10 +133,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
+                TypeItem typeItem = db.TypeItems.Find(order.TypeItemId);
                 Service service = db.Services.Find(order.ServiceId);
                 string timeStamp = GetTimestamp(DateTime.Now);
                 order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
+                order.Status = Order.EnumStatusOrder.New;
                 //calculator price ship
                 order.PriceShip = 0;
                 
@@ -147,7 +149,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 {
                     heso = 1;
                 }
-                order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight);
+                order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight)*((double)(100+ typeItem.Percent)/100);
                 order.PriceShip = Math.Round(order.PriceShip, 2);
                 if(order.PriceShip < priceStep)
                 {
