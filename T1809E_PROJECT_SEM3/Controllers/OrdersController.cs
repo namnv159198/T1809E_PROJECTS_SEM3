@@ -123,7 +123,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         public static String GetTimestamp(DateTime value)
         {
-            return value.ToString("yyyyMMddHHmmssffff");
+            return value.ToString("ddHHmmssffff");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -131,9 +131,27 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
+                Service service = db.Services.Find(order.ServiceId);
                 string timeStamp = GetTimestamp(DateTime.Now);
                 order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
+                //calculator price ship
+                order.PriceShip = 0;
+                
+                var step = service.DistanceStep;
+                var priceStep = service.PriceStep;
+                var heso = order.Distance / step;
+                if (order.Distance < service.DistanceStep)
+                {
+                    heso = 1;
+                }
+                order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight);
+                order.PriceShip = Math.Round(order.PriceShip, 2);
+                if(order.PriceShip < priceStep)
+                {
+                    order.PriceShip = priceStep;
+                }
+                
                 db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -145,7 +163,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(order);
         }
 
-        // GET: Orders/Edit/5
+        // GET: Orders/Edit/5150
         public ActionResult Edit(string id)
         {
             if (id == null)

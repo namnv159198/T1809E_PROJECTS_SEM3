@@ -71,7 +71,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Type,PricePerKm,PricePerKg")] Service service)
+        public ActionResult Create([Bind(Include = "Type,PriceWeight,PriceStep,DistanceStep")] Service service)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg, Status")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Type,PriceStep,DistanceStep,PriceWeight, Status")] Service service)
         {
             if (ModelState.IsValid)
             {
