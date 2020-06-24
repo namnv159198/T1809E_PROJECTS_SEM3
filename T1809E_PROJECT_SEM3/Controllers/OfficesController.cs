@@ -17,7 +17,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status, string sortOrder)
+
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter , int? page ,int? status)
         {
 
             var office = (from l in db.Offices
@@ -48,9 +49,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
-            
-            var offices = from l in db.Offices
-                          select l;
 
             if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))
 

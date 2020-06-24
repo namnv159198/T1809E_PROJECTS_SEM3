@@ -66,11 +66,15 @@
                                     <th>
                                         Type
                                     </th>
+
                                     <th>
-                                        Price Per Km
+                                        Distance Step
                                     </th>
                                     <th>
-                                        Price Per Kg
+                                        Price Step
+                                    </th>
+                                    <th>
+                                        Coefficient Weight
                                     </th>
                                     <th>
                                         Description
@@ -92,11 +96,13 @@
                                         @Html.DisplayFor(modelItem => item.Type)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PricePerKm)
+                                        @Html.DisplayFor(modelItem => item.DistanceStep)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PricePerKg)
+                                        @Html.DisplayFor(modelItem => item.PriceStep)
                                     </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PriceWeight)
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Description)
                                     </td>

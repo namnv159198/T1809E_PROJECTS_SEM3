@@ -114,6 +114,12 @@
                                                                     <div class="col col-md-5"><label class=" form-control-label">Select Role:</label></div>
                                                                     <div class="col col-md-7">
                                                                         <div class="form-check">
+                                                                            <div class="checkbox">
+                                                                                <label for="checkbox1" class="form-check-label ">
+
+                                                                                    <input class="form-check-input" id="checkAll" type="checkbox"/> Check All
+                                                                                </label>
+                                                                            </div>
                                                                             @foreach (var role in Model.roleList)
                                                                             {
 
@@ -199,3 +205,10 @@
     </script>
     TempData["message"] = null;
 }
+@section Scripts{
+    <script type="text/javascript">
+       $("#checkAll").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+    </script>
+    }

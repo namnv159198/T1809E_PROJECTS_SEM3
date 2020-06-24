@@ -60,14 +60,17 @@ namespace T1809E_PROJECT_SEM3.Models
          public virtual ApplicationUser UpdateBy { get; set; }
  */
         public string ServiceId { get; set; }
+       
+        [ForeignKey("ServiceId")]
+        public virtual Service Service { get; set; }
         public string CreatedById { get; set; }
         public string UpdatedById { get; set; }
         [ForeignKey("CreatedById")]
         public ApplicationUser CreatedBy { get; set; }
         [ForeignKey("UpdatedById")]
         public ApplicationUser UpdatedBy { get; set; }
-        [ForeignKey("ServiceId")]
-        public virtual Service Service { get; set; }
+        
+        
         public static object StatusEnum { get; internal set; }
         public int TypeItemId { get; set; }
         [ForeignKey("TypeItemId")]
