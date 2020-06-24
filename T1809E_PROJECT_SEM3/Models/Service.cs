@@ -22,10 +22,14 @@ namespace T1809E_PROJECT_SEM3.Models
         [Required]
         [Range (double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
         public double PriceWeight { get; set; }
+      
         [Required]
         [Display(Name ="Distance Step")]
         [Range(0, int.MaxValue,ErrorMessage = "The {0} field must be larger than 0")]
         public int DistanceStep { get; set; }
+      
+        public string Description { get; set; }
+      
         [Display(Name = "Status")]
         public StatusEnumService Status { get; set; }
         public enum StatusEnumService

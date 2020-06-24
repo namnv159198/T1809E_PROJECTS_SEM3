@@ -20,7 +20,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             var order = (from l in db.Orders
                           select l);
-           
+            ViewBag.CurrentSort = sortOrder;
+
+
             if (start != null)
             {
                 var startDate = start.GetValueOrDefault().Date;
@@ -43,7 +45,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
                 order = order.Where(p => (int)p.Status == status.Value);
             }
-            ViewBag.CurrentSort = sortOrder;
             if (searchString != null)
             {
                 page = 1;
@@ -114,6 +115,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName");
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type");
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
             return View();
         }
 
@@ -127,7 +129,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -160,6 +162,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name" , order.TypeItemId); 
             return View(order);
         }
 
@@ -178,6 +181,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             return View(order);
         }
 
@@ -186,7 +190,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Edit([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -197,6 +201,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             return View(order);
         }
 

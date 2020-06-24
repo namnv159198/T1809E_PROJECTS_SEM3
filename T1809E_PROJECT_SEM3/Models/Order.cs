@@ -72,5 +72,8 @@ namespace T1809E_PROJECT_SEM3.Models
         
         
         public static object StatusEnum { get; internal set; }
+        public int TypeItemId { get; set; }
+        [ForeignKey("TypeItemId")]
+        public virtual TypeItem TypeItem { get; set; }
     }
 }

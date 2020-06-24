@@ -17,18 +17,24 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
+
         public ActionResult Index(string sortOrder, string searchString, string currentFilter , int? page ,int? status)
         {
 
             var office = (from l in db.Offices
                           select l);
+            ViewBag.CurrentSort = sortOrder;
+            if (!status.HasValue)
+            {
+                office = office.Where(p => (int)p.Status != 2);
+            }
             if (status.HasValue)
             {
                 ViewBag.Status = status;
 
                 office = office.Where(p => (int)p.Status == status.Value);
             }
-
+          
             if (searchString != null)
             {
                 page = 1;
@@ -43,7 +49,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
-
 
             if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))
 
