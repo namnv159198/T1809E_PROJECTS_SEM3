@@ -69,5 +69,8 @@ namespace T1809E_PROJECT_SEM3.Models
         [ForeignKey("ServiceId")]
         public virtual Service Service { get; set; }
         public static object StatusEnum { get; internal set; }
+        public int TypeItemId { get; set; }
+        [ForeignKey("TypeItemId")]
+        public virtual TypeItem TypeItem { get; set; }
     }
 }

@@ -87,14 +87,14 @@
                                             Service
                                         </th>
                                         @*<th>
-                    @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-                </th>*@
+            @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+        </th>*@
                                         <th>
                                             Sender Name
                                         </th>
                                         @*<th>
-                    @Html.DisplayNameFor(model => model.SenderAddress)
-                </th>*@
+            @Html.DisplayNameFor(model => model.SenderAddress)
+        </th>*@
                                         <th>
                                             Sender Phone
                                         </th>
@@ -102,8 +102,8 @@
                                             Receiver Name
                                         </th>
                                         @*<th>
-                    @Html.DisplayNameFor(model => model.ReceiverAddress)
-                </th>*@
+            @Html.DisplayNameFor(model => model.ReceiverAddress)
+        </th>*@
                                         <th>
                                             Receiver Phone
                                         </th>
@@ -123,8 +123,12 @@
                                             Price
                                         </th>
                                         <th>
+                                            Type Item
+                                        </th>
+                                        <th>
                                             Status
                                         </th>
+
                                         <th>
                                             Action
                                         </th>
@@ -132,94 +136,97 @@
 
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ID)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Service.Type)
-                                            </td>
-                                            @*<td>
-                        @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                    </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.SenderName)
-                                            </td>
-                                            @*<td>
-                        @Html.DisplayFor(modelItem => item.SenderAddress)
-                    </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.SenderPhone)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ReceiverName)
-                                            </td>
-                                            @*<td>
-                        @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                    </td>*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.ReceiverPhone)
-                                            </td>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Service.Type)
+                                    </td>
+                                    @*<td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+        </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SenderName)
+                                    </td>
+                                    @*<td>
+            @Html.DisplayFor(modelItem => item.SenderAddress)
+        </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SenderPhone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReceiverName)
+                                    </td>
+                                    @*<td>
+            @Html.DisplayFor(modelItem => item.ReceiverAddress)
+        </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReceiverPhone)
+                                    </td>
 
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Distance)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Weight)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.CreateAt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.PriceShip)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Status)
-                                            </td>
-                                            <td>
-                                                <a href="@Url.Action("Edit", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightblue"><i class="fa fa-pencil"></i></a> |
-                                                <a href="@Url.Action("Details", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightgreen"><i class="fa fa-info-circle"></i></a>  |
-                                                <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                                <div class="modal" id="myModal_@item.ID">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Distance)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Weight)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreateAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PriceShip)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TypeItem.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightblue"><i class="fa fa-pencil"></i></a> |
+                                        <a href="@Url.Action("Details", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightgreen"><i class="fa fa-info-circle"></i></a>  |
+                                        <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <div class="modal" id="myModal_@item.ID">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
 
-                                                            <!-- Modal Header -->
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Message</h4>
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Message</h4>
 
-                                                            </div>
+                                                    </div>
 
-                                                            <!-- Modal body -->
-                                                            <div class="modal-body">
-                                                                <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.SenderName </span> ?
-                                                            </div>
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.SenderName </span> ?
+                                                    </div>
 
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <!-- Cỏntroller -->
-                                                                @using (Html.BeginForm("Delete", "Orders", new { id = item.ID }))
-                                                                {
-                                                                    @Html.AntiForgeryToken()
-                                                                    <input type="submit" value="Delete" class="btn btn-default btn-danger" />
-                                                                    <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
-                                                                }
-
-
-                                                            </div>
-
-                                                        </div>
-
-
-
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <!-- Cỏntroller -->
+                                                        @using (Html.BeginForm("Delete", "Orders", new { id = item.ID }))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                            <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                        }
 
 
                                                     </div>
+
                                                 </div>
-                                            </td>
-                                        </tr>
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                                     }
 
                                 </table>

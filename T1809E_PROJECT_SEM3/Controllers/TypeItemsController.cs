@@ -46,7 +46,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Percent")] TypeItem typeItem)
+        public ActionResult Create([Bind(Include = "ID,Name,Description,Percent")] TypeItem typeItem)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Percent")] TypeItem typeItem)
+        public ActionResult Edit([Bind(Include = "ID,Name,Description,Percent")] TypeItem typeItem)
         {
             if (ModelState.IsValid)
             {
