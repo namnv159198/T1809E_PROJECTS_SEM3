@@ -65,15 +65,15 @@
                                                 @Html.DisplayFor(modelItem => item.Percent)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                               
-                                                <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.Id">
+                                                <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
 
 
-                                                <div class="modal" id="myModal_@item.Id">
+                                                <div class="modal" id="myModal_@item.ID">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
 
@@ -91,7 +91,7 @@
                                                             <!-- Modal footer -->
                                                             <div class="modal-footer">
                                                                 <!-- Cỏntroller -->
-                                                                @using (Html.BeginForm("Delete", "TypeItems", new { id = item.Id }))
+                                                                @using (Html.BeginForm("Delete", "TypeItems", new { id = item.ID }))
                                                                 {
                                                                     @Html.AntiForgeryToken()
                                                                     <input type="submit" value="Delete" class="btn btn-default btn-danger" />

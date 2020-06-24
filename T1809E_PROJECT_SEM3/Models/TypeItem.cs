@@ -9,7 +9,7 @@ namespace T1809E_PROJECT_SEM3.Models
     public class TypeItem
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
