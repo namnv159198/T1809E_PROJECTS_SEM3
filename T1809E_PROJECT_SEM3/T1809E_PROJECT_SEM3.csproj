@@ -182,12 +182,13 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\TypeItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006240707449_Update.cs" />
-    <Compile Include="Migrations\202006240707449_Update.Designer.cs">
-      <DependentUpon>202006240707449_Update.cs</DependentUpon>
+    <Compile Include="Migrations\202006240736000_Update.cs" />
+    <Compile Include="Migrations\202006240736000_Update.Designer.cs">
+      <DependentUpon>202006240736000_Update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\TypeItem.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -552,6 +554,11 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Manage\ProfileUser.cshtml" />
+    <Content Include="Views\TypeItems\Create.cshtml" />
+    <Content Include="Views\TypeItems\Delete.cshtml" />
+    <Content Include="Views\TypeItems\Details.cshtml" />
+    <Content Include="Views\TypeItems\Edit.cshtml" />
+    <Content Include="Views\TypeItems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -570,8 +577,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006240707449_Update.resx">
-      <DependentUpon>202006240707449_Update.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006240736000_Update.resx">
+      <DependentUpon>202006240736000_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
