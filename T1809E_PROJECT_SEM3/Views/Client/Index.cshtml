@@ -65,5 +65,31 @@
             </div>
         </div>
     </section>
-
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-start mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate">
+                    <span class="subheading">featured</span>
+                    <h2><strong>Featured</strong> Services</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                @foreach (var s in Model.Services)
+                {
+                    <div class="col-md-3 ftco-animate">
+                        <div class="blog-entry align-self-stretch">
+                            <a href="blog-single.html" class="block-20" style="background-image: url('https://www.kindpng.com/picc/m/354-3545228_null-deployment-white-icons-png-transparent-png.png'); ">
+                            </a>
+                            <div class="text p-4 d-block">
+                                <h3 class="heading mt-3"><a href="#">@s.Type</a></h3>
+                                <div class="meta mb-3">
+                                    <div class="listing">@s.Description</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
 

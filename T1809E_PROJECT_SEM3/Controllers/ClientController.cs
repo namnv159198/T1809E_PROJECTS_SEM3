@@ -15,7 +15,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             ClientViewModel client = new ClientViewModel();
             client.Services = db.Services.AsEnumerable().Take(10).ToList();
-            client.Offices = db.Offices.AsEnumerable().ToList();
+            client.Offices = db.Offices.AsEnumerable().Take(3).ToList();
             return View(client);
         }
     }
