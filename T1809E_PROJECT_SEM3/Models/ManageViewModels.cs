@@ -7,6 +7,8 @@ namespace T1809E_PROJECT_SEM3.Models
 {
     public class IndexViewModel
     {
+        public string FullName { get; set; }
+        public string Email { get; set; }
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
@@ -41,6 +43,7 @@ namespace T1809E_PROJECT_SEM3.Models
 
     public class ChangePasswordViewModel
     {
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
@@ -57,6 +60,7 @@ namespace T1809E_PROJECT_SEM3.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
 
     public class AddPhoneNumberViewModel
     {

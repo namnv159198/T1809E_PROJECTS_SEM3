@@ -115,6 +115,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName");
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type");
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
             return View();
         }
 
@@ -124,17 +125,37 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         public static String GetTimestamp(DateTime value)
         {
-            return value.ToString("yyyyMMddHHmmssffff");
+            return value.ToString("ddHHmmssffff");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
         {
             if (ModelState.IsValid)
             {
+                TypeItem typeItem = db.TypeItems.Find(order.TypeItemId);
+                Service service = db.Services.Find(order.ServiceId);
                 string timeStamp = GetTimestamp(DateTime.Now);
                 order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
+                order.Status = Order.EnumStatusOrder.New;
+                //calculator price ship
+                order.PriceShip = 0;
+                
+                var step = service.DistanceStep;
+                var priceStep = service.PriceStep;
+                var heso = order.Distance / step;
+                if (order.Distance < service.DistanceStep)
+                {
+                    heso = 1;
+                }
+                order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight)*((double)(100+ typeItem.Percent)/100);
+                order.PriceShip = Math.Round(order.PriceShip, 2);
+                if(order.PriceShip < priceStep)
+                {
+                    order.PriceShip = priceStep;
+                }
+                
                 db.Orders.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -143,10 +164,11 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name" , order.TypeItemId); 
             return View(order);
         }
 
-        // GET: Orders/Edit/5
+        // GET: Orders/Edit/5150
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -161,6 +183,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             return View(order);
         }
 
@@ -169,7 +192,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById")] Order order)
+        public ActionResult Edit([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -180,6 +203,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             return View(order);
         }
 

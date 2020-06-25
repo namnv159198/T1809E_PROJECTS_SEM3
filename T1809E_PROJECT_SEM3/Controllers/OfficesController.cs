@@ -17,18 +17,24 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Offices
-        public ActionResult Index(string searchString, string currentFilter , int? page ,int? status)
+
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter , int? page ,int? status)
         {
 
             var office = (from l in db.Offices
                           select l);
+            ViewBag.CurrentSort = sortOrder;
+            if (!status.HasValue)
+            {
+                office = office.Where(p => (int)p.Status != 2);
+            }
             if (status.HasValue)
             {
                 ViewBag.Status = status;
 
                 office = office.Where(p => (int)p.Status == status.Value);
             }
-
+          
             if (searchString != null)
             {
                 page = 1;
@@ -43,7 +49,31 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 office = office.Where(s => s.Name.Contains(searchString));
             }
-            office = office.OrderBy(x => x.ID);
+
+            if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))
+
+            {
+                ViewBag.StatusSort = "status-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+            else if (sortOrder.Equals("status-desc"))
+            {
+                ViewBag.StatusSort = "status-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            switch (sortOrder)
+            {
+                case "status-desc":
+                    office = office.OrderByDescending(s => s.Status);
+                    break;
+                case "status-asc":
+                    office = office.OrderBy(s => s.Status);
+                    break;
+
+                default:
+                    office = office.OrderByDescending(s => s.Status);
+                    break;
+            }
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -86,6 +116,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 office.ID = "Office" + db.Offices.Count();
                 db.Offices.Add(office);
                 db.SaveChanges();
+                TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
 
@@ -135,19 +166,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(office);
+            office.Status = Office.StatusEnum.Delete;
+            db.Entry(office).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["message"] = "Delete";
+            return RedirectToAction("Index");
         }
 
         // POST: Offices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Office office = db.Offices.Find(id);
-            db.Offices.Remove(office);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    Office office = db.Offices.Find(id);
+        //    db.Offices.Remove(office);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

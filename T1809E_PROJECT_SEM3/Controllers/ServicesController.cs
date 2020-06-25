@@ -38,7 +38,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 services = services.Where(s => s.Type.Contains(searchString));
             }
-            services = services.OrderBy(x => x.ID);
+            services = services.OrderByDescending(x => x.Status);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -71,11 +71,11 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Type,PricePerKm,PricePerKg")] Service service)
+        public ActionResult Create([Bind(Include = "Type,PriceWeight,PriceStep,DistanceStep")] Service service)
         {
             if (ModelState.IsValid)
             {
-                service.Status = Service.StatusEnumService.online; 
+                service.Status = Service.StatusEnumService.Online; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
@@ -106,7 +106,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PricePerKm,PricePerKg, Status")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Type,PriceStep,DistanceStep,PriceWeight, Status")] Service service)
         {
             if (ModelState.IsValid)
             {
@@ -131,12 +131,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
-            if (service.Status == Service.StatusEnumService.offline)
+            if (service.Status == Service.StatusEnumService.Deleted)
             {
                 TempData["message"] = "Fail Delete";
                 return RedirectToAction("Index");
             }
-            service.Status = Service.StatusEnumService.offline;
+            service.Status = Service.StatusEnumService.Deleted;
             db.Entry(service).State = EntityState.Modified;
             db.SaveChanges();
             TempData["message"] = "Delete";
