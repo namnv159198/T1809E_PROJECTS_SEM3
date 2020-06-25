@@ -14,7 +14,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         public ActionResult Index()
         {
             ClientViewModel client = new ClientViewModel();
-            client.Services = db.Services.AsEnumerable().ToList();
+            client.Services = db.Services.AsEnumerable().Take(10).ToList();
             client.Offices = db.Offices.AsEnumerable().ToList();
             return View(client);
         }
