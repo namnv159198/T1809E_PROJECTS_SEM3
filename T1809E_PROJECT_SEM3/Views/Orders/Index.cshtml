@@ -79,6 +79,7 @@
                                     </div>
                                 }
 
+
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -225,10 +226,6 @@
                                             </tr>
                                         }
                                     </tbody>
-
-                                   
-
-
                                 </table>
                                 <br />
                                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
@@ -314,4 +311,16 @@
         });
     </script>
 
+}
+@if ((string)TempData["Message"] == "Success")
+{
+    <script type="text/javascript">
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Created',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
 }

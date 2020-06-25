@@ -559,7 +559,6 @@
     <Content Include="Views\TypeItems\Details.cshtml" />
     <Content Include="Views\TypeItems\Edit.cshtml" />
     <Content Include="Views\TypeItems\Index.cshtml" />
-    <Content Include="Views\Orders\SaveOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -109,7 +109,51 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             return View(order.ToPagedList(pageNumber, pageSize));
         }
+        public JsonResult CalPrice(calPrice cprice)
+        {
+            TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
+            Service service = db.Services.Find(cprice.ServiceId);
+            var step = service.DistanceStep;
+            var priceStep = service.PriceStep;
+            var heso = cprice.Distance / step;
+            if (cprice.Distance < service.DistanceStep)
+            {
+                heso = 1;
+            }
+            cprice.PriceShip = ((priceStep * heso) * ((100 - heso) / 100)) * (1 + (cprice.Weight * heso) / service.PriceWeight) * ((double)(100 + typeItem.Percent) / 100);
 
+            if (cprice.PriceShip < priceStep)
+            {
+                cprice.PriceShip = priceStep;
+            }
+            cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
+            return Json(cprice);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                if ((User.Identity.GetUserId()) == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                order.CreatedById = String.Format(User.Identity.GetUserId());
+                order.CreatedBy = db.Users.Find(User.Identity.GetUserId());
+                order.CreateAt = DateTime.Now;
+                db.Orders.Add(order);
+                db.SaveChanges();
+                TempData["Message"] = "Success";
+                return RedirectToAction("SaveOrder", order);
+            }
+
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
+            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
+            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
+            return View(order);
+        }
         // GET: Orders/Details/5
         public ActionResult Details(string id)
         {
@@ -117,7 +161,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Order order = db.Orders.Find(id);
+            var user = db.Users.Find(order.CreatedById);
+            order.CreatedBy = user;
             if (order == null)
             {
                 return HttpNotFound();
@@ -144,77 +191,13 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             return value.ToString("ddHHmmssffff");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                TypeItem typeItem = db.TypeItems.Find(order.TypeItemId);
-                Service service = db.Services.Find(order.ServiceId);
-                string timeStamp = GetTimestamp(DateTime.Now);
-                order.ID = "Order" + timeStamp;
-                order.CreateAt = DateTime.Now;
-                order.Status = Order.EnumStatusOrder.New;
-                order.CreatedById = User.Identity.Name;
-                //calculator price ship
-                order.PriceShip = 0;
-                
-                var step = service.DistanceStep;
-                var priceStep = service.PriceStep;
-                var heso = order.Distance / step;
-                if (order.Distance < service.DistanceStep)
-                {
-                    heso = 1;
-                }
-                order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight)*((double)(100+ typeItem.Percent)/100);
-                
-                if(order.PriceShip < priceStep)
-                {
-                    order.PriceShip = priceStep;
-                }
-                order.PriceShip = Math.Round(order.PriceShip, 2);
+        //public ActionResult CalPrice()
+        //{
 
-                return RedirectToAction("SaveOrder",order);
-            }
-
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
-            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
-            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name" , order.TypeItemId); 
-            return View(order);
-        }
-        [HttpGet]
-        public ActionResult SaveOrder(Order order)
-        {
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName");
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type");
-            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName");
-            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
-            return View(order);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ConfirmSaveOrder([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
-        {
-            //var user = UserManager.FindByName(User.Identity.Name);
-            if ((User.Identity.GetUserId()) == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            order.CreatedById = String.Format(User.Identity.GetUserId());
-            order.CreatedBy = db.Users.Find(User.Identity.GetUserId()); 
-            //order.CreatedById = user.UserName;
-            //order.CreatedBy = user;
-            order.CreateAt = DateTime.Now;
-            db.Orders.Add(order);
-            db.SaveChanges();
-            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
-            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
-            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
-            return RedirectToAction("Index");
-        }
+        //    return View(obj);
+        //}
+        
+        
 
         // GET: Orders/Edit/5150
         public ActionResult Edit(string id)
