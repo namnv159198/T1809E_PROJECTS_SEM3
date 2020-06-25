@@ -186,12 +186,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006250845428_price.cs" />
-    <Compile Include="Migrations\202006250845428_price.Designer.cs">
-      <DependentUpon>202006250845428_price.cs</DependentUpon>
+    <Compile Include="Migrations\202006251613438_UPdate.cs" />
+    <Compile Include="Migrations\202006251613438_UPdate.Designer.cs">
+      <DependentUpon>202006251613438_UPdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Office.cs" />
@@ -577,8 +578,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006250845428_price.resx">
-      <DependentUpon>202006250845428_price.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006251613438_UPdate.resx">
+      <DependentUpon>202006251613438_UPdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
