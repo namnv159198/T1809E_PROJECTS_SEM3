@@ -11,7 +11,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Office Manage</h1>
+                        <h1>Order Manage</h1>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Create Office</strong>
+                                <strong class="card-title">Create Order</strong>
                             </div>
                             <div class="card-body">
 
@@ -37,8 +37,6 @@
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        <h4>Order</h4>
-                                        <hr />
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="row col-lg-12">
                                             <div class="form-group">
@@ -151,7 +149,7 @@
 
                                         
                                             <div class="form-group ">
-                                                @Html.LabelFor(model => model.ServiceId, "ServiceId", htmlAttributes: new { @class = "control-label col-lg-6" })
+                                                @Html.LabelFor(model => model.ServiceId, "Service", htmlAttributes: new { @class = "control-label col-lg-6" })
                                                 <div class="col-md-2">
                                                     @Html.DropDownList("ServiceId", null, htmlAttributes: new { @class = "form-control" })
                                                     @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
@@ -159,7 +157,7 @@
                                             </div>
 
                                             <div class="form-group ">
-                                                @Html.LabelFor(model => model.TypeItemId, "TypeItemId", htmlAttributes: new { @class = "control-label col-lg-6" })
+                                                @Html.LabelFor(model => model.TypeItemId, "Type Item", htmlAttributes: new { @class = "control-label col-lg-6" })
                                                 <div class="col-md-2">
                                                     @Html.DropDownList("TypeItemId", null, htmlAttributes: new { @class = "form-control" })
                                                     @Html.ValidationMessageFor(model => model.TypeItemId, "", new { @class = "text-danger" })

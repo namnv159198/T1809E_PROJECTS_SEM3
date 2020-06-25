@@ -56,9 +56,10 @@ namespace T1809E_PROJECT_SEM3.Models
         [ForeignKey("ServiceId")]
         public virtual Service Service { get; set; }
         public string CreatedById { get; set; }
-        public string UpdatedById { get; set; }
+        
         [ForeignKey("CreatedById")]
         public ApplicationUser CreatedBy { get; set; }
+        public string UpdatedById { get; set; }
         [ForeignKey("UpdatedById")]
         public ApplicationUser UpdatedBy { get; set; }
         
