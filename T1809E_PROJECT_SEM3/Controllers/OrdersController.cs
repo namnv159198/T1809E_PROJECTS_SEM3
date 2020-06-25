@@ -1,4 +1,6 @@
-﻿using PagedList;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +15,21 @@ namespace T1809E_PROJECT_SEM3.Controllers
 {
     public class OrdersController : Controller
     {
+        private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+        
+        
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         // GET: Orders
         public ActionResult Index(string searchString, string currentFilter, int? page, int? status, DateTime? start, DateTime? end, string sortOrder)
@@ -106,6 +122,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
+           
             return View(order);
         }
 
@@ -129,7 +146,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
+        public ActionResult Create(Order order)
         {
             if (ModelState.IsValid)
             {
@@ -139,6 +156,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 order.ID = "Order" + timeStamp;
                 order.CreateAt = DateTime.Now;
                 order.Status = Order.EnumStatusOrder.New;
+                order.CreatedById = User.Identity.Name;
                 //calculator price ship
                 order.PriceShip = 0;
                 
@@ -150,15 +168,14 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     heso = 1;
                 }
                 order.PriceShip = ((priceStep * heso) * ((100 - heso) / 100))*(1+(order.Weight*heso)/service.PriceWeight)*((double)(100+ typeItem.Percent)/100);
-                order.PriceShip = Math.Round(order.PriceShip, 2);
+                
                 if(order.PriceShip < priceStep)
                 {
                     order.PriceShip = priceStep;
                 }
-                
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                order.PriceShip = Math.Round(order.PriceShip, 2);
+
+                return RedirectToAction("SaveOrder",order);
             }
 
             ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
@@ -166,6 +183,37 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
             ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name" , order.TypeItemId); 
             return View(order);
+        }
+        [HttpGet]
+        public ActionResult SaveOrder(Order order)
+        {
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type");
+            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName");
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
+            return View(order);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmSaveOrder([Bind(Include = "ID,SenderName,SenderAddress,SenderPhone,ReceiverName,ReceiverAddress,ReceiverPhone,ServiceName,Distance,Weight,CreateAt,PriceShip,Status,ServiceId,CreatedById,UpdatedById,TypeItemId")] Order order)
+        {
+            //var user = UserManager.FindByName(User.Identity.Name);
+            if ((User.Identity.GetUserId()) == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            order.CreatedById = String.Format(User.Identity.GetUserId());
+            order.CreatedBy = db.Users.Find(User.Identity.GetUserId()); 
+            //order.CreatedById = user.UserName;
+            //order.CreatedBy = user;
+            order.CreateAt = DateTime.Now;
+            db.Orders.Add(order);
+            db.SaveChanges();
+            ViewBag.CreatedById = new SelectList(db.Users, "Id", "FullName", order.CreatedById);
+            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
+            ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
+            return RedirectToAction("Index");
         }
 
         // GET: Orders/Edit/5150
