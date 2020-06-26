@@ -104,14 +104,18 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PriceWeight)
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
+                                        @{
+                                            var descTrim = item.Description.Substring(0, 100);
+                                            @Html.DisplayFor(t => descTrim)
+                                        }
+                                        ...
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                        <a href="@Url.Action("Edit", "Services", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightblue"><i class="fa fa-pencil"></i></a> |
+                                        <a href="@Url.Action("Details", "Services", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightgreen"><i class="fa fa-info-circle"></i></a>  |
                                         <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
                                             <i class="fa fa-trash"></i>
                                         </button>
