@@ -90,14 +90,14 @@
                                                 Service
                                             </th>
                                             @*<th>
-                @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-            </th>*@
+                                                    @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                                                </th>*@
                                             <th>
                                                 Sender Name
                                             </th>
                                             @*<th>
-                @Html.DisplayNameFor(model => model.SenderAddress)
-            </th>*@
+                                                    @Html.DisplayNameFor(model => model.SenderAddress)
+                                                </th>*@
                                             <th>
                                                 Sender Phone
                                             </th>
@@ -105,17 +105,17 @@
                                                 Receiver Name
                                             </th>
                                             @*<th>
-                @Html.DisplayNameFor(model => model.ReceiverAddress)
-            </th>*@
+                                                    @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                                </th>*@
                                             <th>
                                                 Receiver Phone
                                             </th>
 
                                             <th>
-                                                Distance
+                                                Distance (Km)
                                             </th>
                                             <th>
-                                                Weight
+                                                Weight (Kg)
                                             </th>
                                             <th>
                                                 @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
@@ -123,7 +123,7 @@
 
                                             </th>
                                             <th>
-                                                Price
+                                                Price ($)
                                             </th>
                                             <th>
                                                 Status
@@ -144,14 +144,14 @@
                                                     @Html.DisplayFor(modelItem => item.Service.Type)
                                                 </td>
                                                 @*<td>
-                    @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                </td>*@
+                                                        @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+                                                    </td>*@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.SenderName)
                                                 </td>
                                                 @*<td>
-                    @Html.DisplayFor(modelItem => item.SenderAddress)
-                </td>*@
+                                                        @Html.DisplayFor(modelItem => item.SenderAddress)
+                                                    </td>*@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.SenderPhone)
                                                 </td>
@@ -159,8 +159,8 @@
                                                     @Html.DisplayFor(modelItem => item.ReceiverName)
                                                 </td>
                                                 @*<td>
-                    @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                </td>*@
+                                                        @Html.DisplayFor(modelItem => item.ReceiverAddress)
+                                                    </td>*@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.ReceiverPhone)
                                                 </td>
