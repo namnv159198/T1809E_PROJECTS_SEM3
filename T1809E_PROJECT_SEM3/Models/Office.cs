@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,7 +12,7 @@ namespace T1809E_PROJECT_SEM3.Models
         [Key]
         public string ID { get; set; }
         [Required]
-        
+
         public string PinCode { get; set; }
         [Required]
         [StringLength(50)]
@@ -30,17 +31,24 @@ namespace T1809E_PROJECT_SEM3.Models
         public string PhoneNumber { get; set; }
         [Required]
         public string Address { get; set; }
-        [Required]
-        public string District { get; set; }
-        [Required]
-        public string Province { get; set; }
+
+
+       
+
+        public int? District_id { get; set; }
+        [ForeignKey("District_id")]
+        public virtual District District { get; set; }
+
+        [ForeignKey("Province_id")]
+        public virtual Province Province { get; set; }
+        public int? Province_id { get; set; }
+
         public StatusEnum Status { get; set; }
         public enum StatusEnum
         {
             Online = 1,
             Offline = 0,
-            Delete =2
+            Delete = 2
         }
-
     }
 }

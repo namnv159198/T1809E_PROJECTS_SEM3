@@ -17,297 +17,431 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Order Manage</h1>
+                        <h1 style="line-height:40px">Order Manage</h1>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <div class="btn-group">
+                                <a href="@Url.Action("Create", "Orders")" class="btn btn-primary">
+                                    Create &nbsp;
+                                    <i class="fa fa-plus"></i>
+                                </a>
 
+                            </div>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
 <div class="content">
-    <div class="wrapper">
+    <div class="animated fadeIn">
         <div class="row">
-            <div class="col-sm-12">
-                <section class="panel">
 
-                    <div class="panel-body">
-                        <div class="card">
-                            <div class="card-body">
+            <div class="col-md-12">
 
-                                @using (Html.BeginForm("Index", "Orders", FormMethod.Get, new { @name = "search-form" }))
-                                {
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <p class="padding">
-                                                Search By Keyword
-                                            </p>
-                                            <div class="input-group m-bot15">
-                                                <button type="submit" class="btn btn-outline-link">Search <i class="fa fa-search"></i></button>
-                                                @Html.TextBox("SearchStringName", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Name. . . " })
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 .ml-auto">
-                                            <p class="padding">
-                                                Search By Status
-                                            </p>
-                                            @Html.DropDownList("status",
-                                            EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumStatusOrder)),
-                                            "Select Status",
-                                            new { @class = "btn btn-outline-secondary" })
-                                        </div>
-                                        <div class="col-lg-4 col-md-10">
-                                            <div class="pull-left">
-                                                <p class="padding">
-                                                    Search By Time
-                                                </p>
-                                                <input type="text" name="daterange" value="" class="form-control fa fa-clock-o" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                }
-                                <div style="padding-top:20px;">
-                                    <p class="btn btn-outline-primary">
-                                        @Html.ActionLink("Create New +", "Create")
-                                    </p>
-                                </div>
-                                @if (Model.Count == 0)
-                                {
-                                    <div style="font-style:italic ; text-align:center ; font-size: 1.2em;" class="padding">
-                                        (NO RESULT IS FOUND)
-                                    </div>
-                                }
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Order Manage</strong>
+                    </div>
 
 
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>
-                                                Service
-                                            </th>
-                                            @*<th>
-                @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-            </th>*@
-                                            <th>
-                                                Sender Name
-                                            </th>
-                                            @*<th>
-                @Html.DisplayNameFor(model => model.SenderAddress)
-            </th>*@
-                                            <th>
-                                                Sender Phone
-                                            </th>
-                                            <th>
-                                                Receiver Name
-                                            </th>
-                                            @*<th>
-                @Html.DisplayNameFor(model => model.ReceiverAddress)
-            </th>*@
-                                            <th>
-                                                Receiver Phone
-                                            </th>
+                    @using (Html.BeginForm("Index", "Orders", FormMethod.Get, new { @name = "search-form" }))
+                    {
 
-                                            <th>
-                                                Distance
-                                            </th>
-                                            <th>
-                                                Weight
-                                            </th>
-                                            <th>
-                                                @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
-                                                <i class="@Iconsort" aria-hidden="true"></i>
+                        <input type="hidden" name="start" value="" />
+                        <input type="hidden" name="end" value="" />
+                        <input type="hidden" name="sortOrder" value="" />
+                        <div class="row card-body">
 
-                                            </th>
-                                            <th>
-                                                Price
-                                            </th>
-                                            <th>
-                                                Status
-                                            </th>
-                                            <th>
-                                                Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Service.Type)
-                                                </td>
-                                                @*<td>
-                    @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                </td>*@
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.SenderName)
-                                                </td>
-                                                @*<td>
-                    @Html.DisplayFor(modelItem => item.SenderAddress)
-                </td>*@
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.SenderPhone)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ReceiverName)
-                                                </td>
-                                                @*<td>
-                    @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                </td>*@
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ReceiverPhone)
-                                                </td>
-
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Distance)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Weight)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.CreateAt)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.PriceShip)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Status)
-                                                </td>
-                                                <td>
-                                                    <a href="@Url.Action("Edit", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightblue"><i class="fa fa-pencil"></i></a> |
-                                                    <a href="@Url.Action("Details", "Orders", new { id = item.ID })" class="btn btn-sm btn-light" style="background-color:lightgreen"><i class="fa fa-info-circle"></i></a>  |
-                                                    <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                    <div class="modal" id="myModal_@item.ID">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-
-                                                                <!-- Modal Header -->
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title">Message</h4>
-
-                                                                </div>
-
-                                                                <!-- Modal body -->
-                                                                <div class="modal-body">
-                                                                    <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.SenderName </span> ?
-                                                                </div>
-
-                                                                <!-- Modal footer -->
-                                                                <div class="modal-footer">
-                                                                    <!-- Cỏntroller -->
-                                                                    @using (Html.BeginForm("Delete", "Orders", new { id = item.ID }))
-                                                                    {
-                                                                        @Html.AntiForgeryToken()
-                                                                        <input type="submit" value="Delete" class="btn btn-default btn-danger" />
-                                                                        <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
-                                                                    }
-
-
-                                                                </div>
-
-                                                            </div>
-
-
-
-
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                                <br />
-                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-
-                                @Html.PagedListPager(Model, page => Url.Action("Index",
-                                    new { page, sortOrder = ViewBag.CurrentSort, searchString = ViewBag.CurrentFilter, status = ViewBag.Status }))
-
+                            <div class="col-sm-4">
+                                <label class="text-uppercase"> Search keyword </label>
+                                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Input keyword  . . . " })
                             </div>
 
+                            <div class="col-sm-3">
+                                <label class="text-uppercase"> Filter Time</label>
+                                <input type="text" name="daterange" value="" class="form-control  " />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="text-uppercase"> Filter Status</label>
 
+                                @Html.DropDownList("status",
+                                    EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumOrderStatus)),
+                                    "Select Status",
+                                    new { @class = "btn btn-outline-secondary" })
+                            </div>
+                            <div class="col-sm-1 ">
+                                <label class="text-uppercase"> Show </label>
+                                @Html.DropDownList("pageSize", null, null, new { @class = "form-control", style = "width: 70px;" })
+                            </div>
+
+                            <div class="col-sm-2 ">
+
+                                <div>
+                                    <button type="submit" class="btn btn-primary mt-5">
+                                        Search
+                                    </button>
+                                </div>
+
+                            </div>
 
 
 
                         </div>
 
 
+                        
+                    }
+
+                    @if (Model.Count() != 0)
+                    {
+                        <div class="row card-body">
+                            <div class="col-sm-10">
+                                @using (Html.BeginForm("CheckList", "Orders", FormMethod.Get, new { @name = "checklist-form" }))
+                                {
+
+                                <div class="row">
+                                    <div class="col-sm-2 mt-4">
+                                        <button type="button" id="delete" value="delete" data-toggle="modal" data-target="#myModal_delete" class="btn btn-sm btn-danger rounded-0"><i class="fa fa-trash-o"></i>&nbsp; Delete</button>
+                                        <div class="modal" id="myModal_delete">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Message</h4>
+
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <span>Are you sure ?</span>
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <!-- Cỏntroller -->
+                                                        <input type="hidden" name="ListCategoryIDs" value="" />
+                                                        <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                        <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mt-4">
+                                        <input type="hidden" name="ListCategoryIDs" value="" />
+                                        @Html.DropDownList("OrdersStatusCheckList", EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumOrderStatus)), "State transitions", new { @class = "form-control" })
+
+                                    </div>
+
+
+
+                                </div>
+
+                                }
+                            </div>
+                            <div class="col-sm-2 mt-4">
+                                @using (Html.BeginForm("ExportToExcel", "orders"))
+                                {
+                                    <button class="exportExcel form-control btn btn-success fa-border" type="submit">
+                                        Print Excel <i class="fa fa-print" aria-hidden="true"></i>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        @*                         <div class="row card-body"> *@
+                        @*                             <div class="col-sm-4"> *@
+                        @*                                 @using (Html.BeginForm("CheckList", "Orders", FormMethod.Get, new { @name = "checklist-form" })) *@
+                        @*                                 { *@
+                        @*                                     <input type="hidden" name="ListCategoryIDs" value="" /> *@
+                        @*                                     <label class="text-uppercase"> Chuyển đổi trạng thái</label> *@
+                        @*                                       } *@
+                        @*                             </div> *@
+                        @*                         </div> *@
+
+
+                    }
+                    @if (Model.Count == 0)
+                    {
+                        <div style="font-style: italic; text-align: center; font-size: 1.2em;" class="padding">
+                            (NO RESULT IS FOUND)
+                        </div>
+                    }
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+
+                                    @if (Model.Count() != 0)
+                                    {
+                                        <th>
+                                            <input type="checkbox" id="checkAll" />
+                                        </th>
+                                    }
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Service
+                                    </th>
+                                    @*<th>
+                                            @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
+                                        </th>*@
+                                    <th>
+                                        Sender Name
+                                    </th>
+                                    @*<th>
+                                            @Html.DisplayNameFor(model => model.SenderAddress)
+                                        </th>*@
+                                    <th>
+                                        Sender Phone
+                                    </th>
+                                    <th>
+                                        Receiver Name
+                                    </th>
+                                    @*<th>
+                                            @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                        </th>*@
+                                    <th>
+                                        Receiver Phone
+                                    </th>
+
+                                    <th>
+                                        Distance
+                                    </th>
+                                    <th>
+                                        Weight
+                                    </th>
+                                    <th>
+                                        @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
+                                        <i class="@Iconsort" aria-hidden="true"></i>
+
+                                    </th>
+                                    <th>
+                                        Price
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="checkBox"
+                                                   value="@item.ID" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Service.Type)
+                                        </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
+                                            </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SenderName)
+                                        </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.SenderAddress)
+                                            </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SenderPhone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReceiverName)
+                                        </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.ReceiverAddress)
+                                            </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReceiverPhone)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Distance)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Weight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreateAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PriceShip)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "Orders", new {id = item.ID})" class="btn btn-sm btn-light" style="background-color: lightblue"><i class="fa fa-pencil"></i></a> |
+                                            <a href="@Url.Action("Details", "Orders", new {id = item.ID})" class="btn btn-sm btn-light" style="background-color: lightgreen"><i class="fa fa-info-circle"></i></a> |
+                                            <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <div class="modal" id="myModal_@item.ID">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Message</h4>
+
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                            <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.SenderName </span> ?
+                                                        </div>
+
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                            <!-- Cỏntroller -->
+                                                            @using (Html.BeginForm("Delete", "Orders", new { id = item.ID }))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                                                                <input type="button" class=" btn btn-default " data-dismiss="modal" value="Cancel" />
+                                                            }
+
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="row m-0">
+                            <div class="col-sm-4">
+                                <div class="page-header float-left">
+                                    <div class="page-title" style="margin-top: 40px">
+                                        Showing @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount in @ViewBag.TotalEnity Entity
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="page-header float-right">
+                                    <div class="page-title">
+                                        <ol class="breadcrumb text-right">
+                                            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, status = ViewBag.Status }))
+                                        </ol>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+
                     </div>
 
-                </section>
 
+                </div>
             </div>
+
 
         </div>
     </div>
 </div>
+
+
+
 @section scripts{
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
     <script>
-        var start = moment().subtract(29, 'days');
-        var end = moment();
-        var url_string = location.href;
-        var url = new URL(url_string);
-        // Cắt đoạn biến trong herf
-        var initStart = url.searchParams.get("start");
-        var initEnd = url.searchParams.get("end");
-        var keyword = url.searchParams.get("keyword");
-        var sortOrder = url.searchParams.get("sortOrder");
-        if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
-            // Gán biến cho start trong thẻ input
-            start = initStart;
-            $('input[name="start"]').val(start);
-        }
-        if (initEnd != null && moment(initEnd, 'YYYY-MM-DD', true).isValid()) {
-            end = initEnd;
-            $('input[name="end"]').val(end);
-        }
-        if (sortOrder != null) {
-            $('input[name="sortOrder"]').val(keyword);
-        }
-        $('input[name="daterange"]').daterangepicker({
-            startDate: start,
-            endDate: end,
-            locale: {
-                format: 'YYYY-MM-DD'
-            },
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
+        $('select[name="pageSize"]').change(function () {
+            $('form[name="search-form"]').submit();
         });
-        $('input[name="daterange"]').on('apply.daterangepicker',
-            function (ev, picker) {
-                var startDate = picker.startDate.format('YYYY-MM-DD');
-                var endDate = picker.endDate.format('YYYY-MM-DD');
-                $('input[name="start"]').val(startDate);
-                $('input[name="end"]').val(endDate);
-                $('form[name="search-form"]').submit();
+
+
+        $('select[name="OrdersStatusCheckList"]').change(function () {
+            var selectedIDs = new Array();
+            $('input:checkbox.checkBox').each(function () {
+                if ($(this).prop('checked')) {
+                    selectedIDs.push($(this).val());
+                    var listCheckedBoxId = selectedIDs.toString();
+                    $('input[name="ListCategoryIDs"]').val(listCheckedBoxId);
+                }
             });
-        $('select[name="status"]').change(function () {
-            $('form[name="search-form"]').submit();
+            $('form[name="checklist-form"]').submit();
         });
-        $('select[name="gender"]').change(function () {
-            $('form[name="search-form"]').submit();
+
+        $(document).ready(function () {
+
+            $("#checkAll").click(function () {
+                $(".checkBox").prop('checked',
+                    $(this).prop('checked'));
+            });
+
+            $("#delete").click(function () {
+                var selectedIDs = new Array();
+                $('input:checkbox.checkBox').each(function () {
+                    if ($(this).prop('checked')) {
+                        selectedIDs.push($(this).val());
+                        var listCheckedBoxId = selectedIDs.toString();
+                        $('input[name="ListCategoryIDs"]').val(listCheckedBoxId);
+                    }
+                });
+
+            });
+        });
+        $(document).ready(function () {
+
+            $("#checkAll").click(function () {
+                $(".checkBox").prop('checked',
+                    $(this).prop('checked'));
+            });
+
+            $("#delete").click(function () {
+                var selectedIDs = new Array();
+                $('input:checkbox.checkBox').each(function () {
+                    if ($(this).prop('checked')) {
+                        selectedIDs.push($(this).val());
+                        var listCheckedBoxId = selectedIDs.toString();
+                        $('input[name="ListCategoryIDs"]').val(listCheckedBoxId);
+                    }
+                });
+
+            });
+        });
+        $('body').on('click', '.exportExcel', function () {
+       
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Print Excel Success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        
         });
     </script>
 
@@ -319,6 +453,41 @@
             position: 'top-end',
             icon: 'success',
             title: 'Created',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+
+}
+else if ((string)TempData["message"] == "Delete")
+{
+    <script type="text/javascript">
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Delete Success',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+}
+else if ((string)TempData["message"] == "NotFound")
+{
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sorry ...',
+            text: 'NO RESULT IS FOUND  !'
+        })
+    </script>
+}
+else if ((string)TempData["message"] == "ChangeStatus")
+{
+    <script type="text/javascript">
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Statue transitions success',
             showConfirmButton: false,
             timer: 1500
         })

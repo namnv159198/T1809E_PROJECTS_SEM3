@@ -1,0 +1,11 @@
+﻿@model T1809E_PROJECT_SEM3.Models.Office
+
+<option value="">-- Select Office -- </option>
+@if (ViewBag.listOffice != null)
+{
+    foreach (var i in ViewBag.listOffice)
+    {
+        <option value="@i.Value">@i.Text</option>
+    }
+}
+

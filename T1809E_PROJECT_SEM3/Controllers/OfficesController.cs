@@ -101,15 +101,24 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // GET: Offices/Create
         public ActionResult Create()
         {
+            ViewBag.District_id = new SelectList(db.District, "id", "_name");
+            ViewBag.Province_id = new SelectList(db.Province, "id", "_name");
             return View();
         }
 
+        public ActionResult GetDistrict(int? id)
+        {
+            var listDistrict = db.District.Where(x => x.province_id == id);
+            ViewBag.listDistrict = new SelectList(listDistrict, "id", "_name");
+
+            return PartialView("DisplayDistrict");
+        }
         // POST: Offices/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PinCode,Name,Status,Email,VAT,PhoneNumber,Address,District,Province")] Office office)
+        public ActionResult Create( Office office)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +128,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
-
+            ViewBag.District_id = new SelectList(db.District, "id", "_name", office.District_id);
+            ViewBag.Province_id = new SelectList(db.Province, "id", "_name", office.Province_id);
             return View(office);
         }
 
@@ -135,6 +145,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.District_id = new SelectList(db.District, "id", "_name");
+            ViewBag.Province_id = new SelectList(db.Province, "id", "_name");
             return View(office);
         }
 
@@ -151,6 +163,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.District_id = new SelectList(db.District, "id", "_name", office.District_id);
+            ViewBag.Province_id = new SelectList(db.Province, "id", "_name", office.Province_id);
             return View(office);
         }
 

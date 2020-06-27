@@ -82,23 +82,21 @@
                                             </div>
                                         </div>
 
-
-                                        <div class="row col-lg-12">
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
-                                                </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Province_id, "ProvinceID", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownList("Province_id", ViewBag.ProvinceID as SelectList, "-- Select Province --", htmlAttributes: new { @class = "form-control", @id = "Province_id" })
+                                                @Html.ValidationMessageFor(model => model.Province.id, "", new { @class = "text-danger" })
                                             </div>
+                                        </div>
 
 
-                                            <div class="form-group">
-                                                @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-12" })
-                                                <div class="col-md-12">
-                                                    @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
-                                                </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.District_id, "District_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownList("District_id", new SelectList(" "), "-- Select District  --", htmlAttributes: new { @class = "form-control", @id = "District_id" })
+                                                @Html.ValidationMessageFor(model => model.District_id, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
@@ -148,4 +146,28 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $("#Province_id").change(function () {
+                var provinceID = $(this).val();
+
+                debugger
+                $.ajax({
+                    type: "post",
+                    url: "/Offices/GetDistrict?id=" + provinceID,
+                    contentType: "html",
+                    success: function (response) {
+                        debugger
+                        $("#District_id").empty();
+                        $("#District_id").append(response);
+                    }
+                })
+            })
+        })
+    </script>
+}
 

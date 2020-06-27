@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -21,11 +20,51 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.ReceiverOffice.PinCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiverOffice.PinCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiverProvince._name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiverProvince._name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderOffice.PinCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderOffice.PinCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderProvince._name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderProvince._name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Service.Type)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Service.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeItem.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeItem.Name)
         </dd>
 
         <dt>
@@ -82,14 +121,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.ReceiverPhone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ServiceName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServiceName)
         </dd>
 
         <dt>
