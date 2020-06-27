@@ -205,6 +205,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+
+    <Compile Include="Migrations\202006251613438_UPdate.cs" />
+    <Compile Include="Migrations\202006251613438_UPdate.Designer.cs">
+      <DependentUpon>202006251613438_UPdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClientViewModel.cs" />
+
     <Compile Include="Migrations\202006270211538_UpdateData1.cs" />
     <Compile Include="Migrations\202006270211538_UpdateData1.Designer.cs">
       <DependentUpon>202006270211538_UpdateData1.cs</DependentUpon>
@@ -217,6 +226,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\calPrice.cs" />
     <Compile Include="Models\District.cs" />
+
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Office.cs" />
@@ -608,11 +618,16 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+
+    <EmbeddedResource Include="Migrations\202006251613438_UPdate.resx">
+      <DependentUpon>202006251613438_UPdate.cs</DependentUpon>
+
     <EmbeddedResource Include="Migrations\202006270211538_UpdateData1.resx">
       <DependentUpon>202006270211538_UpdateData1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006270217047_UpdateData2.resx">
       <DependentUpon>202006270217047_UpdateData2.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
