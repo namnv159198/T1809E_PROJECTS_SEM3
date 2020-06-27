@@ -27,7 +27,8 @@ namespace T1809E_PROJECT_SEM3.Models
         [Display(Name ="Distance Step")]
         [Range(0, int.MaxValue,ErrorMessage = "The {0} field must be larger than 0")]
         public int DistanceStep { get; set; }
-      
+        [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
       
         [Display(Name = "Status")]
@@ -38,5 +39,6 @@ namespace T1809E_PROJECT_SEM3.Models
             Offline = 0,
             Deleted = -1
         }
+        public int TimeUsed { get; set; }
     }
 }

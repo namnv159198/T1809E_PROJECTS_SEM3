@@ -83,7 +83,13 @@
                             <div class="text p-4 d-block">
                                 <h3 class="heading mt-3"><a href="#">@s.Type</a></h3>
                                 <div class="meta mb-3">
-                                    <div class="listing">@s.Description</div>
+                                    <div class="listing">
+                                        @{
+                                            var descTrim = s.Description.Substring(0, 100);
+                                            @Html.DisplayFor(t => descTrim)
+                                        }
+                                        ...
+                                    </div>
                                 </div>
                             </div>
                         </div>

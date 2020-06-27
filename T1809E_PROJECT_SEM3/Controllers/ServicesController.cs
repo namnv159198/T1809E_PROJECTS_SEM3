@@ -42,6 +42,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
+
             return View(services.ToPagedList(pageNumber, pageSize));
         }
 
@@ -71,11 +72,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Type,PriceWeight,PriceStep,DistanceStep")] Service service)
+        public ActionResult Create([Bind(Include = "Type,PriceWeight,PriceStep,DistanceStep,Description")] Service service)
         {
             if (ModelState.IsValid)
             {
-                service.Status = Service.StatusEnumService.Online; 
+                service.TimeUsed = 0;
+                service.Status = Service.StatusEnumService.Offline; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();
@@ -106,7 +108,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PriceStep,DistanceStep,PriceWeight, Status")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Type,PriceStep,DistanceStep,PriceWeight, Status,Description,TimeUsed")] Service service)
         {
             if (ModelState.IsValid)
             {
