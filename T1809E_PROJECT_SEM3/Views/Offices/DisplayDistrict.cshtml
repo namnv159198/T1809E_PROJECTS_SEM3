@@ -1,0 +1,10 @@
+﻿@model T1809E_PROJECT_SEM3.Models.District
+
+<option value="">-- Select District -- </option>
+@if (ViewBag.listDistrict != null)
+{
+    foreach (var i in ViewBag.listDistrict)
+    {
+        <option value="@i.Value">@i.Text</option>
+    }
+}

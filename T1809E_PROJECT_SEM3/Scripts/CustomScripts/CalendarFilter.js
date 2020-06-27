@@ -7,6 +7,7 @@ var url = new URL(url_string);
 var initStart = url.searchParams.get("start");
 var initEnd = url.searchParams.get("end");
 
+
 if (initStart != null && moment(initStart, 'YYYY-MM-DD', true).isValid()) {
     start = initStart;
     $('input[name="start"]').val(start);
