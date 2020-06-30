@@ -64,20 +64,20 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Type
+                                        Type Delivery
                                     </th>
 
                                     <th>
-                                        Distance Step
+                                        From
+                                    </th>
+                                    <th>
+                                     To
                                     </th>
                                     <th>
                                         Price Step
                                     </th>
                                     <th>
-                                        Coefficient Weight
-                                    </th>
-                                    <th>
-                                        Description
+                                        Method of calculation
                                     </th>
                                     <th>
                                         Status
@@ -93,22 +93,19 @@
                                 {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Type)
+                                        @Html.DisplayFor(modelItem => item.TypeDelivery)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.DistanceStep)
+                                        @Html.DisplayFor(modelItem => item.From)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.To)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PriceStep)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PriceWeight)
-                                    <td>
-                                        @{
-                                            var descTrim = item.Description.Substring(0, 100);
-                                            @Html.DisplayFor(t => descTrim)
-                                        }
-                                        ...
+                                        @Html.DisplayFor(modelItem => item.TypeCaculalor)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Status)
@@ -128,7 +125,7 @@
                                                         <h4 class="modal-title">Message</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.Type </span> ?
+                                                        <span>Are your sure delete</span> <span class="text-uppercase" style="text-decoration: underline; font-weight: bold">@item.TypeDelivery </span> ?
                                                     </div>
                                                     <div class="modal-footer">
                                                         @using (Html.BeginForm("Delete", "Services", new { id = item.ID }))

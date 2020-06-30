@@ -210,7 +210,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 ws.Cells[string.Format("M{0}", rowStart)].Value = i.Weight;
                 ws.Cells[string.Format("N{0}", rowStart)].Value = i.PriceShip;
                 ws.Cells[string.Format("O{0}", rowStart)].Value = i.TypeItem.Name;
-                ws.Cells[string.Format("P{0}", rowStart)].Value = i.Service.Type;
+                ws.Cells[string.Format("P{0}", rowStart)].Value = i.Service.TypeDelivery;
                 if (i.CreateAt == null )
                 {
 
@@ -324,7 +324,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View();
         }
 
-        public JsonResult CalPrice(calPrice cprice)
+        /*public JsonResult CalPrice(calPrice cprice)
         {
             TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
             Service service = db.Services.Find(cprice.ServiceId);
@@ -344,7 +344,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
             return Json(cprice);
-        }
+        }*/
 
         public ActionResult GetOffice(int? id)
         {

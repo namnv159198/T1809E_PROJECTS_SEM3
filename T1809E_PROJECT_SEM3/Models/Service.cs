@@ -11,22 +11,44 @@ namespace T1809E_PROJECT_SEM3.Models
         [Key]
         public string ID { get; set; }
         [Required]
-        [StringLength(50)]
-        public string Type { get; set; }
-        [Display(Name = "Price Step")]
+        public EnumServiceType TypeDelivery { get; set; }
+
+        public enum EnumServiceType
+        {
+            [Display(Name = "Fast Delivery")]
+            Fast_Delivery = 1,
+            [Display(Name = "Savings Delivery")]
+            Savings_Delivery = 2,
+            VPP = 3,
+            [Display(Name = "Delivery of the day")]
+            Delivery_of_the_day = 3
+        }
+
+       
+
+        [Display(Name = "From")]
+        [Required]
+        [Range(double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
+        public double From { get; set; }
+
+        [Display(Name = "To")]
+        [Required]
+        [Range(double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
+        public double To { get; set; }
+
+        [Display(Name = "Price")]
         [Required]
         [Range (double.Epsilon, double.MaxValue , ErrorMessage = "The {0} field must be larger than 0")]
-        
         public double PriceStep { get; set; }
-        [Display(Name = "Coefficient Weight")]
+
         [Required]
-        [Range (double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
-        public double PriceWeight { get; set; }
-      
-        [Required]
-        [Display(Name ="Distance Step")]
-        [Range(0, int.MaxValue,ErrorMessage = "The {0} field must be larger than 0")]
-        public int DistanceStep { get; set; }
+        public EnumType TypeCaculalor { get; set; }
+        public enum EnumType
+        {
+            Distance = 1,
+            Weight = 2
+        }
+
         [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
@@ -39,6 +61,6 @@ namespace T1809E_PROJECT_SEM3.Models
             Offline = 0,
             Deleted = -1
         }
-        public int TimeUsed { get; set; }
+       
     }
 }

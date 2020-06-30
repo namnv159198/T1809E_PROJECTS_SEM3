@@ -34,10 +34,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 page = 1;
             }
             ViewBag.CurrentFilter = searchString;
-            if (!string.IsNullOrEmpty(searchString))
+            /*if (!string.IsNullOrEmpty(searchString))
             {
                 services = services.Where(s => s.Type.Contains(searchString));
-            }
+            }*/
             services = services.OrderByDescending(x => x.Status);
 
             int pageSize = 5;
@@ -76,7 +76,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             if (ModelState.IsValid)
             {
-                service.TimeUsed = 0;
+                /*service.TimeUsed = 0;*/
                 service.Status = Service.StatusEnumService.Offline; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);

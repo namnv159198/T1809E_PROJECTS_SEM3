@@ -35,21 +35,28 @@
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.HiddenFor(model => model.ID)
-                                @Html.HiddenFor(model => model.TimeUsed)
 
                                 <div class="form-group row m-3">
-                                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.TypeDelivery, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                                        @Html.EnumDropDownListFor(model => model.TypeDelivery, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TypeDelivery, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
+
                                 <div class="form-group row m-3">
-                                    @Html.LabelFor(model => model.DistanceStep, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.DistanceStep, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.DistanceStep, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.From, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.From, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row m-3">
+                                    @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.To, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.To, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -60,12 +67,11 @@
                                         @Html.ValidationMessageFor(model => model.PriceStep, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group row m-3">
-                                    @Html.LabelFor(model => model.PriceWeight, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.TypeCaculalor, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.PriceWeight, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.PriceWeight, "", new { @class = "text-danger" })
+                                        @Html.EnumDropDownListFor(model => model.TypeCaculalor, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.TypeCaculalor, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 

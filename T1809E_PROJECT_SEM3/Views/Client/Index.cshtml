@@ -1,4 +1,4 @@
-﻿@model T1809E_PROJECT_SEM3.Models.ClientViewModel
+﻿@model  T1809E_PROJECT_SEM3.Models.ClientViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared_Client/_Layout.cshtml";
@@ -84,10 +84,10 @@
                                 <h3 class="heading mt-3"><a href="#">@s.Type</a></h3>
                                 <div class="meta mb-3">
                                     <div class="listing">
-                                        @{
-                                            var descTrim = s.Description.Substring(0, 100);
-                                            @Html.DisplayFor(t => descTrim)
-                                        }
+@*                                         @{ *@
+@*                                             var descTrim = s.Description.Substring(0, 100); *@
+@*                                             @Html.DisplayFor(t => descTrim) *@
+@*                                         } *@
                                         ...
                                     </div>
                                 </div>
