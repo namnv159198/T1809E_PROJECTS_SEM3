@@ -20,6 +20,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.(
+
             Random random = new Random();
             var listProvince = context.Province.ToList();
       

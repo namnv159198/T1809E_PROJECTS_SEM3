@@ -34,10 +34,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 page = 1;
             }
             ViewBag.CurrentFilter = searchString;
-            /*if (!string.IsNullOrEmpty(searchString))
-            {
-                services = services.Where(s => s.Type.Contains(searchString));
-            }*/
+           
             services = services.OrderByDescending(x => x.Status);
 
             int pageSize = 5;
@@ -72,12 +69,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Type,PriceWeight,PriceStep,DistanceStep,Description")] Service service)
+        public ActionResult Create( Service service)
         {
             if (ModelState.IsValid)
             {
                 /*service.TimeUsed = 0;*/
-                service.Status = Service.StatusEnumService.Offline; 
+                service.Status = Service.StatusEnumService.Online; 
                 service.ID = "Service" + db.Services.Count();
                 db.Services.Add(service);
                 db.SaveChanges();

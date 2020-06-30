@@ -326,13 +326,15 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
         /*public JsonResult CalPrice(calPrice cprice)
         {
-            TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
+
+            
+            /*TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
             Service service = db.Services.Find(cprice.ServiceId);
 
-            var step = service.DistanceStep;
+            var step = service.TypeDelivery;
             var priceStep = service.PriceStep;
             var heso = cprice.Distance / step;
-            if (cprice.Distance < service.DistanceStep)
+            if (cprice.Distance < service.)
             {
                 heso = 1;
             }
@@ -343,7 +345,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 cprice.PriceShip = priceStep;
             }
             cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
-            return Json(cprice);
+            return Json(cprice);#1#
         }*/
 
         public ActionResult GetOffice(int? id)

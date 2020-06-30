@@ -28,15 +28,15 @@ namespace T1809E_PROJECT_SEM3.Models
 
         [Display(Name = "From")]
         [Required]
-        [Range(double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
+        [Range(0, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
         public double From { get; set; }
 
         [Display(Name = "To")]
         [Required]
-        [Range(double.Epsilon, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
+        [Range(0, double.MaxValue, ErrorMessage = "The {0} field must be larger than 0")]
         public double To { get; set; }
 
-        [Display(Name = "Price")]
+        [Display(Name = "Price Step")]
         [Required]
         [Range (double.Epsilon, double.MaxValue , ErrorMessage = "The {0} field must be larger than 0")]
         public double PriceStep { get; set; }
