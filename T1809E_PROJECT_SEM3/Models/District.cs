@@ -17,6 +17,6 @@ namespace T1809E_PROJECT_SEM3.Models
         public int province_id { get; set; }
 
         [ForeignKey("province_id")]
-        public virtual Province Province { get; set; }
+        public virtual Provinces Province { get; set; }
     }
 }

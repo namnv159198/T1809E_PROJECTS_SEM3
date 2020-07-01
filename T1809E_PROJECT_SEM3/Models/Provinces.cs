@@ -6,7 +6,7 @@ using System.Web;
 
 namespace T1809E_PROJECT_SEM3.Models
 {
-    public class Province
+    public class Provinces
     {
         [Key]
         public int id { get; set; }

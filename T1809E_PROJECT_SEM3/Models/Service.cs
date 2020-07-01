@@ -20,8 +20,6 @@ namespace T1809E_PROJECT_SEM3.Models
             [Display(Name = "Savings Delivery")]
             Savings_Delivery = 2,
             VPP = 3,
-            [Display(Name = "Delivery of the day")]
-            Delivery_of_the_day = 3
         }
 
        
@@ -38,7 +36,7 @@ namespace T1809E_PROJECT_SEM3.Models
 
         [Display(Name = "Price Step")]
         [Required]
-        [Range (double.Epsilon, double.MaxValue , ErrorMessage = "The {0} field must be larger than 0")]
+        [Range (0, double.MaxValue , ErrorMessage = "The {0} field must be larger than 0")]
         public double PriceStep { get; set; }
 
         [Required]
@@ -49,9 +47,10 @@ namespace T1809E_PROJECT_SEM3.Models
             Weight = 2
         }
 
-        [Required]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
+        [Range(0, 100)]
+        [Display(Name = "VAT")]
+        public int VAT { get; set; }
+
       
         [Display(Name = "Status")]
         public StatusEnumService Status { get; set; }

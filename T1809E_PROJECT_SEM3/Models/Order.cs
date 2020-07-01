@@ -21,7 +21,7 @@ namespace T1809E_PROJECT_SEM3.Models
         [DisplayName("From Province ")]
         public int SenderProvinceID { get; set; }
         [ForeignKey("SenderProvinceID")]
-        public virtual Province SenderProvince { get; set; }
+        public virtual Provinces SenderProvince { get; set; }
 
         [Required]
         [DisplayName(" At Post Office ")]
@@ -51,7 +51,7 @@ namespace T1809E_PROJECT_SEM3.Models
         public int ReceiverProvinceID { get; set; }
         [ForeignKey("ReceiverProvinceID")]
         [DisplayName("To Province ")]
-        public virtual Province ReceiverProvince { get; set; }
+        public virtual Provinces ReceiverProvince { get; set; }
 
         [Required]
         [DisplayName("At Post Office ")]

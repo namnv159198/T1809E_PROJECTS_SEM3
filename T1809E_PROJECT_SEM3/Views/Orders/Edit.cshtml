@@ -150,7 +150,7 @@
                                         <div class="form-group col-lg-4">
                                             @Html.LabelFor(model => model.ServiceId, htmlAttributes: new { @class = "control-label col-md-6" })
                                             <div class="col-md-10">
-                                                @Html.DropDownList("ServiceId", null, htmlAttributes: new { @class = "form-control" })
+                                                @Html.DropDownList("ServiceId",  EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.EnumServiceType)), "-- Select Service --", htmlAttributes: new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>

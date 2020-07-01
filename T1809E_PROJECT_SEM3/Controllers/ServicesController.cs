@@ -16,7 +16,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
-        public ActionResult Index(string searchString, string currentFilter, int? status, int? page)
+        public ActionResult Index(string searchString, string currentFilter, int? status, int? page, int? methodService, int? typeService)
         {
             var services = db.Services.AsEnumerable();
             if (status.HasValue)
@@ -24,6 +24,14 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 ViewBag.Status = status;
 
                 services = services.Where(p => (int)p.Status == status.Value);
+            }
+            if (methodService.HasValue)
+            {
+                services = services.Where(p => (int)p.TypeCaculalor == methodService.Value);
+            }
+            if (typeService.HasValue)
+            {
+                services = services.Where(p => (int)p.TypeDelivery == typeService.Value);
             }
             if (searchString == null)
             {
@@ -37,7 +45,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
            
             services = services.OrderByDescending(x => x.Status);
 
-            int pageSize = 5;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             return View(services.ToPagedList(pageNumber, pageSize));
@@ -105,7 +113,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Type,PriceStep,DistanceStep,PriceWeight, Status,Description,TimeUsed")] Service service)
+        public ActionResult Edit(Service service)
         {
             if (ModelState.IsValid)
             {

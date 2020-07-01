@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -24,7 +25,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var order = (from l in db.Orders
                          select l);
             ViewBag.CurrentSort = sortOrder;
-          
+
 
             if (start != null)
             {
@@ -49,7 +50,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 order = order.Where(p => (int)p.Status == status.Value);
             }
 
-            
+
             int defaSize = (pageSize ?? 5);
             if (searchString != null)
             {
@@ -68,6 +69,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 new SelectListItem() { Value="15", Text= "15" },
                 new SelectListItem() { Value="25", Text= "25" },
                 new SelectListItem() { Value="50", Text= "50" },
+                new SelectListItem() { Value="100", Text= "100" },
                 new SelectListItem() { Value = order.ToList().Count().ToString(), Text= "All" },
             };
 
@@ -121,23 +123,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var order = db.Orders.ToList();
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
-            
+
             ws.Cells["A2"].Value = "List Order";
-            
+
             ws.Cells["H2"].Value = "Total Order ";
             ws.Cells["I2"].Value = order.Count();
-            
+
             ws.Cells["H3"].Value = "Total Revenue";
             ws.Cells["I3"].Value = String.Format("{0:N0}", order.Sum(x => x.PriceShip)) + "$";
-        
-            
-            
-            
+
+
+
+
             ws.Cells["A3"].Value = "Print At";
             ws.Cells["B3"].Value = string.Format("{0:dd/MM/yyyy HH:mm}", DateTimeOffset.Now);
 
 
-           
+
             ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["B7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
@@ -190,8 +192,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     ws.Row(rowStart).Style.Fill.BackgroundColor
                         .SetColor(ColorTranslator.FromHtml(string.Format("yellow")));
                 }
-            
-            
+
+
                 ws.Cells[string.Format("A{0}", rowStart)].Value = i.ID;
 
                 ws.Cells[string.Format("B{0}", rowStart)].Value = i.SenderName;
@@ -211,21 +213,21 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 ws.Cells[string.Format("N{0}", rowStart)].Value = i.PriceShip;
                 ws.Cells[string.Format("O{0}", rowStart)].Value = i.TypeItem.Name;
                 ws.Cells[string.Format("P{0}", rowStart)].Value = i.Service.TypeDelivery;
-                if (i.CreateAt == null )
+                if (i.CreateAt == null)
                 {
 
                     ws.Cells[string.Format("Q{0}", rowStart)].Value = "Null";
-            
+
                 }
                 else
                 {
                     ws.Cells[string.Format("R{0}", rowStart)].Value = i.CreateAt.Value.ToString("dd/MM/yyyy");
                 }
-              
+
                 rowStart++;
             }
-            
-            
+
+
             ws.Cells["A:AZ"].AutoFitColumns();
             Response.Clear();
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -272,13 +274,13 @@ namespace T1809E_PROJECT_SEM3.Controllers
                                 obj.Status = Order.EnumOrderStatus.New;
                                 break;
                         }
-                        
+
                     }
                     db.SaveChanges();
                     TempData["message"] = "ChangeStatus";
                     return RedirectToAction("Index");
                 }
-                if (ListCategoryIDs != null )
+                if (ListCategoryIDs != null)
                 {
                     string[] listID = ListCategoryIDs.Split(',');
                     foreach (string c in listID)
@@ -318,36 +320,79 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.ReceiverProvinceID = new SelectList(db.Province, "id", "_name");
             ViewBag.SenderOfficeID = new SelectList(db.Offices, "ID", "PinCode");
             ViewBag.SenderProvinceID = new SelectList(db.Province, "id", "_name");
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type");
             ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName");
             return View();
         }
 
-        /*public JsonResult CalPrice(calPrice cprice)
+        public JsonResult CalPrice(calPrice cprice)
         {
+            TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
 
-            
-            /*TypeItem typeItem = db.TypeItems.Find(cprice.TypeItemId);
-            Service service = db.Services.Find(cprice.ServiceId);
+            var service = ServiceList(cprice.ServiceId);
 
-            var step = service.TypeDelivery;
-            var priceStep = service.PriceStep;
-            var heso = cprice.Distance / step;
-            if (cprice.Distance < service.)
+
+            if (service != null)
             {
-                heso = 1;
-            }
-            cprice.PriceShip = ((priceStep * heso) * ((100 - heso) / 100)) * (1 + (cprice.Weight * heso) / service.PriceWeight) * ((double)(100 + typeItem.Percent) / 100);
+                var ServiceDistance = service.Find(x => x.From <= cprice.Distance && x.To >= cprice.Distance && x.TypeCaculalor.GetHashCode() == 1);
+                var ServiceWeight = service.Find(x => x.From <= cprice.Weight && x.To >= cprice.Weight && x.TypeCaculalor.GetHashCode() == 2);
+                if (cprice.Distance > 3000 && cprice.Weight <= 3000)
+                {
+                    cprice.PriceShip = (0.06 * cprice.Distance) + ServiceWeight.PriceStep;
 
-            if (cprice.PriceShip < priceStep)
+                }
+                else if (cprice.Weight > 3000 && cprice.Distance <= 3000)
+                {
+                    cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + cprice.Weight * 0.02;
+                    cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
+                                       (cprice.PriceShip * 5) / 100;
+                    cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
+                    return Json(cprice);
+                }
+                else if (cprice.Distance > 3000 && cprice.Weight > 3000)
+                {
+                    cprice.PriceShip = (0.06 * cprice.Distance) + (cprice.Weight * 0.02);
+                    cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
+                                       (cprice.PriceShip * 5) / 100;
+                    cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
+                    return Json(cprice);
+                }
+                else if (cprice.Distance <= 3000 && cprice.Weight <= 3000)
+                {
+                    cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + ServiceWeight.PriceStep;
+
+                }
+
+                cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
+                                   (cprice.PriceShip * ServiceWeight.VAT) / 100;
+                cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
+                return Json(cprice);
+            }
+
+            cprice.PriceShip = 0;
+            return Json(cprice);
+        }
+
+
+        public List<Service> ServiceList(string serviceId)
+        {
+            var temp = Convert.ToInt32(serviceId);
+            var service = db.Services.ToList();
+            switch (temp)
             {
-                cprice.PriceShip = priceStep;
+                case 1:
+                    service = service.Where(x => x.TypeDelivery == Service.EnumServiceType.Fast_Delivery).ToList();
+                    break;
+                case 2:
+                    service = service.Where(x => x.TypeDelivery == Service.EnumServiceType.Savings_Delivery).ToList();
+                    break;
+                case 3:
+                    service = null;
+                    break;
             }
-            cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
-            return Json(cprice);#1#
-        }*/
 
+            return service;
+        }
         public ActionResult GetOffice(int? id)
         {
             var listOffice = db.Offices.Where(x => x.Province_id == id);
@@ -356,9 +401,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return PartialView("DisplayOffice");
         }
 
-        // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Orders/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Order order)
@@ -371,8 +416,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 }
                 order.CreatedById = String.Format(User.Identity.GetUserId());
                 order.CreatedBy = db.Users.Find(User.Identity.GetUserId());
-
-                order.ID = "OD" + DateTime.Now.Millisecond + DateTime.Now.Day+ DateTime.Now.Month + DateTime.Now.Year;
+                var service = ServiceList(order.ServiceId);
+                var serverID = service.FirstOrDefault(x => x.From <= order.Distance && x.To >= order.Distance);
+                order.ServiceId = serverID.ID;
+                order.ID = "OD" + DateTime.Now.Millisecond + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
                 order.CreateAt = DateTime.Now;
                 order.Status = Order.EnumOrderStatus.New;
                 db.Orders.Add(order);
@@ -392,7 +439,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(order);
         }
 
-        // GET: Orders/Edit/5
+        //GET: Orders/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -415,12 +462,12 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(order);
         }
 
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Orders/Edit/5
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Order order)
+        public ActionResult Edit(Order order)
         {
             if (ModelState.IsValid)
             {
@@ -446,7 +493,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(order);
         }
 
-        // GET: Orders/Delete/5
+        //GET: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(string id)
@@ -475,5 +522,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }
+

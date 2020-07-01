@@ -28,28 +28,46 @@
                     <div class="card-body">
                         @using (Html.BeginForm("Index", "Services", FormMethod.Get, new { @name = "search-form" }))
                         {
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <p class="padding">
-                                            Search By Keyword
-                                        </p>
-                                        <div class="input-group">
-                                            <button type="submit" class="btn btn-outline-link">Search <i class="fa fa-search"></i></button>
-                                            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = " Name . . . " })
-                                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <p class="padding">
+                                        Search By Keyword
+                                    </p>
+                                    <div class="input-group">
+                                        <button type="submit" class="btn btn-outline-link">Search <i class="fa fa-search"></i></button>
+                                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = " Name . . . " })
                                     </div>
                                 </div>
-                                <div class="col-md-4 .ml-auto">
-                                    <p class="padding">
-                                        Search By Status
-                                    </p>
-                                    @Html.DropDownList("status",
+                            </div>
+                            <div class="col-md-3">
+                                <p class="padding">
+                                    Search By Status
+                                </p>
+                                @Html.DropDownList("status",
                                     EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.StatusEnumService)),
                                     "Select Status",
                                     new { @class = "btn btn-outline-secondary", onchange = "form.submit()" })
-                                </div>
                             </div>
+                            <div class="col-md-3 ">
+                                <p class="padding">
+                                    Filter By Method
+                                </p>
+                                @Html.DropDownList("methodService",
+                                    EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.EnumType)),
+                                    "Select Method",
+                                    new { @class = "btn btn-outline-secondary", onchange = "form.submit()" })
+                            </div>
+                            <div class="col-md-3 ">
+                                <p class="padding">
+                                    Filter By Type
+                                </p>
+                                @Html.DropDownList("typeService",
+                                    EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Service.EnumServiceType)),
+                                    "Select Type",
+                                    new { @class = "btn btn-outline-secondary", onchange = "form.submit()" })
+                            </div>
+                        </div>
                         }
                         <p class="btn btn-outline-primary">
                             @Html.ActionLink("Create New +", "Create")
@@ -77,7 +95,7 @@
                                         Price Step
                                     </th>
                                     <th>
-                                        Method of calculation
+                                        Method
                                     </th>
                                     <th>
                                         Status

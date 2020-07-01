@@ -8,15 +8,6 @@ namespace T1809E_PROJECT_SEM3.Migrations
         public override void Up()
         {
             CreateTable(
-                    "dbo.Provinces",
-                    c => new
-                    {
-                        id = c.Int(nullable: false, identity: true),
-                        _name = c.String(),
-                        _code = c.String(),
-                    })
-                .PrimaryKey(t => t.id);
-            CreateTable(
                 "dbo.Districts",
                 c => new
                     {
@@ -29,7 +20,15 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 .ForeignKey("dbo.Provinces", t => t.province_id, cascadeDelete: true)
                 .Index(t => t.province_id);
             
-           
+            CreateTable(
+                "dbo.Provinces",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        _name = c.String(),
+                        _code = c.String(),
+                    })
+                .PrimaryKey(t => t.id);
             
             CreateTable(
                 "dbo.Offices",
@@ -39,7 +38,6 @@ namespace T1809E_PROJECT_SEM3.Migrations
                         PinCode = c.String(nullable: false),
                         Name = c.String(nullable: false, maxLength: 50),
                         Email = c.String(nullable: false),
-                        VAT = c.Int(nullable: false),
                         PhoneNumber = c.String(),
                         Address = c.String(nullable: false),
                         District_id = c.Int(),
@@ -164,7 +162,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
                         To = c.Double(nullable: false),
                         PriceStep = c.Double(nullable: false),
                         TypeCaculalor = c.Int(nullable: false),
-                        Description = c.String(nullable: false),
+                        VAT = c.Int(nullable: false),
                         Status = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);

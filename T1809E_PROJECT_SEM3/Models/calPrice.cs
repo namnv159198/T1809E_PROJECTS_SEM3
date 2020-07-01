@@ -16,14 +16,16 @@ namespace T1809E_PROJECT_SEM3.Models
 
         [Required]
         [Range(0, double.MaxValue)]
-        public Double Distance { get; set; }
+        public double Distance { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
-        public Double Weight { get; set; }
+        public double Weight { get; set; }
 
 
-        public Double PriceShip { get; set; }
+        public double PriceShip { get; set; }
+
+        public string Display { get; set; }
 
         public int TypeItemId { get; set; }
         [ForeignKey("TypeItemId")]
