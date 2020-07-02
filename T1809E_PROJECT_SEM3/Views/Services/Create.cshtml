@@ -35,7 +35,7 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="row col-lg-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.TypeDelivery, htmlAttributes: new { @class = "control-label col-lg-6" })
+                                @Html.LabelFor(model => model.TypeDelivery, "Type Delivery",htmlAttributes: new { @class = "control-label col-lg-7" })
                                 <div class="col-lg-12">
                                     @Html.EnumDropDownListFor(model => model.TypeDelivery, "-- Select Type Delivery -- ", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.TypeDelivery, "", new { @class = "text-danger" })
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.LabelFor(model => model.TypeCaculalor, htmlAttributes: new { @class = "control-label col-lg-6" })
+                                @Html.LabelFor(model => model.TypeCaculalor,"Type Caculalor", htmlAttributes: new { @class = "control-label col-lg-7" })
                                 <div class="col-lg-12">
                                     @Html.EnumDropDownListFor(model => model.TypeCaculalor, "-- Select Type Caculator --", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.TypeCaculalor, "", new { @class = "text-danger" })

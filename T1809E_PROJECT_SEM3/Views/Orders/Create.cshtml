@@ -45,14 +45,20 @@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                                     <div class="row col-lg-12">
-                                        <div class="form-group col-7">
+                                        <div class="form-group col-6">
                                             @Html.LabelFor(model => model.SenderName, htmlAttributes: new { @class = "control-label col-md-6" })
                                             <div class="col-md-10">
                                                 @Html.EditorFor(model => model.SenderName, new { htmlAttributes = new { @class = "form-control" } })
                                                 @Html.ValidationMessageFor(model => model.SenderName, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-
+                                        <div class="form-group col-6">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-6" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
 
                                         <div class="form-group col-6">
                                             @Html.LabelFor(model => model.SenderProvinceID, htmlAttributes: new { @class = "control-label col-md-6" })
@@ -162,10 +168,7 @@
                                                 @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-
-
-
-                                        <div class="form-group col-4">
+                                        <div class="form-group col-4" hidden id="CalPrice">
                                             <label class="control-label col-lg-8">Price Ship ($)</label>
                                             <div class="col-md-10">
                                                 <input value="" name="PriceShip" hidden />
@@ -215,6 +218,19 @@
 {
     <script type="text/javascript">
         $("#Cal_Price").click(function () {
+            if ($('#Distance').val() == "" || $('#Weight').val() == "") {
+                Swal.fire({
+                    title: 'Please input Distance and Weight !',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+                return;
+            }
+           
             $.ajax({
                 type: "POST",
                 url: "../orders/CalPrice",
@@ -230,13 +246,14 @@
                 success: function (data) {
                     $("#PriceShip").val(data.PriceShip);
                     $( "input[name='PriceShip']" ).val(data.PriceShip);
-
+                    $('#CalPrice').removeAttr('hidden');
                 },
                 failure: function (errMsg) {
                     alert(errMsg);
                 }
             });
         });
+        
 
     </script>
     <script>

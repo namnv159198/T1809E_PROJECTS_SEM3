@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -332,7 +333,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var service = ServiceList(cprice.ServiceId);
 
 
-            if (service != null)
+            if (service != null )
             {
                 var ServiceDistance = service.Find(x => x.From <= cprice.Distance && x.To >= cprice.Distance && x.TypeCaculalor.GetHashCode() == 1);
                 var ServiceWeight = service.Find(x => x.From <= cprice.Weight && x.To >= cprice.Weight && x.TypeCaculalor.GetHashCode() == 2);
@@ -357,7 +358,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                     return Json(cprice);
                 }
-                else if (cprice.Distance <= 3000 && cprice.Weight <= 3000)
+                else if (cprice.Distance <= 3000 && cprice.Weight <= 3000 )
                 {
                     cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + ServiceWeight.PriceStep;
 
@@ -424,6 +425,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 order.Status = Order.EnumOrderStatus.New;
                 db.Orders.Add(order);
                 db.SaveChanges();
+                //sendMail(order);
                 TempData["message"] = "Success";
                 return RedirectToAction("Index");
             }
@@ -439,6 +441,36 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(order);
         }
 
+        public void sendMail(Order order)
+        {
+            var senderEmail = new MailAddress("namkun159198@gmail.com", "RocketShip");
+            var receiverEmail = new MailAddress(order.Email, "Receiver");
+            var password = "0963404604";
+            var sub = "[ RocketShip ] : Order #" + order.ID;
+            var body = "From OFFICE : "+order.SenderOffice.Name +" - Province : "+order.SenderProvince._name +"\n "+
+                       "To OFFICE : "+ order.ReceiverOffice.Name + " - Province : " + order.ReceiverProvince._name + "\n " + "Sender Name : " +order.SenderName +"\n"+"Receiver Name : "+order.ReceiverName +
+                       " - PhoneNumber : "+order.ReceiverPhone +"- Address Details : "+order.ReceiverAddress+"\n"+
+                "Price Ship : " + String.Format("{0:N0}", (order.PriceShip)) + "$" + "\n"+
+                "Status :" +order.Status ;
+            
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, password)
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+            {
+                Subject = sub,
+                Body = body
+            })
+            {
+                smtp.Send(mess);
+            }
+        }
         //GET: Orders/Edit/5
         public ActionResult Edit(string id)
         {
@@ -477,6 +509,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 }
                 order.UpdatedById = String.Format(User.Identity.GetUserId());
                 order.UpdatedBy = db.Users.Find(User.Identity.GetUserId());
+                var service = ServiceList(order.ServiceId);
+                var serverID = service.FirstOrDefault(x => x.From <= order.Distance && x.To >= order.Distance);
+                order.ServiceId = serverID.ID;
                 db.Entry(order).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["message"] = "Success";

@@ -304,7 +304,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
 
             // -------------------------------------------------- Seeding Order --------------------------------------------------
 
-            var listProvince = context.Province.ToList();
+            /*var listProvince = context.Province.ToList();
             var listOffice = context.Offices.ToList();
             var listTypeItem = context.TypeItems.ToList();
             var listService = context.Services.ToList();
@@ -393,7 +393,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
                     context.Orders.AddOrUpdate(order);
                 }
 
-            }
+            }*/
 
         }
            
