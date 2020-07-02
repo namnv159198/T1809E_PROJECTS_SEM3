@@ -275,7 +275,8 @@
                                         </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Distance)
+                                            @String.Format("{0:N0}", (item.Distance))
+
                                         </td>
                                         <td>
                                             @String.Format("{0:N0}", (item.Weight))
