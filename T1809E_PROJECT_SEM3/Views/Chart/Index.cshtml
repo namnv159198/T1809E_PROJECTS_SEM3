@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared_Admin/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color:white">
+                        <div class="row">
+                            <div class="card-body row ">
+                                <div class="col-sm-2 mt-4">
+
+                                </div>
+                               
+
+                                <div id="chartContainer" style="height: 300px; width: 100%; margin-bottom:100px"></div>
+
+
+                                @*<div class="col-2">
+            Chọn năm:
+            @using (Html.BeginForm("RevenueChart", "Chart", FormMethod.Get, new { @name = "search-form" }))
+            {
+                @Html.DropDownList("YearChart", (IEnumerable<SelectListItem>)ViewBag.listYear, "Chọn", new { @class = "form-control" })
+            }
+        </div>
+        <div class="col-2 mt-4">
+            @using (Html.BeginForm("ExportToExcel", "chart", FormMethod.Get, new { @name = "export-form" }))
+            {
+                <input name="ex" value="" hidden />
+                <button class="exportExcel form-control btn btn-success fa-border" value="" type="submit">
+                    Xuất Excel <i class="fa fa-print" aria-hidden="true"></i>
+                </button>
+            }
+        </div>
+        <div id="chartContainer2" style="height: 300px; width: 100%; margin-bottom: 100px"></div>
+
+        <div class="col-lg-4 mt-5">
+            <h4 class="mt-5">Thống kê doanh thu các năm</h4>
+            <table class="table table-bordered mt-5">
+                <thead>
+                    <tr>
+                        <th>Năm</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in Model.ModelData1)
+                    {
+                        <tr>
+                            <td>@i.label</td>
+                            <td>@String.Format("{0:N0}", i.y) VNĐ</td>
+                        </tr>
+
+                        h = (double)(h + i.y);
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Tổng số lượng </th>
+                        <th>@String.Format("{0:N0}", h) VNĐ </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>*@
+                                @*<div id="chartContainer1" class="col-lg-6 mt-5" style="height: 370px; width: 50%;"></div>*@
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+
+    var url_string = location.href;
+    var url = new URL(url_string);
+    var initMinPrice = url.searchParams.get("YearChart");
+    if (initMinPrice == null) {
+        initMinPrice = 2020;
+    }
+
+//    if (initMinPrice != null) {
+//        $("[name$='chartSelect']").attr("#chartContainer3").val("chartContainer2");
+//    }
+    window.onload = function () {
+
+
+        /*var chart1 = new CanvasJS.Chart("chartContainer1", {
+            theme: "light2",
+            animationEnabled: true,
+            exportEnabled: true,
+            title: {
+                text: "Thống kê tổng doanh thu trong các năm ",
+                margin: 10,
+
+            },
+
+            axisY: {
+                title: "Doanh thu",
+                gridThickness: 0,
+
+            },
+
+            data: [{
+                type: "column",
+                toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                indexLabel: "{y}",
+                showInLegend: true,
+                legendText: "{label}",
+                dataPoints: Html.Raw(ViewBag.DataPoints1)
+/*            }]
+        });
+        chart1.render();
+
+        var chart2 = new CanvasJS.Chart("chartContainer2",
+            {
+                title: {
+                    text: "Doanh thu trong năm " + initMinPrice
+                },
+                axisX:{
+//                    valueFormatString: "MMM" ,
+                    labelAngle: -50
+                },
+                axisY: {
+                    valueFormatString: "#,###"
+                },
+
+                data: [
+                    {
+                        type: "line",
+                        lineThickness: 2,
+                        color: "rgba(0,75,141,0.7)",
+                        toolTipContent: "<b>Tháng {label}:</b> {y} VNĐ",
+                        dataPoints: Html.Raw(ViewBag.DataPoints2)
+                    }
+
+                ]
+            });
+
+        chart2.render();#1#*/
+
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Revenue chart in years"
+            },
+            axisY: {
+                includeZero: false
+            },
+            toolTip: {
+                shared: true
+            },
+            data: [{
+                type: "area",
+                name: "2017",
+                lineThickness: 2,
+                yValueFormatString: "$#,###",
+                showInLegend: true,
+                dataPoints: @Html.Raw(ViewBag.DataPoints7)
+            }, {
+                type: "area",
+                name: "2018",
+                lineThickness: 2,
+                yValueFormatString: "$#,###",
+                showInLegend: true,
+                dataPoints: @Html.Raw(ViewBag.DataPoints8)
+            },{
+                type: "area",
+                name: "2019",
+                lineThickness: 2,
+                yValueFormatString: "$#,###",
+                showInLegend: true,
+                dataPoints: @Html.Raw(ViewBag.DataPoints9)
+            }, {
+                type: "area",
+                lineThickness: 2,
+                name: "2020",
+                yValueFormatString: "$#,###",
+                showInLegend: true,
+                dataPoints: @Html.Raw(ViewBag.DataPoints20)
+            }]
+        });
+        chart.render();
+
+        var chartType = document.getElementById('chartType');
+        chartType.addEventListener( "change",  function(){
+            chart.options.data[0].type = chartType.options[chartType.selectedIndex].value;
+            chart.render();
+        });
+
+
+
+
+        /*/*var chartType1 = document.getElementById('chartType1');
+        chartType1.addEventListener( "change",  function(){
+            chart1.options.data[0].type = chartType1.options[chartType1.selectedIndex].value;
+            chart1.render();
+        });*/
+        
+    }
+
+
+</script>
+@section scripts{
+    <script>
+        var url_string = location.href;
+        var url = new URL(url_string);
+        var initMinPrice = url.searchParams.get("YearChart");
+        if (initMinPrice == null) {
+            initMinPrice = 2020;
+        }
+        $('select[name="YearChart"]').change(function () {
+            $('form[name="search-form"]').submit();
+        });
+        $('body').on('click', '.exportExcel', function () {
+            $('input[name="ex"]').val(initMinPrice);
+            $('form[name="export-form"]').submit();
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Xuất Excel thành công',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+        });
+    </script>
+
+}
+
+
+

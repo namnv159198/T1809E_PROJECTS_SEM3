@@ -93,7 +93,7 @@
 
 
                                         <div class="form-group col-6">
-                                            @Html.LabelFor(model => model.ReceiverProvinceID, htmlAttributes: new { @class = "control-label col-md-6" })
+                                            @Html.LabelFor(model => model.ReceiverProvinceID, "Receiver Province", htmlAttributes: new { @class = "control-label col-md-6" })
                                             <div class="col-md-10">
                                                 @Html.DropDownList("ReceiverProvinceID",  null, "-- Select Province --", htmlAttributes: new { @class = "form-control", @id = "ReceiverProvinceID" })
                                                 @Html.ValidationMessageFor(model => model.ReceiverProvinceID, "", new { @class = "text-danger" })
@@ -101,7 +101,7 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            @Html.LabelFor(model => model.ReceiverOfficeID, htmlAttributes: new { @class = "control-label col-md-6" })
+                                            @Html.LabelFor(model => model.ReceiverOfficeID, "Receiver Office", htmlAttributes: new { @class = "control-label col-md-6" })
                                             <div class="col-md-10">
                                                 @Html.DropDownList("ReceiverOfficeID",  null, "-- Select Province --", htmlAttributes: new { @class = "form-control", @id = "ReceiverOfficeID" })
                                                 @Html.ValidationMessageFor(model => model.ReceiverOfficeID, "", new { @class = "text-danger" })
@@ -187,15 +187,14 @@
                                         <div class="form-group col-12">
                                             <div class="col-md-offset-2 col-md-10">
                                                 <input type="submit" name="save" value="save" class="btn btn-primary" />
+                                                <button type="button" class="btn btn-outline-primary">@Html.ActionLink("Back to list", "Index")</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 }
 
-                                <div>
-                                    @Html.ActionLink("Back to List", "Index")
-                                </div>
+                               
 
                             </div>
 

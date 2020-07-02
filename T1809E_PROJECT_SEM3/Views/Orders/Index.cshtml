@@ -217,10 +217,10 @@
                                     </th>
 
                                     <th>
-                                        Distance
+                                        Distance (Km)
                                     </th>
                                     <th>
-                                        Weight
+                                        Weight (Kg)
                                     </th>
                                     <th>
                                         @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
@@ -278,7 +278,7 @@
                                             @Html.DisplayFor(modelItem => item.Distance)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Weight)
+                                            @String.Format("{0:N0}", (item.Weight))
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreateAt)
