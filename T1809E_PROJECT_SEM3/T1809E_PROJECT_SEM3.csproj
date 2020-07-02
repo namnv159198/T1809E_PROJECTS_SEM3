@@ -595,6 +595,7 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\DisplayOffice.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Client\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
