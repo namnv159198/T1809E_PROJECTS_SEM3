@@ -3,195 +3,186 @@
     ViewBag.Title = "OrderDetails";
     Layout = "~/Views/Shared_Client/_Layout.cshtml";
 }
+    <section class="ftco-section ftco-destination">
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="card col-md-8">
+                        <div class="card-body">
+                            <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <h4 class="mt-2 mb-3">OrderID :<span style="font-weight: bold;">@Model.ID</span> </h4>
 
-<div class="content ftco-section ftco-destination">
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-sm-12">
-                <section class="panel">
-                    <div class="panel-body">
-                        <div class="card">
-                            <div class="card-body">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Service.TypeDelivery)
+                                    </th>
 
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <h4 class="mt-2 mb-3">OrderID :<span style="font-weight: bold;">@Model.ID</span> </h4>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Service.TypeDelivery)
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Service.TypeDelivery)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SenderName)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.Service.TypeDelivery)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.SenderName)
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.SenderName)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SenderProvinceID)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.SenderName)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.SenderProvince._name)
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.SenderProvinceID)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SenderOfficeID)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.SenderProvince._name)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.SenderOffice.PinCode)
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.SenderOfficeID)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SenderAddress)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.SenderOffice.PinCode)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.SenderAddress)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SenderPhone)
+                                    </th>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.SenderAddress)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.SenderPhone)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiverName)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.SenderAddress)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.SenderPhone)
-                                        </th>
-
-                                        <td>
-                                            @Html.DisplayFor(model => model.SenderPhone)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ReceiverName)
-                                        </th>
-
-                                        <td>
-                                            @Html.DisplayFor(model => model.ReceiverName)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.ReceiverName)
+                                    </td>
+                                </tr>
 
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ReceiverProvinceID)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiverProvinceID)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.ReceiverProvince._name)
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        @Html.DisplayFor(model => model.ReceiverProvince._name)
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ReceiverOfficeID)
-                                        </th>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiverOfficeID)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.ReceiverOffice.PinCode)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ReceiverAddress)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.ReceiverOffice.PinCode)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiverAddress)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.ReceiverAddress)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.ReceiverPhone)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.ReceiverAddress)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ReceiverPhone)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.ReceiverPhone)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Distance)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.ReceiverPhone)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Distance)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.Distance) KM
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Weight)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Distance) KM
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Weight)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.Weight) KG
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.CreateAt)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Weight) KG
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreateAt)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.CreateAt)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.PriceShip)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.CreateAt)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PriceShip)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.PriceShip) $
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Status)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.PriceShip) $
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.Status)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.TypeItem)
-                                        </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Status)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TypeItem)
+                                    </th>
 
-                                        <td>
-                                            @Html.DisplayFor(model => model.TypeItem.Name)
-                                        </td>
-                                    </tr>
-                                </table>
-                                <p>
-                                    <button class="btn btn-light">
-                                        @Html.ActionLink("Back to Home Page", "Index")
-                                    </button>
-                                </p>
-                            </div>
-
+                                    <td>
+                                        @Html.DisplayFor(model => model.TypeItem.Name)
+                                    </td>
+                                </tr>
+                            </table>
+                            <p>
+                                <button class="btn btn-light">
+                                    @Html.ActionLink("Back to Home Page", "Index")
+                                </button>
+                            </p>
                         </div>
-
                     </div>
-
-                </section>
-
+                    <div class="col-md-2"></div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
+    </section>

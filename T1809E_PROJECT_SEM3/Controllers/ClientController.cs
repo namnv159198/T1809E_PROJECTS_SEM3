@@ -22,18 +22,23 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View(client);
         }
 
-        public ActionResult Details(string id)
+        [HttpGet]
+        public ActionResult Details(string id, string senderName, string senderPhone)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
-            if (order == null)
+            if (order != null)
             {
+                if (order.SenderName == senderName && order.SenderPhone == senderPhone)
+                {
+                    return View("OrderDetails", order);
+                }
                 return HttpNotFound();
             }
-            return View("OrderDetails",order);
+            return HttpNotFound();
         }
     }
 }
