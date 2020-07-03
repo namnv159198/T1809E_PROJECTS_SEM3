@@ -108,7 +108,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     ViewBag.SortIcon = "fa fa-sort";
                     break;
             }
-            //order = order.OrderBy(x => x.ID);
+     
             ViewBag.TotalEnity = order.Count();
 
             int pageNumber = (page ?? 1);

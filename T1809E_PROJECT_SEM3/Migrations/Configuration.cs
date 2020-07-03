@@ -355,7 +355,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
                     TypeItemId = listTypeItem[indexItemType].ID,
                     ServiceId = listService[indexService].ID,
                     Status = Order.EnumOrderStatus.Finished,
-                    CreateAt = DateTime.Now.Date.AddMonths(-6).AddDays(random.Next(0,185))
+                    CreateAt = DateTime.Now.Date.AddMonths(-6).AddDays(random.Next(0,182))
                 };
                 if (order.Distance > 3000 && order.Weight <= 3000)
                 {
