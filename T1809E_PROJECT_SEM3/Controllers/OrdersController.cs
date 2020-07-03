@@ -425,7 +425,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 order.Status = Order.EnumOrderStatus.New;
                 db.Orders.Add(order);
                 db.SaveChanges();
-                //sendMail(order);
+                sendMail(order.ID);
                 TempData["message"] = "Success";
                 return RedirectToAction("Index");
             }
@@ -435,20 +435,19 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.ReceiverProvinceID = new SelectList(db.Province, "id", "_name", order.ReceiverProvinceID);
             ViewBag.SenderOfficeID = new SelectList(db.Offices, "ID", "PinCode", order.SenderOfficeID);
             ViewBag.SenderProvinceID = new SelectList(db.Province, "id", "_name", order.SenderProvinceID);
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
             return View(order);
         }
 
-        public void sendMail(Order order)
+        public void sendMail(string OrderID)
         {
+            var order = db.Orders.Find(OrderID);
             var senderEmail = new MailAddress("namkun159198@gmail.com", "RocketShip");
             var receiverEmail = new MailAddress(order.Email, "Receiver");
             var password = "0963404604";
             var sub = "[ RocketShip ] : Order #" + order.ID;
-            var body = "From OFFICE : "+order.SenderOffice.Name +" - Province : "+order.SenderProvince._name +"\n "+
-                       "To OFFICE : "+ order.ReceiverOffice.Name + " - Province : " + order.ReceiverProvince._name + "\n " + "Sender Name : " +order.SenderName +"\n"+"Receiver Name : "+order.ReceiverName +
+            var body = "Sender Name : " +order.SenderName +"\n"+"Receiver Name : "+order.ReceiverName +
                        " - PhoneNumber : "+order.ReceiverPhone +"- Address Details : "+order.ReceiverAddress+"\n"+
                 "Price Ship : " + String.Format("{0:N0}", (order.PriceShip)) + "$" + "\n"+
                 "Status :" +order.Status ;
@@ -488,7 +487,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ViewBag.ReceiverProvinceID = new SelectList(db.Province, "id", "_name", order.ReceiverProvinceID);
             ViewBag.SenderOfficeID = new SelectList(db.Offices, "ID", "PinCode", order.SenderOfficeID);
             ViewBag.SenderProvinceID = new SelectList(db.Province, "id", "_name", order.SenderProvinceID);
-            ViewBag.ServiceId = new SelectList(db.Services, "ID", "Type", order.ServiceId);
             ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name", order.TypeItemId);
             ViewBag.UpdatedById = new SelectList(db.Users, "Id", "FullName", order.UpdatedById);
             return View(order);

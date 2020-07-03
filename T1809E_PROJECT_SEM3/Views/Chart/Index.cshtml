@@ -6,80 +6,47 @@
 
 <div class="content">
     <div class="animated fadeIn">
-        <div class="row">
+    @using (Html.BeginForm("Index", "Chart", FormMethod.Get, new { @name = "search-form" }))
+    {
+            <div class="row">
 
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header" style="background-color:white">
-                        <div class="row">
-                            <div class="card-body row ">
-                                <div class="col-sm-2 mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="background-color: white">
+                            <div class="row">
+
+                                <div class="card-body row ">
+
+                                    <div class="col-sm-6 mt-4">
+
+                                        <input type="hidden" name="start" value="" />
+                                        <input type="hidden" name="end" value="" />
+                                        <label class="text-uppercase"> Filter Time</label>
+                                        <input type="text" name="daterange" value="" class="form-control  " />
+                                    </div>
+                                    <div class="col-sm-6 mt-5">
+                                        <input name="ex" value="" hidden />
+                                        <button class="exportExcel form-control btn btn-success fa-border mt-2">
+                                            Sprint Excel <i class="fa fa-print" aria-hidden="true"></i>
+                                        </button>
+
+                                    </div>
+
 
                                 </div>
-                               
-
-                                <div id="chartContainer" style="height: 300px; width: 100%; margin-bottom:100px"></div>
 
 
-                                @*<div class="col-2">
-            Chọn năm:
-            @using (Html.BeginForm("RevenueChart", "Chart", FormMethod.Get, new { @name = "search-form" }))
-            {
-                @Html.DropDownList("YearChart", (IEnumerable<SelectListItem>)ViewBag.listYear, "Chọn", new { @class = "form-control" })
-            }
-        </div>
-        <div class="col-2 mt-4">
-            @using (Html.BeginForm("ExportToExcel", "chart", FormMethod.Get, new { @name = "export-form" }))
-            {
-                <input name="ex" value="" hidden />
-                <button class="exportExcel form-control btn btn-success fa-border" value="" type="submit">
-                    Xuất Excel <i class="fa fa-print" aria-hidden="true"></i>
-                </button>
-            }
-        </div>
-        <div id="chartContainer2" style="height: 300px; width: 100%; margin-bottom: 100px"></div>
-
-        <div class="col-lg-4 mt-5">
-            <h4 class="mt-5">Thống kê doanh thu các năm</h4>
-            <table class="table table-bordered mt-5">
-                <thead>
-                    <tr>
-                        <th>Năm</th>
-                        <th>Doanh thu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var i in Model.ModelData1)
-                    {
-                        <tr>
-                            <td>@i.label</td>
-                            <td>@String.Format("{0:N0}", i.y) VNĐ</td>
-                        </tr>
-
-                        h = (double)(h + i.y);
-                    }
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Tổng số lượng </th>
-                        <th>@String.Format("{0:N0}", h) VNĐ </th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>*@
-                                @*<div id="chartContainer1" class="col-lg-6 mt-5" style="height: 370px; width: 50%;"></div>*@
-
+                                <div id="chartContainer" style="height: 300px; width: 100%; margin-bottom: 100px"></div>
                             </div>
 
                         </div>
-
                     </div>
                 </div>
+              
             </div>
+    }
         </div>
 
-    </div>
 </div>
 
 
@@ -157,41 +124,21 @@
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
-                text: "Revenue chart in years"
+                text: "Revenue Chart"
+            },
+            axisX: {
+                valueFormatString: "DD-MM-YY"
             },
             axisY: {
+                title: "Sales (in USD)",
+                prefix: "$",
                 includeZero: false
-            },
-            toolTip: {
-                shared: true
             },
             data: [{
                 type: "area",
-                name: "2017",
-                lineThickness: 2,
-                yValueFormatString: "$#,###",
-                showInLegend: true,
-                dataPoints: @Html.Raw(ViewBag.DataPoints7)
-            }, {
-                type: "area",
-                name: "2018",
-                lineThickness: 2,
-                yValueFormatString: "$#,###",
-                showInLegend: true,
-                dataPoints: @Html.Raw(ViewBag.DataPoints8)
-            },{
-                type: "area",
-                name: "2019",
-                lineThickness: 2,
-                yValueFormatString: "$#,###",
-                showInLegend: true,
-                dataPoints: @Html.Raw(ViewBag.DataPoints9)
-            }, {
-                type: "area",
-                lineThickness: 2,
-                name: "2020",
-                yValueFormatString: "$#,###",
-                showInLegend: true,
+                xValueType: "dateTime",
+                xValueFormatString: "DD-MM-YY",
+                yValueFormatString: "$#,###",					
                 dataPoints: @Html.Raw(ViewBag.DataPoints20)
             }]
         });
@@ -218,26 +165,17 @@
 </script>
 @section scripts{
     <script>
-        var url_string = location.href;
-        var url = new URL(url_string);
-        var initMinPrice = url.searchParams.get("YearChart");
-        if (initMinPrice == null) {
-            initMinPrice = 2020;
-        }
-        $('select[name="YearChart"]').change(function () {
-            $('form[name="search-form"]').submit();
-        });
+   
         $('body').on('click', '.exportExcel', function () {
-            $('input[name="ex"]').val(initMinPrice);
-            $('form[name="export-form"]').submit();
+            $('input[name="ex"]').val(1);
+            $('form[name="search-form"]').submit();
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Xuất Excel thành công',
+                title: 'Sprint Excel Success',
                 showConfirmButton: false,
                 timer: 1500
-            })
-
+            });
         });
     </script>
 

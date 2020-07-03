@@ -304,7 +304,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
 
             // -------------------------------------------------- Seeding Order --------------------------------------------------
 
-            /*var listProvince = context.Province.ToList();
+            var listProvince = context.Province.ToList();
             var listOffice = context.Offices.ToList();
             var listTypeItem = context.TypeItems.ToList();
             var listService = context.Services.ToList();
@@ -323,77 +323,63 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 "Rose","Rosie","Rowan","Zel","Zelda","Zulema","Zoey","Xavia","Usha","Heulwen","Ronaldo","Messi"
             };
 
-                int[] RandomDate =
+            for (int i = 1; i <= 500; i++)
+            {
+                int IndexSenderProvince = random.Next(0, listProvince.Count());
+                var ListIndexSenderOffice = listOffice.Where(x => x.Province_id == listProvince[IndexSenderProvince].id).ToList();
+                var indexSenderOffice = random.Next(0, ListIndexSenderOffice.Count());
+                int IndexReceiverProvince = random.Next(0, listProvince.Count());
+                var ListIndexReceiverOffice = listOffice.Where(x => x.Province_id == listProvince[IndexReceiverProvince].id).ToList();
+                var indexReceiverOffice = random.Next(0, ListIndexReceiverOffice.Count());
+                int indexItemType = random.Next(0, listTypeItem.Count());
+                int indexService = random.Next(0, listService.Count());
+                int indexNameSender = random.Next(0, RandomNames.Length);
+                int indexNameReceiver = random.Next(0, RandomNames.Length);
+
+                var order = new Order()
                 {
-                    0, -1, -2, -3, -7, -14, -30, -30*2, -30*3,-30*4,-30*5,-30*6,30,30*2,30*3,30*4,30*5,30*6
+                    ID = "OD" +i+ DateTime.Now.Millisecond +random.Next(0,9)+ DateTime.Now.Year,
+                    SenderName = RandomNames[indexNameSender],
+                    Email = RandomNames[indexNameSender] + DateTime.Now.Millisecond+ "@gmail.com",
+                    SenderAddress = listProvince[IndexSenderProvince]._code + DateTime.Now.Millisecond + DateTime.Now.Day + "," + listProvince[IndexSenderProvince]._name,
+                    SenderPhone = String.Concat("0", "9", random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9)),
+                    SenderProvinceID = listProvince[IndexSenderProvince].id,
+                    SenderOfficeID = ListIndexSenderOffice[indexSenderOffice].ID,
+                    ReceiverName = RandomNames[indexNameReceiver],
+                    ReceiverAddress = listProvince[IndexReceiverProvince]._code + DateTime.Now.Millisecond + DateTime.Now.Day + "," + listProvince[IndexReceiverProvince]._name,
+                    ReceiverPhone = String.Concat("0", "9", random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9)),
+                    ReceiverProvinceID = listProvince[IndexReceiverProvince].id,
+                    ReceiverOfficeID = ListIndexReceiverOffice[indexReceiverOffice].ID,
+                    Distance = random.Next(0, 10000),
+                    Weight = random.Next(0, 10000),
+                    TypeItemId = listTypeItem[indexItemType].ID,
+                    ServiceId = listService[indexService].ID,
+                    Status = Order.EnumOrderStatus.Finished,
+                    CreateAt = DateTime.Now.Date.AddMonths(-6).AddDays(random.Next(0,185))
                 };
-                int[] RandomDatenow =
+                if (order.Distance > 3000 && order.Weight <= 3000)
                 {
-                    0, -1, -2, -3, -7, -14, -30, -30*2, -30*3,-30*4,-30*5,-30*6,
-                };
-            for (int j = 2; j >= 1; j--)
-                {
-                for (int i = 1; i <= 250; i++)
-                {
-                    int IndexSenderProvince = random.Next(0, listProvince.Count());
-                    var ListIndexSenderOffice = listOffice.Where(x => x.Province_id == listProvince[IndexSenderProvince].id).ToList();
-                    var indexSenderOffice = random.Next(0, ListIndexSenderOffice.Count());
-
-                    int IndexReceiverProvince = random.Next(0, listProvince.Count());
-                    var ListIndexReceiverOffice = listOffice.Where(x => x.Province_id == listProvince[IndexReceiverProvince].id).ToList();
-                    var indexReceiverOffice = random.Next(0, ListIndexReceiverOffice.Count());
-
-                    int indexItemType = random.Next(0, listTypeItem.Count());
-                    int indexService = random.Next(0, listService.Count());
-                    int indexNameSender = random.Next(0, RandomNames.Length);
-                    int indexNameReceiver = random.Next(0, RandomNames.Length);
-                    int indexDate = random.Next(0, RandomDate.Length);
-
-                    var order = new Order()
-                    {
-                        ID = "OD" + i + DateTime.Now.Millisecond + DateTime.Now.Year,
-                        SenderName = RandomNames[indexNameSender],
-                        SenderAddress = listProvince[IndexSenderProvince]._code + DateTime.Now.Millisecond + DateTime.Now.Day + "," + listProvince[IndexSenderProvince]._name,
-                        SenderPhone = String.Concat("0", "9", random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9)),
-                        SenderProvinceID = listProvince[IndexSenderProvince].id,
-                        SenderOfficeID = ListIndexSenderOffice[indexSenderOffice].ID,
-                        ReceiverName = RandomNames[indexNameReceiver],
-                        ReceiverAddress = listProvince[IndexReceiverProvince]._code + DateTime.Now.Millisecond + DateTime.Now.Day + "," + listProvince[IndexReceiverProvince]._name,
-                        ReceiverPhone = String.Concat("0", "9", random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9), random.Next(9)),
-                        ReceiverProvinceID = listProvince[IndexReceiverProvince].id,
-                        ReceiverOfficeID = ListIndexReceiverOffice[indexReceiverOffice].ID,
-                        Distance = random.Next(0, 10000),
-                        Weight = random.Next(0, 10000),
-                        TypeItemId = listTypeItem[indexItemType].ID,
-                        ServiceId = listService[indexService].ID,
-                        Status = Order.EnumOrderStatus.Finished,
-                        CreateAt = DateTime.Now.AddYears(-j).AddMonths(random.Next(-2,4)).AddDays(RandomDate[indexDate]).AddHours(random.Next(-3, 7)).AddMinutes(random.Next(-300, -100))
-                    };
-                    if (order.Distance > 3000 && order.Weight <= 3000)
-                    {
-                        order.PriceShip = (0.06 * order.Distance) + order.Weight * 0.02;
-                    }
-                    else if (order.Weight > 3000 && order.Distance <= 3000)
-                    {
-                        order.PriceShip = (0.03 * order.Distance + 1) + order.Weight * 0.025;
-                    }
-                    else if (order.Distance > 3000 && order.Weight > 3000)
-                    {
-                        order.PriceShip = (0.061 * order.Distance) + order.Weight * 0.023;
-                    }
-                    else if (order.Distance <= 3000 && order.Weight <= 3000)
-                    {
-                        order.PriceShip = (0.065 * order.Distance) + order.Weight * 0.02;
-                    }
-                    else
-                    {
-                        order.PriceShip = (0.06 * order.Distance) + order.Weight * 0.02;
-                    }
-                    order.PriceShip = Math.Round(order.PriceShip, 2);
-                    context.Orders.AddOrUpdate(order);
+                    order.PriceShip = (0.06 * order.Distance) + order.Weight * 0.02;
                 }
-
-            }*/
+                else if (order.Weight > 3000 && order.Distance <= 3000)
+                {
+                    order.PriceShip = (0.03 * order.Distance + 1) + order.Weight * 0.025;
+                }
+                else if (order.Distance > 3000 && order.Weight > 3000)
+                {
+                    order.PriceShip = (0.061 * order.Distance) + order.Weight * 0.023;
+                }
+                else if (order.Distance <= 3000 && order.Weight <= 3000)
+                {
+                    order.PriceShip = (0.065 * order.Distance) + order.Weight * 0.02;
+                }
+                else
+                {
+                    order.PriceShip = (0.06 * order.Distance) + order.Weight * 0.02;
+                }
+                order.PriceShip = Math.Round(order.PriceShip, 2);
+                context.Orders.AddOrUpdate(order);
+            }
 
         }
            

@@ -18,7 +18,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
         // GET: Offices
 
-        public ActionResult Index(string sortOrder, string searchString, string currentFilter , int? page ,int? status)
+        public ActionResult Index(string sortOrder,int? province, string searchString, string currentFilter , int? page ,int? status)
         {
 
             var office = (from l in db.Offices
@@ -34,7 +34,15 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
                 office = office.Where(p => (int)p.Status == status.Value);
             }
-          
+            if (province.HasValue)
+            {
+
+                office = office.Where(p => (int)p.Province_id == province.Value);
+            }
+            var listProvince = db.Province.ToList();
+
+            ViewBag.listProvince = new SelectList(listProvince, "id", "_name");
+
             if (searchString != null)
             {
                 page = 1;
@@ -47,7 +55,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
            
             if (!string.IsNullOrEmpty(searchString))
             {
-                office = office.Where(s => s.Name.Contains(searchString));
+                office = office.Where(s => s.Name.Contains(searchString) || s.PinCode.Contains(searchString) || s.Email.Contains(searchString));
             }
 
             if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("status-asc"))

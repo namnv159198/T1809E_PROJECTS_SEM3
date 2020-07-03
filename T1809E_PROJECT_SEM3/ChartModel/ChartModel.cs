@@ -47,7 +47,7 @@ namespace T1809E_PROJECT_SEM3.ChartModel
         [DataContract]
         public class DataPoint3
         {
-            public DataPoint3(int label, double y)
+            public DataPoint3(DateTime label, double y)
             {
                 this.Label = label;
                 this.Y = y;
@@ -57,7 +57,7 @@ namespace T1809E_PROJECT_SEM3.ChartModel
 
             //Explicitly setting the name to be used while serializing to JSON.
             [DataMember(Name = "label")]
-            public int Label;
+            public DateTime Label;
 
             //Explicitly setting the name to be used while serializing to JSON.
             [DataMember(Name = "y")]

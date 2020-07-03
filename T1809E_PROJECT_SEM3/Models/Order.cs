@@ -83,6 +83,8 @@ namespace T1809E_PROJECT_SEM3.Models
         public double Weight { get; set; }
 
         [DisplayName("Sent Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CreateAt { get; set; }
 
         [Range(0, double.MaxValue, ErrorMessage = "Price can't < 0")]
