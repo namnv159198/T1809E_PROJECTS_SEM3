@@ -601,6 +601,7 @@
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Client\OrderDetails.cshtml" />
     <Content Include="Views\Client\shippingCalculator.cshtml" />
+    <Content Include="Views\Client\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

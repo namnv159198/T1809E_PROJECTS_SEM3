@@ -11,6 +11,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
     public class ClientController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: Client
         public ActionResult Index()
         {
@@ -29,6 +30,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Order order = db.Orders.Find(id);
             if (order != null)
             {
@@ -36,13 +38,17 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 {
                     return View("OrderDetails", order);
                 }
+
                 return HttpNotFound();
             }
+
             return HttpNotFound();
         }
 
-        public ActionResult About(){
+        public ActionResult About()
         {
+            return View();
+        }
 
         public ActionResult shippingCalculator()
         {
@@ -52,3 +58,4 @@ namespace T1809E_PROJECT_SEM3.Controllers
         }
     }
 }
+
