@@ -13,6 +13,7 @@ using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private ApplicationUserManager _userManager;
