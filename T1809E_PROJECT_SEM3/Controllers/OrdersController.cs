@@ -16,6 +16,7 @@ using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -142,7 +143,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
 
             ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-            ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["B7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["C7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["D7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
@@ -151,6 +151,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ws.Cells["G7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["H7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["I7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+            ws.Cells["J7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["K7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["L7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["M7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
@@ -158,7 +159,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ws.Cells["O7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["P7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["Q7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-            ws.Cells["R7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
 
 
             ws.Cells["A7"].Value = "OrderId";
@@ -187,7 +187,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             int rowStart = 8;
             foreach (var i in order)
             {
-                if (i.PriceShip >= 100)
+                if (i.PriceShip >= 2000)
                 {
                     ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     ws.Row(rowStart).Style.Fill.BackgroundColor
@@ -222,7 +222,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 }
                 else
                 {
-                    ws.Cells[string.Format("R{0}", rowStart)].Value = i.CreateAt.Value.ToString("dd/MM/yyyy");
+                    ws.Cells[string.Format("Q{0}", rowStart)].Value = i.CreateAt.Value.ToString("dd/MM/yyyy");
                 }
 
                 rowStart++;

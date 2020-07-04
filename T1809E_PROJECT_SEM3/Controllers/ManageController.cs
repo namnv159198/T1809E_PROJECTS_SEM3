@@ -15,7 +15,7 @@ using System.Data.Entity;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class ManageController : Controller
     {
 
