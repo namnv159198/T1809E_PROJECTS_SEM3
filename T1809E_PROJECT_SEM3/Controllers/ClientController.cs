@@ -40,5 +40,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             return HttpNotFound();
         }
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
