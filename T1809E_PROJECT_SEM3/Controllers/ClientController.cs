@@ -40,5 +40,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             return HttpNotFound();
         }
+        public ActionResult shippingCalculator()
+        {
+            ViewBag.TypeItemId = new SelectList(db.TypeItems, "ID", "Name");
+            return View();
+        }
     }
 }
