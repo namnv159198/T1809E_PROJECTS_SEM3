@@ -34,15 +34,20 @@ namespace T1809E_PROJECT_SEM3.Controllers
             Order order = db.Orders.Find(id);
             if (order != null)
             {
-                if (order.SenderName == senderName && order.SenderPhone == senderPhone)
+                if (order.SenderName == senderName)
                 {
-                    return View("OrderDetails", order);
+                    if (order.SenderPhone == senderPhone)
+                    {
+                        return View("OrderDetails", order);
+                    }
+                    TempData["message"] = "FailPhone";
+                    return View("Index");
                 }
-
-                return HttpNotFound();
+                TempData["message"] = "FailName";
+                return View("Index");
             }
-
-            return HttpNotFound();
+            TempData["message"] = "FailID";
+            return View("Index");
         }
 
         public ActionResult About()
