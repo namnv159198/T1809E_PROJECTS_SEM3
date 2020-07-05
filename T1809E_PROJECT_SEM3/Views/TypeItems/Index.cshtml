@@ -67,7 +67,7 @@
                                             <td>
                                                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                                              
+
                                                 <button type="button" class="btn btn-sm btn-danger  " data-toggle="modal" data-target="#myModal_@item.ID">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -128,3 +128,50 @@
         </div>
     </div>
 </div>
+@{ if ((string)TempData["message"] == "Create")
+   {
+       <script type="text/javascript">
+           Swal.fire({
+               position: 'top-end',
+               icon: 'success',
+               title: 'Created',
+               showConfirmButton: false,
+               timer: 1500
+           })
+       </script>
+   }
+   else if ((string)TempData["message"] == "Edit")
+   {
+       <script type="text/javascript">
+           Swal.fire({
+               position: 'top-end',
+               icon: 'success',
+               title: 'Edited',
+               showConfirmButton: false,
+               timer: 1500
+           })
+       </script>
+   }
+   else if ((string)TempData["message"] == "Fail")
+   {
+       <script type="text/javascript">
+           Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: 'Something went wrong!'
+           })
+       </script>
+   }
+   else if ((string)TempData["message"] == "Delete")
+   {
+       <script type="text/javascript">
+           Swal.fire({
+               position: 'top-end',
+               icon: 'success',
+               title: 'Deleted',
+               showConfirmButton: false,
+               timer: 1500
+           })
+       </script>
+   }
+} 

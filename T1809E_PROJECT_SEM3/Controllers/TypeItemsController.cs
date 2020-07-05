@@ -53,6 +53,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 db.TypeItems.Add(typeItem);
                 db.SaveChanges();
+                TempData["message"] = "Create";
                 return RedirectToAction("Index");
             }
 
@@ -85,6 +86,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             {
                 db.Entry(typeItem).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = "Edit";
                 return RedirectToAction("Index");
             }
             return View(typeItem);
@@ -113,6 +115,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             TypeItem typeItem = db.TypeItems.Find(id);
             db.TypeItems.Remove(typeItem);
             db.SaveChanges();
+            TempData["message"] = "Delete";
             return RedirectToAction("Index");
         }
 
