@@ -472,6 +472,9 @@ pre {
   @media (min-width: 1200px) {
     .container {
       max-width: 1140px; } }
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1300px; } }
 
 .container-fluid {
   width: 100%;
@@ -9339,3 +9342,17 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+.header-service {
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-family: 'Roboto-Bold';
+    font-size: 22px;
+    text-transform: uppercase;
+    margin: 15px 0;
+    
+    
+}
+.new{
+    padding:40px;
+}

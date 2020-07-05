@@ -54,6 +54,14 @@ namespace T1809E_PROJECT_SEM3.Controllers
         {
             return View();
         }
+        public ActionResult PostDelivery()
+        {
+            return View();
+        }
+        public ActionResult New()
+        {
+            return View();
+        }
 
         public ActionResult shippingCalculator()
         {
