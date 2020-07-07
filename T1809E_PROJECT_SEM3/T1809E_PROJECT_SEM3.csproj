@@ -350,6 +350,8 @@
     <Content Include="ClientTemplate\images\destination-4.jpg" />
     <Content Include="ClientTemplate\images\destination-5.jpg" />
     <Content Include="ClientTemplate\images\destination-6.jpg" />
+    <Content Include="ClientTemplate\images\giao.jpg" />
+    <Content Include="ClientTemplate\images\giao_hang.png" />
     <Content Include="ClientTemplate\images\hotel-1.jpg" />
     <Content Include="ClientTemplate\images\hotel-2.jpg" />
     <Content Include="ClientTemplate\images\hotel-3.jpg" />
@@ -619,6 +621,7 @@
     <Content Include="Views\Client\About.cshtml" />
     <Content Include="Views\Client\New.cshtml" />
     <Content Include="Views\Client\PostDelivery.cshtml" />
+    <Content Include="Views\Client\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

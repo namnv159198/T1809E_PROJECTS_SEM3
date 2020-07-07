@@ -9356,3 +9356,11 @@ textarea.form-control {
 .new{
     padding:40px;
 }
+.detail-content h4 {
+    color: #144e8c;
+    font-size: 16px;
+    font-family: "Roboto-Medium";
+    display: block;
+    border-bottom: 1px solid #c2c2c2;
+    margin-bottom: 15px;
+}
