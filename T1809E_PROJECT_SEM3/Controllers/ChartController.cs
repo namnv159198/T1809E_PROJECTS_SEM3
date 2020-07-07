@@ -121,6 +121,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             Response.Clear();
             Response.Close();
             Response.End();
+            
          
 
             return Redirect("Index");

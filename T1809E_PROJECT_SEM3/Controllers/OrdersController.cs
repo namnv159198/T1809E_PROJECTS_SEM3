@@ -81,7 +81,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 order = order.Where(s => s.ID.Contains(searchString) || s.SenderName.Contains(searchString) || s.SenderPhone.Contains(searchString) ||
-                s.ReceiverName.Contains(searchString) || s.ReceiverPhone.Contains(searchString));
+                s.ReceiverName.Contains(searchString) || s.ReceiverPhone.Contains(searchString) || s.ID.Contains(searchString));
             }
             if (string.IsNullOrEmpty(sortOrder) || sortOrder.Equals("date-asc"))
 
