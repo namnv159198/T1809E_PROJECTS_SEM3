@@ -482,15 +482,15 @@
     var btn = document.getElementById("showModal");
     var span = document.getElementsByClassName("close")[0];
     btn.onclick = function () {
-        if (search.text != null) {
-            modal.style.display = "block";
-        }
-        else {
+        if (search.value =="") {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Please enter your ID first!'
             })
+        }
+        else {
+            modal.style.display = "block";
         }
     }
     span.onclick = function () {
