@@ -324,11 +324,26 @@
     <Content Include="ClientTemplate\fonts\ionicons\fonts\ionicons.svg" />
     <Content Include="ClientTemplate\fonts\open-iconic\open-iconic.svg" />
     <Content Include="ClientTemplate\images\about.jpg" />
+    <Content Include="ClientTemplate\images\anh_1.jpg" />
+    <Content Include="ClientTemplate\images\anh_2.jpg" />
+    <Content Include="ClientTemplate\images\anh_3.jpg" />
+    <Content Include="ClientTemplate\images\anh_4.jpg" />
+    <Content Include="ClientTemplate\images\anh_5.jpg" />
+    <Content Include="ClientTemplate\images\anh_6.jpg" />
+    <Content Include="ClientTemplate\images\bao_1.jpg" />
+    <Content Include="ClientTemplate\images\bao_2.jpg" />
+    <Content Include="ClientTemplate\images\bao_3.jpg" />
+    <Content Include="ClientTemplate\images\bao_4.jpg" />
+    <Content Include="ClientTemplate\images\bao_5.jpg" />
+    <Content Include="ClientTemplate\images\bao_6.jpg" />
+    <Content Include="ClientTemplate\images\bao_7.jpg" />
+    <Content Include="ClientTemplate\images\bao_8.jpg" />
     <Content Include="ClientTemplate\images\bg_1.jpg" />
     <Content Include="ClientTemplate\images\bg_2.jpg" />
     <Content Include="ClientTemplate\images\bg_3.jpg" />
     <Content Include="ClientTemplate\images\bg_4.jpg" />
     <Content Include="ClientTemplate\images\bg_5.jpg" />
+    <Content Include="ClientTemplate\images\boder.png" />
     <Content Include="ClientTemplate\images\destination-1.jpg" />
     <Content Include="ClientTemplate\images\destination-2.jpg" />
     <Content Include="ClientTemplate\images\destination-3.jpg" />
@@ -602,6 +617,8 @@
     <Content Include="Views\Client\OrderDetails.cshtml" />
     <Content Include="Views\Client\shippingCalculator.cshtml" />
     <Content Include="Views\Client\About.cshtml" />
+    <Content Include="Views\Client\New.cshtml" />
+    <Content Include="Views\Client\PostDelivery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
