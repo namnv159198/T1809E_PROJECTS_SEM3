@@ -165,11 +165,20 @@
 
                                         <div class="form-group col-4">
                                             <label class="control-label col-lg-8">Price Ship ($)</label>
-                                            <div class="col-md-10">
-
-                                                @Html.EditorFor(model => model.PriceShip, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                                                @Html.ValidationMessageFor(model => model.PriceShip, "", new { @class = "text-danger" })
-                                            </div>
+                                            @if (this.User.IsInRole("Admin"))
+                                            {
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.PriceShip, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.PriceShip, "", new { @class = "text-danger" })
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.PriceShip, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                    @Html.ValidationMessageFor(model => model.PriceShip, "", new { @class = "text-danger" })
+                                                </div>
+                                            }
                                         </div>
                                         <div class="form-group col-4 mt-2">
                                             <label class="control-label col-lg-6"></label>
