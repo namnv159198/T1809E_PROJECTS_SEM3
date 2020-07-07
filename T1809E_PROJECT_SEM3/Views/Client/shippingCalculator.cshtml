@@ -94,6 +94,31 @@
 {
     <script type="text/javascript">
         $("#Cal_Price").click(function () {
+            if ($('#Distance').val() == "" || $('#Weight').val() == ""  ) {
+                Swal.fire({
+                    title: 'Please input Distance and Weight !',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+                return;
+            }
+          
+                if ($('#TypeItemId').val() == "" || $('#ServiceId').val() == ""  ) {
+                    Swal.fire({
+                        title: 'Please input Type  !',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+                    return;
+                }
             $.ajax({
                 type: "POST",
                 url: "../orders/CalPrice",

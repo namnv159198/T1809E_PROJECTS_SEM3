@@ -48,11 +48,6 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 }
             }
 
-            if (ex == 1)
-            {
-                ExportVoid(listR2020);
-            }
-          
 
           
 
@@ -71,22 +66,24 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
           
             ViewBag.DataPoints20 = JsonConvert.SerializeObject(dataPoints20);
-
             return View();
         }
 
-        public ActionResult ExportVoid(Dictionary<DateTime?,double> ex)
+        public void ExportToExcel( )
         {
-            Response.ClearHeaders();
+            var R2020 = db.Orders.GroupBy(o => o.CreateAt.Value).Select(group => new
+            {
+                creatAt = group.Key,
+                Revenue = group.Sum(x => x.PriceShip)
+            }).OrderBy(x => x.creatAt);
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
             int rowStart = 8;
 
-
             ws.Cells["A2"].Value = "List Revenue ";
 
             ws.Cells["H3"].Value = "Total Revenue ";
-            ws.Cells["I3"].Value = String.Format("{0:N0}", (ex.Sum(x => x.Value))) + "USD";
+            ws.Cells["I3"].Value = String.Format("{0:N0}", (R2020.Sum(x => x.Revenue))) + "USD";
 
             ws.Cells["A3"].Value = "Sprint At";
             ws.Cells["B3"].Value = string.Format("{0:dd/MM/yyyy HH:mm}", DateTimeOffset.Now);
@@ -97,34 +94,26 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ws.Cells["H7"].Value = "Revenue";
           
 
-            foreach (var i in ex)
+            foreach (var i in R2020)
             {
-                if (i.Value >= 3000)
+                if (i.Revenue >= 3000)
                 {
                     ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     ws.Row(rowStart).Style.Fill.BackgroundColor
                         .SetColor(ColorTranslator.FromHtml(string.Format("yellow")));
                 }
-                ws.Cells[string.Format("K{0}", rowStart)].Value = string.Format("{0:dd/MM/yyyy}", i.Key); 
-                ws.Cells[string.Format("H{0}", rowStart)].Value = i.Value +"USD";
+                ws.Cells[string.Format("K{0}", rowStart)].Value = string.Format("{0:dd/MM/yyyy}", i.creatAt); 
+                ws.Cells[string.Format("H{0}", rowStart)].Value = i.Revenue + "USD";
 
                 rowStart++;
             }
 
-       
             ws.Cells["A:AZ"].AutoFitColumns();
             Response.Clear();
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             Response.AddHeader("content-disposition", "attach; filename=ListRevenue.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
-            Response.Flush();
-            Response.Clear();
-            Response.Close();
             Response.End();
-            
-         
-
-            return Redirect("Index");
         }
 
     }
