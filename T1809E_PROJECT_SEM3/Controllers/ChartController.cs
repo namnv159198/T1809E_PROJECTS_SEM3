@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,8 +75,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
             return View();
         }
 
-        public void ExportVoid(Dictionary<DateTime?,double> ex)
+        public ActionResult ExportVoid(Dictionary<DateTime?,double> ex)
         {
+            Response.ClearHeaders();
             ExcelPackage pck = new ExcelPackage();
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
             int rowStart = 8;
@@ -91,8 +93,8 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
             ws.Cells["B7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-            ws.Cells["A7"].Value = "Date";
-            ws.Cells["B7"].Value = "Revenue";
+            ws.Cells["K7"].Value = "Date";
+            ws.Cells["H7"].Value = "Revenue";
           
 
             foreach (var i in ex)
@@ -109,13 +111,19 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 rowStart++;
             }
 
-
+       
             ws.Cells["A:AZ"].AutoFitColumns();
             Response.Clear();
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            Response.AddHeader("content-disposition", "attachment; filename=ListRevenue.xlsx");
+            Response.AddHeader("content-disposition", "attach; filename=ListRevenue.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
+            Response.Flush();
+            Response.Clear();
+            Response.Close();
             Response.End();
+         
+
+            return Redirect("Index");
         }
 
     }

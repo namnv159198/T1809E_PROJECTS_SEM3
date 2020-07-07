@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared_Admin/_Layout.cshtml";
@@ -6,8 +6,8 @@
 
 <div class="content">
     <div class="animated fadeIn">
-    @using (Html.BeginForm("Index", "Chart", FormMethod.Get, new { @name = "search-form" }))
-    {
+        @using (Html.BeginForm("Index", "Chart", FormMethod.Get, new { @name = "search-form" }))
+        {
             <div class="row">
 
                 <div class="col-md-12">
@@ -16,9 +16,7 @@
                             <div class="row">
 
                                 <div class="card-body row ">
-
                                     <div class="col-sm-6 mt-4">
-
                                         <input type="hidden" name="start" value="" />
                                         <input type="hidden" name="end" value="" />
                                         <label class="text-uppercase"> Filter Time</label>
@@ -29,7 +27,6 @@
                                         <button class="exportExcel form-control btn btn-success fa-border mt-2">
                                             Sprint Excel <i class="fa fa-print" aria-hidden="true"></i>
                                         </button>
-
                                     </div>
 
 
@@ -42,10 +39,10 @@
                         </div>
                     </div>
                 </div>
-              
+
             </div>
-    }
-        </div>
+        }
+    </div>
 
 </div>
 
@@ -138,7 +135,7 @@
                 type: "area",
                 xValueType: "dateTime",
                 xValueFormatString: "DD-MM-YY",
-                yValueFormatString: "$#,###",					
+                yValueFormatString: "$#,###",
                 dataPoints: @Html.Raw(ViewBag.DataPoints20)
             }]
         });
@@ -158,14 +155,14 @@
             chart1.options.data[0].type = chartType1.options[chartType1.selectedIndex].value;
             chart1.render();
         });*/
-        
+
     }
 
 
 </script>
 @section scripts{
     <script>
-   
+
         $('body').on('click', '.exportExcel', function () {
             $('input[name="ex"]').val(1);
             $('form[name="search-form"]').submit();
@@ -176,6 +173,7 @@
                 showConfirmButton: false,
                 timer: 1500
             });
+            $('input[name="ex"]').val() == null;
         });
     </script>
 
