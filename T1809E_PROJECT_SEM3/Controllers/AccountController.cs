@@ -12,7 +12,7 @@ using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -147,6 +147,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
