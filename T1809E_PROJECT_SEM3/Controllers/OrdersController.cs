@@ -443,10 +443,10 @@ namespace T1809E_PROJECT_SEM3.Controllers
         public void sendMail(string OrderID)
         {
             var order = db.Orders.Find(OrderID);
-            var senderEmail = new MailAddress("namkun159198@gmail.com", "RocketShip");
+            var senderEmail = new MailAddress("namkun159198@gmail.com", "TARS Delivery ");
             var receiverEmail = new MailAddress(order.Email, "Receiver");
             var password = "0963404604";
-            var sub = "[ RocketShip ] : Order #" + order.ID;
+            var sub = "[ TARS Delivery  ] : Order #" + order.ID;
             var body = "Sender Name : " +order.SenderName +"\n"+"Receiver Name : "+order.ReceiverName +
                        " - PhoneNumber : "+order.ReceiverPhone +"- Address Details : "+order.ReceiverAddress+"\n"+
                 "Price Ship : " + String.Format("{0:N0}", (order.PriceShip)) + "$" + "\n"+
