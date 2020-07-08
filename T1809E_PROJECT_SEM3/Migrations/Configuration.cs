@@ -304,6 +304,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
 
             // -------------------------------------------------- Seeding Order --------------------------------------------------
 
+            /*
             var listProvince = context.Province.ToList();
             var listOffice = context.Offices.ToList();
             var listTypeItem = context.TypeItems.ToList();
@@ -323,7 +324,8 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 "Rose","Rosie","Rowan","Zel","Zelda","Zulema","Zoey","Xavia","Usha","Heulwen","Ronaldo","Messi"
             };
 
-            for (int i = 1; i <= 500; i++)
+          
+            for (int i = 1; i <= 100; i++)
             {
                 int IndexSenderProvince = random.Next(0, listProvince.Count());
                 var ListIndexSenderOffice = listOffice.Where(x => x.Province_id == listProvince[IndexSenderProvince].id).ToList();
@@ -335,7 +337,6 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 int indexService = random.Next(0, listService.Count());
                 int indexNameSender = random.Next(0, RandomNames.Length);
                 int indexNameReceiver = random.Next(0, RandomNames.Length);
-
                 var order = new Order()
                 {
                     ID = "OD" +i+ DateTime.Now.Millisecond +random.Next(0,9)+ DateTime.Now.Year,
@@ -354,8 +355,8 @@ namespace T1809E_PROJECT_SEM3.Migrations
                     Weight = random.Next(0, 10000),
                     TypeItemId = listTypeItem[indexItemType].ID,
                     ServiceId = listService[indexService].ID,
-                    Status = Order.EnumOrderStatus.Finished,
-                    CreateAt = DateTime.Now.Date.AddMonths(-6).AddDays(random.Next(0,182))
+                    Status = (Order.EnumOrderStatus)random.Next(-1,6),
+                    CreateAt = DateTime.Now.Date.AddDays(random.Next(-7,0))
                 };
                 if (order.Distance > 3000 && order.Weight <= 3000)
                 {
@@ -380,6 +381,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 order.PriceShip = Math.Round(order.PriceShip, 2);
                 context.Orders.AddOrUpdate(order);
             }
+            */
 
         }
            

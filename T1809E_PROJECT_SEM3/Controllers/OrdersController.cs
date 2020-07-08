@@ -87,6 +87,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
 
             {
                 ViewBag.DateSort = "date-desc";
+                ViewBag.PriceSort= "price-desc";
+                ViewBag.DistanceSort = "distance-desc";
+                ViewBag.WeightSort = "weight-desc";
                 ViewBag.SortIcon = "fa fa-sort-asc";
             }
             else if (sortOrder.Equals("date-desc"))
@@ -94,6 +97,39 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 ViewBag.DateSort = "date-asc";
                 ViewBag.SortIcon = "fa fa-sort-desc";
             }
+
+            else if (sortOrder.Equals("price-desc"))
+            {
+                ViewBag.PriceSort = "price-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            else if (sortOrder.Equals("price-asc"))
+            {
+                ViewBag.PriceSort = "price-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+
+            else if (sortOrder.Equals("distance-desc"))
+            {
+                ViewBag.DistanceSort = "distance-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            else if (sortOrder.Equals("distance-asc"))
+            {
+                ViewBag.PriceSort = "distance-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+            else if (sortOrder.Equals("weight-desc"))
+            {
+                ViewBag.WeightSort = "weight-asc";
+                ViewBag.SortIcon = "fa fa-sort-desc";
+            }
+            else if (sortOrder.Equals("weight-asc"))
+            {
+                ViewBag.PriceSort = "weight-desc";
+                ViewBag.SortIcon = "fa fa-sort-asc";
+            }
+
             switch (sortOrder)
             {
 
@@ -103,6 +139,28 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 case "date-desc":
                     order = order.OrderByDescending(p => p.CreateAt);
                     break;
+
+                case "price-asc":
+                    order = order.OrderBy(p => p.PriceShip);
+                    break;
+                case "price-desc":
+                    order = order.OrderByDescending(p => p.PriceShip);
+                    break;
+
+                case "distance-asc":
+                    order = order.OrderBy(p => p.Distance);
+                    break;
+                case "distance-desc":
+                    order = order.OrderByDescending(p => p.Distance);
+                    break;
+
+                case "weight-asc":
+                    order = order.OrderBy(p => p.Weight);
+                    break;
+                case "weight-desc":
+                    order = order.OrderByDescending(p => p.Weight);
+                    break;
+
 
                 default:
                     order = order.OrderByDescending(p => p.CreateAt);
@@ -340,6 +398,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 if (cprice.Distance > 3000 && cprice.Weight <= 3000)
                 {
                     cprice.PriceShip = (0.06 * cprice.Distance) + ServiceWeight.PriceStep;
+                    cprice.Display = " 0.06" + " x " + cprice.Distance + " +" + ServiceWeight.PriceStep + "  + 5% (VAT)";
 
                 }
                 else if (cprice.Weight > 3000 && cprice.Distance <= 3000)
@@ -347,6 +406,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + cprice.Weight * 0.02;
                     cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
                                        (cprice.PriceShip * 5) / 100;
+                    cprice.Display =   ServiceDistance.PriceStep+" x " + cprice.Distance + "+ 0.02 x " + cprice.Weight + "+ 5% (VAT)";
                     cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                     return Json(cprice);
                 }
@@ -355,21 +415,22 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     cprice.PriceShip = (0.06 * cprice.Distance) + (cprice.Weight * 0.02);
                     cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
                                        (cprice.PriceShip * 5) / 100;
+                    cprice.Display = " 0.06"  + " x " + cprice.Distance + "+ 0.02 x " + cprice.Weight + " + 5% (VAT)";
                     cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                     return Json(cprice);
                 }
                 else if (cprice.Distance <= 3000 && cprice.Weight <= 3000 )
                 {
                     cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + ServiceWeight.PriceStep;
-
+                    cprice.Display =  ServiceDistance.PriceStep + " x " + cprice.Distance +" +" + ServiceWeight.PriceStep + " + 5% (VAT)";
                 }
 
-                cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
-                                   (cprice.PriceShip * ServiceWeight.VAT) / 100;
-                cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
+                cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100;
+                                   cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                 return Json(cprice);
             }
 
+            cprice.Display = "Free ship ";
             cprice.PriceShip = 0;
             return Json(cprice);
         }

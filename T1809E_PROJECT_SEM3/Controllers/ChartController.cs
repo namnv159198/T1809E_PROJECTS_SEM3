@@ -11,6 +11,7 @@ using T1809E_PROJECT_SEM3.Models;
 
 namespace T1809E_PROJECT_SEM3.Controllers
 {
+
     [Authorize]
     public class ChartController : Controller
     {
@@ -41,10 +42,14 @@ namespace T1809E_PROJECT_SEM3.Controllers
             }
             else
             {
+
                 foreach (var i in R2020)
                 {
-                   
-                    listR2020.Add(i.creatAt, i.Revenue);
+                    if (i.creatAt.Month == DateTime.Now.Month)
+                    {
+                        listR2020.Add(i.creatAt, i.Revenue);
+                    }  
+                  
                 }
             }
 
@@ -88,22 +93,22 @@ namespace T1809E_PROJECT_SEM3.Controllers
             ws.Cells["A3"].Value = "Sprint At";
             ws.Cells["B3"].Value = string.Format("{0:dd/MM/yyyy HH:mm}", DateTimeOffset.Now);
 
-            ws.Cells["A7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-            ws.Cells["B7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-            ws.Cells["K7"].Value = "Date";
-            ws.Cells["H7"].Value = "Revenue";
+            ws.Cells["J7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+            ws.Cells["J7"].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+            ws.Cells["H7"].Value = "Date";
+            ws.Cells["J7"].Value = "Revenue";
           
 
             foreach (var i in R2020)
             {
-                if (i.Revenue >= 3000)
+                if (i.Revenue >= 10000)
                 {
                     ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     ws.Row(rowStart).Style.Fill.BackgroundColor
                         .SetColor(ColorTranslator.FromHtml(string.Format("yellow")));
                 }
                 ws.Cells[string.Format("K{0}", rowStart)].Value = string.Format("{0:dd/MM/yyyy}", i.creatAt); 
-                ws.Cells[string.Format("H{0}", rowStart)].Value = i.Revenue + "USD";
+                ws.Cells[string.Format("H{0}", rowStart)].Value = i.Revenue + " USD";
 
                 rowStart++;
             }

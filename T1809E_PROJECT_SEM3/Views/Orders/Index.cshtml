@@ -72,7 +72,6 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="text-uppercase"> Filter Status</label>
-
                                 @Html.DropDownList("status",
                                     EnumHelper.GetSelectList(typeof(T1809E_PROJECT_SEM3.Models.Order.EnumOrderStatus)),
                                     "Select Status",
@@ -194,41 +193,26 @@
                                     <th>
                                         Service
                                     </th>
-                                    @*<th>
-                                            @Html.DisplayNameFor(model => model.UpdatedBy.FullName)
-                                        </th>*@
-                                    <th>
-                                        Sender Name
-                                    </th>
-                                    @*<th>
-                                            @Html.DisplayNameFor(model => model.SenderAddress)
-                                        </th>*@
-                                    <th>
-                                        Sender Phone
-                                    </th>
-                                    <th>
-                                        Receiver Name
-                                    </th>
-                                    @*<th>
-                                            @Html.DisplayNameFor(model => model.ReceiverAddress)
-                                        </th>*@
-                                    <th>
-                                        Receiver Phone
-                                    </th>
 
                                     <th>
-                                        Distance (Km)
+                                        @Html.ActionLink(" Distance (Km)", "Index", new { sortOrder = ViewBag.DistanceSort})
+                                        <i class="@Iconsort" aria-hidden="true"></i>
+                                       
                                     </th>
                                     <th>
-                                        Weight (Kg)
+                                        @Html.ActionLink("Weight (Kg)", "Index", new { sortOrder = ViewBag.WeightSort })
+                                        <i class="@Iconsort" aria-hidden="true"></i>
+                                        
                                     </th>
                                     <th>
-                                        @Html.ActionLink("Create", "Index", new { sortOrder = ViewBag.StatusSort })
+                                        @Html.ActionLink("Create", "Index", new {sortOrder = ViewBag.DateSort})
                                         <i class="@Iconsort" aria-hidden="true"></i>
 
                                     </th>
                                     <th>
-                                        Price
+                                        @Html.ActionLink("Price ($)", "Index", new { sortOrder = ViewBag.PricetSort })
+                                        <i class="@Iconsort" aria-hidden="true"></i>
+                                       
                                     </th>
                                     <th>
                                         Status
@@ -252,30 +236,9 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Service.TypeDelivery)
                                         </td>
-                                        @*<td>
-                                                @Html.DisplayFor(modelItem => item.UpdatedBy.FullName)
-                                            </td>*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SenderName)
-                                        </td>
-                                        @*<td>
-                                                @Html.DisplayFor(modelItem => item.SenderAddress)
-                                            </td>*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SenderPhone)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ReceiverName)
-                                        </td>
-                                        @*<td>
-                                                @Html.DisplayFor(modelItem => item.ReceiverAddress)
-                                            </td>*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ReceiverPhone)
-                                        </td>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Distance)
+                                            @String.Format("{0:N0}", (item.Distance))
                                         </td>
                                         <td>
                                             @String.Format("{0:N0}", (item.Weight))
