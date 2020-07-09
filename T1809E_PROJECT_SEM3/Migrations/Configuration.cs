@@ -304,8 +304,8 @@ namespace T1809E_PROJECT_SEM3.Migrations
 
             // -------------------------------------------------- Seeding Order --------------------------------------------------
 
-            /*
-            var listProvince = context.Province.ToList();
+            
+            /*var listProvince = context.Province.ToList();
             var listOffice = context.Offices.ToList();
             var listTypeItem = context.TypeItems.ToList();
             var listService = context.Services.ToList();
@@ -356,7 +356,7 @@ namespace T1809E_PROJECT_SEM3.Migrations
                     TypeItemId = listTypeItem[indexItemType].ID,
                     ServiceId = listService[indexService].ID,
                     Status = (Order.EnumOrderStatus)random.Next(-1,6),
-                    CreateAt = DateTime.Now.Date.AddDays(random.Next(-7,0))
+                    CreateAt = DateTime.Now.Date.AddDays(random.Next(-3,0))
                 };
                 if (order.Distance > 3000 && order.Weight <= 3000)
                 {
@@ -380,8 +380,8 @@ namespace T1809E_PROJECT_SEM3.Migrations
                 }
                 order.PriceShip = Math.Round(order.PriceShip, 2);
                 context.Orders.AddOrUpdate(order);
-            }
-            */
+            }*/
+            
 
         }
            

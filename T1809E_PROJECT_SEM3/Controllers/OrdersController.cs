@@ -508,7 +508,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var receiverEmail = new MailAddress(order.Email, "Receiver");
             var password = "0963404604";
             var sub = "[ TARS Delivery  ] : Order #" + order.ID;
-            var body = "Sender Name : " +order.SenderName +"\n"+"Receiver Name : "+order.ReceiverName +
+            var body = "Sender Name : " +order.SenderName +"-Sender PhoneNumber : "+order.SenderPhone + "\n"+"Receiver Name : "+order.ReceiverName +
                        " - PhoneNumber : "+order.ReceiverPhone +"- Address Details : "+order.ReceiverAddress+"\n"+
                 "Price Ship : " + String.Format("{0:N0}", (order.PriceShip)) + "$" + "\n"+
                 "Status :" +order.Status ;
