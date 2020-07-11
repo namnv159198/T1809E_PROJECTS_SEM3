@@ -26,6 +26,7 @@ namespace T1809E_PROJECT_SEM3.Models
         public double PriceShip { get; set; }
 
         public string Display { get; set; }
+        public string DisplayMessage { get; set; }
 
         public int TypeItemId { get; set; }
         [ForeignKey("TypeItemId")]

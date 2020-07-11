@@ -399,14 +399,20 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 {
                     cprice.PriceShip = (0.06 * cprice.Distance) + ServiceWeight.PriceStep;
                     cprice.Display = " 0.06" + " x " + cprice.Distance + " +" + ServiceWeight.PriceStep + "  + 5% (VAT)";
-
+                    cprice.DisplayMessage += "Price by Weight :" + ServiceWeight.PriceStep + "-  \n";
+                    cprice.DisplayMessage += "Price  by Distance   :  0.06 / 1 KM - \n";
+                    cprice.DisplayMessage += "Price Ship  = " + cprice.Display;
                 }
                 else if (cprice.Weight > 3000 && cprice.Distance <= 3000)
                 {
                     cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + cprice.Weight * 0.02;
+
                     cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
                                        (cprice.PriceShip * 5) / 100;
                     cprice.Display =   ServiceDistance.PriceStep+" x " + cprice.Distance + "+ 0.02 x " + cprice.Weight + "+ 5% (VAT)";
+                    cprice.DisplayMessage += " Price by Weight :  0.02 / 1 KG - \n";
+                    cprice.DisplayMessage += "Price  by Distance  :  " + ServiceDistance.PriceStep+" / 1 KM - \n";
+                    cprice.DisplayMessage += "Price Ship  = " + cprice.Display;
                     cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                     return Json(cprice);
                 }
@@ -416,6 +422,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
                     cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100 +
                                        (cprice.PriceShip * 5) / 100;
                     cprice.Display = " 0.06"  + " x " + cprice.Distance + "+ 0.02 x " + cprice.Weight + " + 5% (VAT)";
+                    cprice.DisplayMessage += "Price by Weight :  0.02 / 1 KG - \n";
+                    cprice.DisplayMessage += "Price  by Distance   :  0.06 / 1 KM - \n";
+                    cprice.DisplayMessage += "Price Ship  = " + cprice.Display;
                     cprice.PriceShip = Math.Round(cprice.PriceShip, 2);
                     return Json(cprice);
                 }
@@ -423,6 +432,9 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 {
                     cprice.PriceShip = (ServiceDistance.PriceStep * cprice.Distance) + ServiceWeight.PriceStep;
                     cprice.Display =  ServiceDistance.PriceStep + " x " + cprice.Distance +" +" + ServiceWeight.PriceStep + " + 5% (VAT)";
+                    cprice.DisplayMessage += "Price by Weight : " + ServiceWeight.PriceStep + "- \n";
+                    cprice.DisplayMessage += "Price  by Distance   : "+ ServiceDistance.PriceStep+" / 1 KM "+"- \n";
+                    cprice.DisplayMessage += "Price Ship  = " + cprice.Display;
                 }
 
                 cprice.PriceShip = cprice.PriceShip + (cprice.PriceShip * 5) / 100;
@@ -430,7 +442,7 @@ namespace T1809E_PROJECT_SEM3.Controllers
                 return Json(cprice);
             }
 
-            cprice.Display = "Free ship ";
+            cprice.DisplayMessage = "Free ship ";
             cprice.PriceShip = 0;
             return Json(cprice);
         }
@@ -508,11 +520,16 @@ namespace T1809E_PROJECT_SEM3.Controllers
             var receiverEmail = new MailAddress(order.Email, "Receiver");
             var password = "0963404604";
             var sub = "[ TARS Delivery  ] : Order #" + order.ID;
-            var body = "Sender Name : " +order.SenderName +"-Sender PhoneNumber : "+order.SenderPhone + "\n"+"Receiver Name : "+order.ReceiverName +
-                       " - PhoneNumber : "+order.ReceiverPhone +"- Address Details : "+order.ReceiverAddress+"\n"+
-                "Price Ship : " + String.Format("{0:N0}", (order.PriceShip)) + "$" + "\n"+
-                "Status :" +order.Status ;
-            
+            var body = "";
+            body += "We would like to thank you for using our delivery service ! \n";
+            body += "Your Order ID : " + order.ID +"\n";
+            body += "Sender : " + order.SenderName + "- PhoneNumber : " + order.SenderPhone+"\n";
+            body += "Receiver : " + order.ReceiverName + "- PhoneNumber : " + order.ReceiverPhone + "- Address : " + order.ReceiverAddress + "\n";
+            body += "Price Ship  : " + order.PriceShip + "\n";
+            body += "Type Service  : " + order.Service.TypeDelivery + "\n";
+            body += "Status : " + order.Status + "\n";
+            body += "Please check the order by entering your order code at this link " +"https://localhost:44339/";
+
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
