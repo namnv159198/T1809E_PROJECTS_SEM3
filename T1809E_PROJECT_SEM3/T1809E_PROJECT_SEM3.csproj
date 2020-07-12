@@ -209,18 +209,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007011314096_AddData.cs" />
-    <Compile Include="Migrations\202007011314096_AddData.Designer.cs">
-      <DependentUpon>202007011314096_AddData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007011410325_updateOffice.cs" />
-    <Compile Include="Migrations\202007011410325_updateOffice.Designer.cs">
-      <DependentUpon>202007011410325_updateOffice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007021255593_AddEmailOrder.cs" />
-    <Compile Include="Migrations\202007021255593_AddEmailOrder.Designer.cs">
-      <DependentUpon>202007021255593_AddEmailOrder.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
@@ -638,17 +626,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007011314096_AddData.resx">
-      <DependentUpon>202007011314096_AddData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007011410325_updateOffice.resx">
-      <DependentUpon>202007011410325_updateOffice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007021255593_AddEmailOrder.resx">
-      <DependentUpon>202007021255593_AddEmailOrder.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
